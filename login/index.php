@@ -7,6 +7,7 @@
     <title>appMinage</title>
 
     <link rel="stylesheet" href="style.css">
+    <!-- BOnjour -->
 
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
