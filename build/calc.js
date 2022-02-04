@@ -3,6 +3,7 @@
 var boutonPlus = document.querySelector('.boutonPlus');
 var boutonMoins = document.querySelector('.boutonMoins');
 var addButton = document.querySelector('.addButton');
+var remButton = document.querySelector('.remButton');
 var listeMinerai = document.querySelector('.listeMinerai');
 var quantainumTR = document.querySelector('.quantainum');
 var lineTabl = document.querySelectorAll('.lineTab');
@@ -10,6 +11,9 @@ var jobTR = document.querySelector('.job');
 var thJob;
 addButton.addEventListener('click', function (event) {
   document.querySelector(".".concat(listeMinerai.value)).classList.remove('hide');
+});
+remButton.addEventListener('click', function (event) {
+  document.querySelector(".".concat(listeMinerai.value)).classList.add('hide');
 });
 boutonPlus.addEventListener('click', function (event) {
   thJob = document.querySelectorAll('.thJob');
@@ -44,22 +48,40 @@ jobTR.addEventListener('click', function (event) {
     toutLeBordel.forEach(function (value) {
       value.remove();
     });
-    var trList = document.querySelectorAll('.lineTab');
-    console.log(trList);
+    console.log(lineTabl);
     var count = 1;
-    trList.forEach(function (value) {
+    lineTabl.forEach(function (value) {
       var count2 = 1;
-      var nodes = value.childNodes;
 
       if (count === 1) {
-        nodes.forEach(function (element) {
-          if (element.classList.contains('thJob')) {
-            element.removeClass();
-            element.classList.add("thJob job".concat(count2));
-            element.innerHTML = "Job ".concat(count2);
-          }
+        var ths = value.querySelectorAll('th');
+        ths.forEach(function (vals) {
+          vals.className = "";
+          vals.classList.add("thJob");
+          vals.classList.add("job".concat(count2));
+          vals.innerHTML = "job ".concat(count2);
+          var button = document.createElement('button');
+          button.classList.add('suppbtn');
+          button.classList.add("SuppButton".concat(count2));
+          button.innerHTML = 'X';
+          vals.appendChild(button);
+          count2++;
         });
-      } else {}
+      } else {
+        var _ths = value.querySelectorAll('td');
+
+        var count3 = 1;
+
+        _ths.forEach(function (vals) {
+          if (count3 != 1) {
+            vals.className = "";
+            vals.classList.add("job".concat(count2));
+            count2++;
+          }
+
+          count3++;
+        });
+      }
 
       count++;
     });

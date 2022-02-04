@@ -3,6 +3,7 @@
 const boutonPlus = document.querySelector('.boutonPlus');
 const boutonMoins = document.querySelector('.boutonMoins');
 const addButton = document.querySelector('.addButton');
+const remButton = document.querySelector('.remButton')
 const listeMinerai= document.querySelector('.listeMinerai');
 const quantainumTR=document.querySelector('.quantainum');
 const lineTabl = document.querySelectorAll('.lineTab');
@@ -10,6 +11,9 @@ const jobTR = document.querySelector('.job');
 let thJob
 addButton.addEventListener('click',(event)=>{
     document.querySelector(`.${listeMinerai.value}`).classList.remove('hide');
+})
+remButton.addEventListener('click',(event)=>{
+    document.querySelector(`.${listeMinerai.value}`).classList.add('hide');
 })
 
 boutonPlus.addEventListener('click',(event)=>{  
@@ -51,23 +55,42 @@ jobTR.addEventListener('click',(event)=>{
             value.remove();
         })
         
-        const trList = document.querySelectorAll('.lineTab');
-        console.log(trList);
+        
+        console.log(lineTabl);
         let count = 1;
-        trList.forEach(value => {
+        lineTabl.forEach(value => {           
             let count2=1;
-            const nodes = value.childNodes;
-            
+
             if(count===1){
-              nodes.forEach(element=>{
-                if(element.classList.contains('thJob')){
-                    element.removeClass();
-                    element.classList.add(`thJob job${count2}`);
-                    element.innerHTML=`Job ${count2}` 
-                }
-              })
+                const ths = value.querySelectorAll('th');
+
+                ths.forEach(vals=>{
+                    vals.className="";
+                    vals.classList.add(`thJob`);
+                    vals.classList.add(`job${count2}`);
+                    vals.innerHTML=`job ${count2}`;
+                    const button = document.createElement('button');
+                    button.classList.add('suppbtn');
+                    button.classList.add(`SuppButton${count2}`);
+                    button.innerHTML='X';
+                    vals.appendChild(button);
+                    count2++;
+                })
+         
             }else{
                 
+                const ths = value.querySelectorAll('td');
+                let count3=1;
+                ths.forEach(vals=>{
+                    if(count3!=1){
+                        vals.className="";
+                        vals.classList.add(`job${count2}`);              
+                        count2++;
+                    }
+                    count3++;
+                
+                })
+
             }
             count++;
         });
