@@ -21,7 +21,6 @@
             echo "CRE4TI0N";
         }
     } elseif(isset($_POST["insert"])) {
-        print_r($_POST);
         $sql = $BDD->prepare("INSERT INTO user(login) VALUES (?)");
         $sql->execute(array($pseudo));
 

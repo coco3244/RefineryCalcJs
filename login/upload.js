@@ -2,6 +2,8 @@ const result = document.getElementById("result");
 const addLog = document.querySelector(".addLog");
 const yesAdd = document.getElementById("yesAdd");
 const noAdd = document.getElementById("noAdd");
+let insert = {};
+
 
 // traitement du form
 $("form").submit(function(evt){	 
