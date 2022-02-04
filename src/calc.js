@@ -1,13 +1,81 @@
 
-const div = document.querySelector('.calcTab');
-const H1 = document.createElement('H1');
 
-let text;
+const boutonPlus = document.querySelector('.boutonPlus');
+const boutonMoins = document.querySelector('.boutonMoins');
+const addButton = document.querySelector('.addButton');
+const listeMinerai= document.querySelector('.listeMinerai');
+const quantainumTR=document.querySelector('.quantainum');
+const lineTabl = document.querySelectorAll('.lineTab');
+const jobTR = document.querySelector('.job');
+let thJob
+addButton.addEventListener('click',(event)=>{
+    document.querySelector(`.${listeMinerai.value}`).classList.remove('hide');
+})
 
-for (let i = 0; i < 5; i++) {
-    text=document.createTextNode(`its hell ${i}`);
-    H1.appendChild(text);
-    div.appendChild(H1);
+boutonPlus.addEventListener('click',(event)=>{  
+    thJob = document.querySelectorAll('.thJob');
+    lineTabl.forEach(value=>{
+        if(value.classList.contains('job')){
+            const newTh = document.createElement('th');
+            newTh.classList.add('thJob');
+            newTh.classList.add(`job${thJob.length+1}`);
+            newTh.innerHTML=`Job ${thJob.length+1}`;
+            const button = document.createElement('button');
+            button.classList.add('suppbtn');
+            button.innerHTML='X';
+            newTh.appendChild(button);
+            value.appendChild(newTh);
+        }else{
+            const newTd = document.createElement('td');
+            newTd.classList.add(`job${thJob.length+1}`);
+            const saisie = document.createElement('input');
+            saisie.setAttribute('type','number');
+            saisie.setAttribute('min','0');
+            newTd.appendChild(saisie);
+            value.appendChild(newTd);
+        }
+        
+    })
     
-}
+})
+
+
+jobTR.addEventListener('click',(event)=>{
+    thJob = document.querySelectorAll('.thJob');
+    if(event.target.classList.contains('suppbtn')){
+        const classeDuParent = event.target.parentNode.classList[1];
+        
+        const toutLeBordel = document.querySelectorAll(`.${classeDuParent}`);
+        
+        toutLeBordel.forEach(value =>{
+            value.remove();
+        })
+        
+        const trList = document.querySelectorAll('.lineTab');
+        console.log(trList);
+        let count = 1;
+        trList.forEach(value => {
+            let count2=1;
+            const nodes = value.childNodes;
+            
+            if(count===1){
+              nodes.forEach(element=>{
+                if(element.classList.contains('thJob')){
+                    element.removeClass();
+                    element.classList.add(`thJob job${count2}`);
+                    element.innerHTML=`Job ${count2}` 
+                }
+              })
+            }else{
+                
+            }
+            count++;
+        });
+        
+        
+    }
+    
+})
+
+
 

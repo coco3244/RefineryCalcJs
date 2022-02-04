@@ -11,32 +11,44 @@
 
 <body>
 
-    <div class="calcTab">
+    <div class="divIn">
 
-    </div>
+    
         <table>
 
             <tr >
-                <th colspan="100%">Tst</th>
+                <th colspan="100%">ceci est un joli tableau</th>
             </tr>
-            <tr>
-                <td></td>
-                <td>Job1</td>
+            <tr class="lineTab job">
+                <td>
+                    <select class="listeMinerai"> 
+                        <option>quantainum</option>
+                        <option>bexalite</option>
+                        <option>taranite</option>
+                    </select>
+                    <button class="addButton">ajouter</button>
+                </td>
+                <th class="thJob job1">Job 1 <button class="suppbtn SuppButton1">X</button></th>
                 
             </tr>
-            <tr>
-                <td id="minerai">Quantainum </td>
+            <tr class="quantainum lineTab" >
+                <td  id="minerai">Quantainum </td>
+                <td class="job1"><input type="number" min="0"></td>
             </tr>
 
-            <tr>
-                <td>Bexalite </td>
+            
+            <tr class="bexalite lineTab">
+                <td  id="minerai">Bexalite </td>
+                <td class="job1"><input type="number" min="0"></td>
+                
             </tr>
 
-            <tr>
-                <td>Taranite </td>
+            <tr class="taranite hide lineTab">
+                <td  id="minerai">Taranite </td>
+                <td class="job1"><input type="number" min="0"></td>
             </tr>
 
-            <tr>
+            <!-- <tr>
                 <td>Borase </td>
             </tr>
 
@@ -54,13 +66,24 @@
 
             <tr>
                 <td>Titanium </td>
-            </tr>
+            </tr> -->
             
 
-        </table>
 
+
+            <tr>
+                <td  colspan="100%">
+                    <button class="boutonPlus">PLUS</button>
+                </td>
+                
+            </tr>
+
+        </table>
+    </div>
    
-    
+    <div class="divRes">
+        <h1></h1>
+    </div>
 </body>
 
 <footer><h4>Cet assistant a été développé par Coco3244 pour les mineurs fans de chiffres :)<br><h5>Appli web version 1.31</h5></h4></footer>
