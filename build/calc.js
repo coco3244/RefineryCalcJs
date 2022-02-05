@@ -13,8 +13,8 @@ var thJob;
 var thJobRes;
 addListenerOnInput();
 /**
- * Ajout de la ligne du minerai selectionné
- */
+* Ajout de la ligne du minerai selectionné
+*/
 
 addButton.addEventListener('click', function (event) {
   var classes = document.querySelectorAll(".".concat(listeMinerai.value));
@@ -23,8 +23,8 @@ addButton.addEventListener('click', function (event) {
   });
 });
 /**
- * Suppression de la ligne du minerai selectionné
- */
+* Suppression de la ligne du minerai selectionné
+*/
 
 remButton.addEventListener('click', function (event) {
   var classes = document.querySelectorAll(".".concat(listeMinerai.value));
@@ -33,8 +33,8 @@ remButton.addEventListener('click', function (event) {
   });
 });
 /**
- * Ajout d'une colonne de job
- */
+* Ajout d'une colonne de job
+*/
 
 boutonPlus.addEventListener('click', function (event) {
   thJob = document.querySelectorAll('.thJob');
@@ -64,17 +64,28 @@ boutonPlus.addEventListener('click', function (event) {
       newTd.classList.add("job".concat(thJob.length + 1));
 
       if (value.classList.contains('resLine')) {
-        var saisie = document.createElement('H2');
-        saisie.innerHTML = '0';
-        newTd.appendChild(saisie);
+        var h2TotPrice = document.createElement('H2');
+        h2TotPrice.classList.add('resH2');
+
+        if (value.classList.contains('totPerJob')) {
+          h2TotPrice.classList.add('subTotPrice');
+        }
+
+        h2TotPrice.innerHTML = '0';
+        newTd.appendChild(h2TotPrice);
+
+        if (value.classList.contains('totPerJob')) {
+          var h2TotUnit = document.createElement('H2');
+          h2TotUnit.classList.add('resH2');
+          h2TotUnit.classList.add('subTotUnit');
+          h2TotUnit.innerHTML = '0';
+          newTd.appendChild(h2TotUnit);
+        }
       } else {
-        var _saisie = document.createElement('input');
-
-        _saisie.setAttribute('type', 'number');
-
-        _saisie.setAttribute('min', '0');
-
-        newTd.appendChild(_saisie);
+        var saisie = document.createElement('input');
+        saisie.setAttribute('type', 'number');
+        saisie.setAttribute('min', '0');
+        newTd.appendChild(saisie);
       }
 
       value.appendChild(newTd);
@@ -82,7 +93,6 @@ boutonPlus.addEventListener('click', function (event) {
   });
   inputs = document.querySelectorAll('input');
   addListenerOnInput();
-  console.log(inputs);
 });
 jobTR.addEventListener('click', function (event) {
   thJob = document.querySelectorAll('.thJob');
@@ -139,7 +149,9 @@ function addListenerOnInput() {
     value.addEventListener('input', function (event) {
       var units = event.target.value; // ce qui est entré dans l'input, dans notre cas les unité de minerai
 
-      var tdJob = event.target.parentNode.classList[0]; //censé récuperrer quel job et donc quelle colonne
+      var h2TotalScu = document.querySelector('.totalScu');
+      var total = 0;
+      var tdJob = event.target.parentNode.classList[0]; //récup quel job et donc quelle colonne
 
       var minerai = event.target.parentNode.parentNode.classList[0]; //recupere quel minerai a été modifié
 
@@ -151,7 +163,34 @@ function addListenerOnInput() {
 
           tdToModify.querySelector('H2').innerHTML = units;
         }
+
+        var tds = values.querySelectorAll('td');
+        tds.forEach(function (tdsValues) {
+          var h2 = tdsValues.querySelector('h2');
+
+          if (h2 != null && h2.classList.contains('resH2')) {
+            total += parseFloat(h2.innerText);
+          }
+        });
       });
+      var allSubTotH2 = document.querySelectorAll('.subTotUnit');
+      allSubTotH2.forEach(function (value) {
+        var job = value.parentNode.classList[0];
+        console.log(job);
+        var col = document.querySelectorAll(".".concat(job));
+        var unit = 0;
+        col.forEach(function (cols) {
+          var h2 = cols.querySelectorAll('h2');
+          h2.forEach(function (h2s) {
+            unit += parseFloat(h2s.innerText);
+          });
+        });
+        console.log(unit);
+        console.log(value);
+        value.innerText = unit;
+        unit = 0;
+      });
+      h2TotalScu.innerText = total;
     });
   });
 }
