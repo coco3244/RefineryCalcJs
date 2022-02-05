@@ -8,8 +8,11 @@ const listeMinerai= document.querySelector('.listeMinerai');
 const quantainumTR=document.querySelector('.quantainum');
 const lineTabl = document.querySelectorAll('.lineTab');
 const jobTR = document.querySelector('.job');
+let inputs = document.querySelectorAll('input');
 let thJob;
 let thJobRes;
+addListenerOnInput();
+
 
 /**
  * Ajout de la ligne du minerai selectionné
@@ -71,7 +74,9 @@ boutonPlus.addEventListener('click',(event)=>{
         }
         
     })
-    
+    inputs = document.querySelectorAll('input');
+    addListenerOnInput();
+    console.log(inputs);
 })
 
 
@@ -91,7 +96,7 @@ jobTR.addEventListener('click',(event)=>{
                 const ths = value.querySelectorAll('th'); 
                // console.warn(ths);     
                 ths.forEach(vals=>{
-                    console.log(vals);
+                   
                     if(vals.classList.contains('thJobRes')){
                         vals.className="";
                         vals.classList.add(`thJobRes`);
@@ -108,9 +113,7 @@ jobTR.addEventListener('click',(event)=>{
                         button.innerHTML='X';
                         vals.appendChild(button);
                     }
-                       
-                    
-                    
+                                         
                     count2++;
                 })
                         
@@ -134,6 +137,39 @@ jobTR.addEventListener('click',(event)=>{
     }
     
 })
+
+function addListenerOnInput(){
+
+    inputs.forEach(value=>{
+    
+        value.addEventListener('input',(event)=>{
+            const units =event.target.value; // ce qui est entré dans l'input, dans notre cas les unité de minerai
+            
+            const tdJob = event.target.parentNode.classList[0]; //censé récuperrer quel job et donc quelle colonne
+            const minerai = event.target.parentNode.parentNode.classList[0]; //recupere quel minerai a été modifié
+           
+            const allTrWithResLine = document.querySelectorAll('.resLine'); //je prend tout ce qui contien la class resLine
+            allTrWithResLine.forEach(values=>{
+                if(values.classList.contains(`${minerai}`)){
+                    
+                    const tdToModify = values.querySelector(`.${tdJob}`); //je chope le td de la bonne colonne
+                    tdToModify.querySelector('H2').innerHTML=units;
+    
+                }
+               
+            })
+           
+    
+    
+    
+            
+        })
+    
+    })
+
+}
+
+
 
 
 

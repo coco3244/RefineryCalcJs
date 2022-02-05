@@ -8,8 +8,10 @@ var listeMinerai = document.querySelector('.listeMinerai');
 var quantainumTR = document.querySelector('.quantainum');
 var lineTabl = document.querySelectorAll('.lineTab');
 var jobTR = document.querySelector('.job');
+var inputs = document.querySelectorAll('input');
 var thJob;
 var thJobRes;
+addListenerOnInput();
 /**
  * Ajout de la ligne du minerai selectionné
  */
@@ -78,6 +80,9 @@ boutonPlus.addEventListener('click', function (event) {
       value.appendChild(newTd);
     }
   });
+  inputs = document.querySelectorAll('input');
+  addListenerOnInput();
+  console.log(inputs);
 });
 jobTR.addEventListener('click', function (event) {
   thJob = document.querySelectorAll('.thJob');
@@ -94,8 +99,6 @@ jobTR.addEventListener('click', function (event) {
       var ths = value.querySelectorAll('th'); // console.warn(ths);     
 
       ths.forEach(function (vals) {
-        console.log(vals);
-
         if (vals.classList.contains('thJobRes')) {
           vals.className = "";
           vals.classList.add("thJobRes");
@@ -130,4 +133,26 @@ jobTR.addEventListener('click', function (event) {
     });
   }
 });
+
+function addListenerOnInput() {
+  inputs.forEach(function (value) {
+    value.addEventListener('input', function (event) {
+      var units = event.target.value; // ce qui est entré dans l'input, dans notre cas les unité de minerai
+
+      var tdJob = event.target.parentNode.classList[0]; //censé récuperrer quel job et donc quelle colonne
+
+      var minerai = event.target.parentNode.parentNode.classList[0]; //recupere quel minerai a été modifié
+
+      var allTrWithResLine = document.querySelectorAll('.resLine'); //je prend tout ce qui contien la class resLine
+
+      allTrWithResLine.forEach(function (values) {
+        if (values.classList.contains("".concat(minerai))) {
+          var tdToModify = values.querySelector(".".concat(tdJob)); //je chope le td de la bonne colonne
+
+          tdToModify.querySelector('H2').innerHTML = units;
+        }
+      });
+    });
+  });
+}
 //# sourceMappingURL=calc.js.map
