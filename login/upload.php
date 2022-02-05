@@ -1,17 +1,22 @@
 <?php
-    print_r($_POST);
+    // print_r($_POST);
     require("./initBDD.php");
 
     if(isset($_POST["login"])) {
         $pseudo = $_POST["login"];
-        $sql = "SELECT login FROM user";
+        $psw = $_POST["psw"];
+        $sql = "SELECT login, password FROM user";
         $req = $BDD->query($sql);
     
         $exist = false;
         while($data = $req->fetch(PDO::FETCH_ASSOC)) {
-            print_r($data["login"]);
+            print_r($data);
             if($pseudo == $data["login"]) {
-                echo "cet identifiant existe déjà ! Conexioooooooon !";
+                if($psw == $data["password"]) {
+                    echo "Connect";
+                } else {
+                    echo "pswNo";
+                }
                 $exist = true;
                 break;
             }
@@ -19,10 +24,12 @@
     
         if($exist == false) {
             echo "CRE4TI0N";
-        }
+        } 
     } elseif(isset($_POST["insert"])) {
-        $sql = $BDD->prepare("INSERT INTO user(login) VALUES (?)");
-        $sql->execute(array($pseudo));
+        $pseudo = $_POST["insert"]["login"];
+        $psw = $_POST["insert"]["password"];
+        $sql = $BDD->prepare("INSERT INTO user(login, password) VALUES (?, ?)");
+        $sql->execute(array($pseudo, $psw));
 
         // echo "here I remain";
     }
