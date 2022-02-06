@@ -43,11 +43,50 @@ th {
 	text-align:center;
 	background-color: rgba(255, 255, 255, 0.7);
 }
-footer{
+
+.mainFooter{
 	background-color: rgba(255, 255, 255, 0.7);
 	text-align:center;
 	position:fixed;
+	
 	bottom:0;
+	width:100%;
+}
+.filterStation {
+	right: 0;
+	position:fixed;
+	float: right;
+}
+
+.mainDiv{
+	width: 75%;
+	float: left;
+	background-color: antiquewhite;
+}
+
+.leftDiv{
+	background-color: antiquewhite;
+	left: 0;
+	width: 25%;
+	float: left;
+}
+
+.jobSection{
+	width: 150px;
+	border: 2px solid black;
+	float: left;
+}
+
+.mineralsPercentageHeader , .totalSectionHeader{
+	background-color: aqua;
+}
+
+.mainHeader{
+	background-color: rgba(255, 255, 255, 0.7);
+	text-align:center;
+	position:fixed;
+	height: 50px;
+	top:0;
 	width:100%;
 }
 
