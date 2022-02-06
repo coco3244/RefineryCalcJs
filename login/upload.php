@@ -5,7 +5,7 @@
     if(isset($_POST["login"])) {
         $pseudo = $_POST["login"];
         $psw = $_POST["psw"];
-        $sql = "SELECT login, password FROM user";
+        $sql = "SELECT login, password FROM User";
         $req = $BDD->query($sql);
     
         $exist = false;
@@ -28,7 +28,7 @@
     } elseif(isset($_POST["insert"])) {
         $pseudo = $_POST["insert"]["login"];
         $psw = $_POST["insert"]["password"];
-        $sql = $BDD->prepare("INSERT INTO user(login, password) VALUES (?, ?)");
+        $sql = $BDD->prepare("INSERT INTO User(login, password) VALUES (?, ?)");
         $sql->execute(array($pseudo, $psw));
 
         // echo "here I remain";
