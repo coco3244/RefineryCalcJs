@@ -11,9 +11,11 @@ const jobTR = document.querySelector('.job');
 let inputs = document.querySelectorAll('input');
 let thJob;
 let thJobRes;
-addListenerOnInput();
 
 
+inputs.forEach(value=>{
+    addListenerOnInput(value);
+})
 /**
 * Ajout de la ligne du minerai selectionné
 */
@@ -75,12 +77,13 @@ boutonPlus.addEventListener('click',(event)=>{
                     newTd.appendChild(h2TotUnit);
                 }
                 
-              
+                
                 
             }else{
                 const saisie = document.createElement('input');
                 saisie.setAttribute('type','number');
                 saisie.setAttribute('min','0');
+                addListenerOnInput(saisie);
                 newTd.appendChild(saisie);
             }
             
@@ -88,8 +91,6 @@ boutonPlus.addEventListener('click',(event)=>{
         }
         
     })
-    inputs = document.querySelectorAll('input');
-    addListenerOnInput();
 })
 
 
@@ -106,8 +107,7 @@ jobTR.addEventListener('click',(event)=>{
         let count = 1;
         lineTabl.forEach(value => {           
             let count2=1;
-            const ths = value.querySelectorAll('th'); 
-            // console.warn(ths);     
+            const ths = value.querySelectorAll('th');     
             ths.forEach(vals=>{
                 
                 if(vals.classList.contains('thJobRes')){
@@ -151,66 +151,67 @@ jobTR.addEventListener('click',(event)=>{
     
 })
 
-function addListenerOnInput(){
+
+function addListenerOnInput(input){ 
+    input.removeEventListener('input', addListenerOnInput);       
     
-    inputs.forEach(value=>{
+    input.addEventListener('input',(event)=>{
         
-        value.addEventListener('input',(event)=>{
-            const units =event.target.value; // ce qui est entré dans l'input, dans notre cas les unité de minerai
-            const h2TotalScu = document.querySelector('.totalScu');
-            let total =0;
-            
-            const tdJob = event.target.parentNode.classList[0]; //récup quel job et donc quelle colonne
-            const minerai = event.target.parentNode.parentNode.classList[0]; //recupere quel minerai a été modifié
-            
-            const allTrWithResLine = document.querySelectorAll('.resLine'); //je prend tout ce qui contien la class resLine
-            allTrWithResLine.forEach(values=>{
-                if(values.classList.contains(`${minerai}`)){
-                    
-                    const tdToModify = values.querySelector(`.${tdJob}`); //je chope le td de la bonne colonne
-                    tdToModify.querySelector('H2').innerHTML=units;
-                    
-                }
-                const tds = values.querySelectorAll('td');
-                tds.forEach(tdsValues=>{
-                    
-                    const h2 = tdsValues.querySelector('h2');
-                   
-                    if(h2!=null && h2.classList.contains('resH2')){
-                        total+=parseFloat(h2.innerText);                     
-                    }
-                })
+        const units =event.target.value; // ce qui est entré dans l'input, dans notre cas les unité de minerai
+        const h2TotalScu = document.querySelector('.totalScu');
+        let total =0;
+        
+        const tdJob = event.target.parentNode.classList[0]; //récup quel job et donc quelle colonne
+        const minerai = event.target.parentNode.parentNode.classList[0]; //recupere quel minerai a été modifié
+        
+        const allTrWithResLine = document.querySelectorAll('.resLine'); //je prend tout ce qui contien la class resLine
+        allTrWithResLine.forEach(values=>{
+            if(values.classList.contains(`${minerai}`)){
                 
-            })
-
-            const allSubTotH2 = document.querySelectorAll('.subTotUnit');
-
-            allSubTotH2.forEach(value=>{
-                const job = value.parentNode.classList[0];
-                console.log(job);
-                const col = document.querySelectorAll(`.${job}`);
-                let unit=0;
-                col.forEach(cols=>{
-                    const h2 = cols.querySelectorAll('h2');
-                    
-                    h2.forEach(h2s=>{
-                        unit+=parseFloat(h2s.innerText);
-                    })
-                    
-                })
-                console.log(unit);
-                console.log(value);
-                value.innerText=unit;
-                unit=0;
-            })                                 
-            h2TotalScu.innerText=total;
-            
+                const tdToModify = values.querySelector(`.${tdJob}`); //je chope le td de la bonne colonne
+                tdToModify.querySelector('H2').innerHTML=units;
+                
+            }              
             
         })
         
-    })
-    
+        /**
+         * partie qui insère dans le total par job
+         * globalement je parcours chaque colonne et j'additionne chaque valeur
+         */
+        const allSubTotH2 = document.querySelectorAll('.subTotUnit');       
+        allSubTotH2.forEach(value=>{               
+            const job = value.parentNode.classList[0];              
+            const col = document.querySelectorAll(`.${job}`);
+            
+            let unit=0;
+            col.forEach(cols=>{
+                const h2 = cols.querySelectorAll('h2');
+                
+                h2.forEach(h2s=>{
+                    
+                    if(!h2s.classList.contains('subTotPrice') && !h2s.classList.contains('subTotUnit')){
+                        unit+=parseFloat(h2s.innerText);
+                    }                    
+                    
+                })
+            })                             
+            value.innerText=unit;
+            
+        })    
+        /**
+         * Partie qui calcul le total d'unité global
+         * je prend tout les sub-totaux et les additionnes
+         */          
+        const subTot = document.querySelectorAll('.subTotUnit');
+        console.warn(subTot);
+        subTot.forEach(subTotValue=>{                   
+            total+=parseFloat(subTotValue.innerText);                                    
+        })
+        h2TotalScu.innerText=total;        
+    }) 
 }
+
 
 
 

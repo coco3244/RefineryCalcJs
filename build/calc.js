@@ -11,7 +11,9 @@ var jobTR = document.querySelector('.job');
 var inputs = document.querySelectorAll('input');
 var thJob;
 var thJobRes;
-addListenerOnInput();
+inputs.forEach(function (value) {
+  addListenerOnInput(value);
+});
 /**
 * Ajout de la ligne du minerai selectionné
 */
@@ -85,14 +87,13 @@ boutonPlus.addEventListener('click', function (event) {
         var saisie = document.createElement('input');
         saisie.setAttribute('type', 'number');
         saisie.setAttribute('min', '0');
+        addListenerOnInput(saisie);
         newTd.appendChild(saisie);
       }
 
       value.appendChild(newTd);
     }
   });
-  inputs = document.querySelectorAll('input');
-  addListenerOnInput();
 });
 jobTR.addEventListener('click', function (event) {
   thJob = document.querySelectorAll('.thJob');
@@ -106,8 +107,7 @@ jobTR.addEventListener('click', function (event) {
     var count = 1;
     lineTabl.forEach(function (value) {
       var count2 = 1;
-      var ths = value.querySelectorAll('th'); // console.warn(ths);     
-
+      var ths = value.querySelectorAll('th');
       ths.forEach(function (vals) {
         if (vals.classList.contains('thJobRes')) {
           vals.className = "";
@@ -144,54 +144,57 @@ jobTR.addEventListener('click', function (event) {
   }
 });
 
-function addListenerOnInput() {
-  inputs.forEach(function (value) {
-    value.addEventListener('input', function (event) {
-      var units = event.target.value; // ce qui est entré dans l'input, dans notre cas les unité de minerai
+function addListenerOnInput(input) {
+  input.removeEventListener('input', addListenerOnInput);
+  input.addEventListener('input', function (event) {
+    var units = event.target.value; // ce qui est entré dans l'input, dans notre cas les unité de minerai
 
-      var h2TotalScu = document.querySelector('.totalScu');
-      var total = 0;
-      var tdJob = event.target.parentNode.classList[0]; //récup quel job et donc quelle colonne
+    var h2TotalScu = document.querySelector('.totalScu');
+    var total = 0;
+    var tdJob = event.target.parentNode.classList[0]; //récup quel job et donc quelle colonne
 
-      var minerai = event.target.parentNode.parentNode.classList[0]; //recupere quel minerai a été modifié
+    var minerai = event.target.parentNode.parentNode.classList[0]; //recupere quel minerai a été modifié
 
-      var allTrWithResLine = document.querySelectorAll('.resLine'); //je prend tout ce qui contien la class resLine
+    var allTrWithResLine = document.querySelectorAll('.resLine'); //je prend tout ce qui contien la class resLine
 
-      allTrWithResLine.forEach(function (values) {
-        if (values.classList.contains("".concat(minerai))) {
-          var tdToModify = values.querySelector(".".concat(tdJob)); //je chope le td de la bonne colonne
+    allTrWithResLine.forEach(function (values) {
+      if (values.classList.contains("".concat(minerai))) {
+        var tdToModify = values.querySelector(".".concat(tdJob)); //je chope le td de la bonne colonne
 
-          tdToModify.querySelector('H2').innerHTML = units;
-        }
+        tdToModify.querySelector('H2').innerHTML = units;
+      }
+    });
+    /**
+     * partie qui insère dans le total par job
+     * globalement je parcours chaque colonne et j'additionne chaque valeur
+     */
 
-        var tds = values.querySelectorAll('td');
-        tds.forEach(function (tdsValues) {
-          var h2 = tdsValues.querySelector('h2');
-
-          if (h2 != null && h2.classList.contains('resH2')) {
-            total += parseFloat(h2.innerText);
+    var allSubTotH2 = document.querySelectorAll('.subTotUnit');
+    allSubTotH2.forEach(function (value) {
+      var job = value.parentNode.classList[0];
+      var col = document.querySelectorAll(".".concat(job));
+      var unit = 0;
+      col.forEach(function (cols) {
+        var h2 = cols.querySelectorAll('h2');
+        h2.forEach(function (h2s) {
+          if (!h2s.classList.contains('subTotPrice') && !h2s.classList.contains('subTotUnit')) {
+            unit += parseFloat(h2s.innerText);
           }
         });
       });
-      var allSubTotH2 = document.querySelectorAll('.subTotUnit');
-      allSubTotH2.forEach(function (value) {
-        var job = value.parentNode.classList[0];
-        console.log(job);
-        var col = document.querySelectorAll(".".concat(job));
-        var unit = 0;
-        col.forEach(function (cols) {
-          var h2 = cols.querySelectorAll('h2');
-          h2.forEach(function (h2s) {
-            unit += parseFloat(h2s.innerText);
-          });
-        });
-        console.log(unit);
-        console.log(value);
-        value.innerText = unit;
-        unit = 0;
-      });
-      h2TotalScu.innerText = total;
+      value.innerText = unit;
     });
+    /**
+     * Partie qui calcul le total d'unité global
+     * je prend tout les sub-totaux et les additionnes
+     */
+
+    var subTot = document.querySelectorAll('.subTotUnit');
+    console.warn(subTot);
+    subTot.forEach(function (subTotValue) {
+      total += parseFloat(subTotValue.innerText);
+    });
+    h2TotalScu.innerText = total;
   });
 }
 //# sourceMappingURL=calc.js.map
