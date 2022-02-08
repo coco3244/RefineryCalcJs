@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400&display=swap');
+
+/*------------------------------ Général ------------------------------ */
+:root {
+	/* C'est temporaire, on en choisira une belle ensemble, mais je supporte pas celle par défaut  */
+	--police: 'Titillium Web', sans-serif;
+}
+
+* {
+	/* outline: red 1px solid; */
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	font-family: var(--police);
+}
+
+/*------------------------------ ToolBar ------------------------------ */
+.toolBar {
+	height: 60px;
+	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+/*------------------------------ Page ------------------------------ */
+.page {
+	height: 100%;
+
+	display: flex;
+}
+
+/*------------------------------ SideBar ------------------------------ */
+.sideBar {
+	width: 300px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	border-right: 2px solid black;
+	padding: 10px;
+}
+
+/* Tableau des minerais */
+.tabMineraisCont {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2em;
+}
+
+.tabMinerais {
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid black;
+}
+
+/* Tableau de total  */
+.tabTotalCont {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2em;
+}
+
+.tabTotal {
+	display: flex;
+	flex-direction: column;
+	min-height: 100px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid black;
+}
+
+.tabTotalCont select {
+	margin: 10px;
+}
+
+.chargeBarCont {
+	height: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+.chargeBar {
+	height: 100%;
+	width: 60%;
+	background-color: royalblue;
+}
+
+/* Bouton d'ajout de Job */
+.addJobCont {
+	display: flex;
+
+}
+.addJobCont button {
+	width: 100%;
+	height: 30px;
+}
+
+/*------------------------------ Jobs ------------------------------ */
+.jobsContainer {
+	display: flex;
+	flex: 1;
+	overflow: auto;
+}
+

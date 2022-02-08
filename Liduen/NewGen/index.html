@@ -1,0 +1,75 @@
+<html>
+
+<head>
+	<title> Rafinery Calc </title>
+	<meta charset="utf-8"/>
+    
+    <!-- FavIcon -->
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styleConnexion.css">
+    
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Scripts -->
+    <script src="connect.js" defer></script>
+</head>
+
+
+<body>
+	<div id="divindex">
+		<h1 style="text-align:center">Assistance de calcul pour rafinerie</h1>
+		
+		<h2>Bienvenue sur l'assistance de calcul pour mieux anticiper la rentabilité ainsi que les futurs trajets pour tes jobs en cours / finis dans une raffinerie.
+		<br>
+		Pour accéder à la page d'insertion de vos minerais <a href="./calc.html"> NE CLIQUE PAS ICI</a>
+		<br>
+		Ce site est sujet à amélioration suivant les compétences des personnes qui s'en occupent et les idées proposées:)	
+		<br>
+		</h2>
+		<h3>/!\Si vous utilisez Google Chrome et aurez des problèmes d'affichage (page blanche) quand vous voulez avoir plusieurs jobs,
+		<br> 
+		utilisez <a target="_blank" href="https://www.mozilla.org/fr/firefox/new/">Firefox</a> (le temps qu'on trouve une solution si toutefois on en trouve une)</h3>
+		
+		<h4>Tu préfères une appli/un programme sur ton pc plutot que d'aller sur navigateur ? va voir par <a href="appli_java.html">ICI</a> </h4>
+		<h5>Si vous aimez et utilisez ce site et que vous voulez me remercier j'accepte les aUEC :D (coco32444 mais surtout Liduen 😉 sur SC)</h5>
+		
+	</div>
+	
+	<div class="connexionContainer">
+		<form>
+			<label class="titleConnexion">Se connecter</label>
+			<label class="mdpWarn">L'inscription est automatique !</label>
+
+			<label>
+				Pseudo : <br>
+				<input type="text" name="login" id="iLogin" max="70" required placeholder="Inscription automatique"><br>
+			</label>
+			<label>
+				Mot de passe :<br>
+				<input type="password" name="psw" id="iPsw" max="70" required placeholder="Mot de passe">
+			</label>
+			<label class="mdpWarn">Ne pas mettre de MDP important, ce site n'est pas sécurisé !!</label>
+
+			<button id="submit">CONNEXION</button>
+			
+			<div class="addLog hide">
+				<label>
+					Cet identifiant n'existe pas, voulez vous le créer ? 
+				</label> <br>
+				<button class="yesAdd btnCreate">Oui</button>
+				<button class="noAdd btnCreate">Non</button>
+			</div>
+			
+			<label class="mdpError hide">Erreur : Mot de passe Incorrect !</label>
+		</form> 
+	</div>
+
+</body>
+
+<!-- <footer><h4>Cet assistant a été développé par Coco3244 & Liduen pour les mineurs fans de chiffres :)<br><h5>Appli web JS version 1.0</h5></h4></footer> -->
+
+</html>

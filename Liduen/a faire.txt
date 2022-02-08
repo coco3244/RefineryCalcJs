@@ -1,0 +1,7 @@
+user ok
+
+Lister quelles data sont a save par un user
+- Quels minerais sont affichés
+- Nombre de Jobs
+- Contenu des Jobs
+- 
