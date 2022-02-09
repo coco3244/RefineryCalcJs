@@ -1,5 +1,8 @@
 "use strict";
 
+var _require = require("zlib"),
+    Z_VERSION_ERROR = _require.Z_VERSION_ERROR;
+
 var mdpErreur = document.querySelector(".mdpError");
 var addLog = document.querySelector(".addLog");
 var yesAdd = document.querySelector(".yesAdd");
@@ -9,7 +12,14 @@ var iPsw = document.querySelector("#iPsw");
 var tabInsert = {};
 tabInsert.insert = {};
 var connexionContainer = document.querySelector(".connexionContainer");
-var pseudo = document.getElementById("pseudoAct"); // traitement du form
+var pseudo = document.getElementById("pseudoAct");
+var titleConnexion = document.querySelector(".titleConnexion"); // A virer, c'est pour le dev uniquement
+
+titleConnexion.addEventListener("mouseover", function (e) {
+  console.log("heyy");
+  connexionContainer.style.display = "none";
+  pseudo.innerHTML = "Liduen";
+}); // traitement du form
 
 $("form").submit(function (evt) {
   evt.preventDefault();
@@ -27,6 +37,7 @@ $("form").submit(function (evt) {
 
       if (response.search("CRE4TI0N") !== -1) {
         console.log("uiii");
+        mdpErreur.classList.add("hide");
         addLog.classList.remove("hide");
         tabInsert.insert.login = iLogin.value;
         tabInsert.insert.password = iPsw.value;

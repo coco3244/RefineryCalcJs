@@ -1,3 +1,5 @@
+const { Z_VERSION_ERROR } = require("zlib");
+
 const mdpErreur = document.querySelector(".mdpError");
 const addLog = document.querySelector(".addLog");
 const yesAdd = document.querySelector(".yesAdd");
@@ -10,6 +12,17 @@ tabInsert.insert = {};
 
 const connexionContainer = document.querySelector(".connexionContainer");
 const pseudo = document.getElementById("pseudoAct");
+
+
+
+const titleConnexion = document.querySelector(".titleConnexion");
+// A virer, c'est pour le dev uniquement
+titleConnexion.addEventListener("mouseover", (e) => {
+    console.log("heyy");
+    connexionContainer.style.display = "none";
+    pseudo.innerHTML = "Liduen";
+});
+
 
 // traitement du form
 $("form").submit(function(evt){	 
@@ -29,6 +42,7 @@ $("form").submit(function(evt){
 
             if(response.search("CRE4TI0N") !== -1) {
                 console.log("uiii");
+                mdpErreur.classList.add("hide");
                 addLog.classList.remove("hide");
                 tabInsert.insert.login = iLogin.value;
                 tabInsert.insert.password = iPsw.value;
@@ -55,6 +69,7 @@ yesAdd.addEventListener("click", (e) => {
         }
     });
 });
+
 
 
 function connectioooooooon(res) {
