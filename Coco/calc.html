@@ -1,0 +1,257 @@
+<html>
+
+<head>
+    <title> Calcul </title>
+    <link rel="stylesheet" href="./Style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png" />
+    <meta charset="utf-8"/>
+    <script src="build/calc.js" defer></script>
+</head>
+
+
+<body>
+    <header class="mainHeader">
+        <select class="filterStation"> 
+            <option>CRUL1</option>
+            <option>TBC 1</option>
+            <option>TBC 2</option>
+            
+        </select>
+    </header>
+    
+    <div style="margin-top: 50; ">
+        
+        <div class="leftDiv">
+            <section class="mineralsPercentage">
+                <header class="mineralsPercentageHeader">Minerais: </header>
+                
+            </section> 
+            <section class="totalSection">
+                <header class="totalSectionHeader">Total: </header>
+                <h5>En SCU:</h5>
+                <h5>En aUEC:</h5>
+                
+            </section>
+            <section class="addJobSection">
+                <button>Ajouter un job</button>
+                
+            </section>            
+        </div>
+        
+        <div class="mainDiv">
+            <section class="jobSection Job1Section">
+                <header class="Job1SectionHeader">Job 1</header>    
+                <section class="mineraiJobSection">
+                    
+                </section>  
+
+                <section class="localisation">
+                    <header class="Job1SectionHeader">Localisation: </header>    
+                </section> 
+
+                <section class="timeLeft">
+                    <header class="Job1SectionHeader">Rafinage: </header> 
+                </section> 
+
+                <footer>
+                    <button>Transporté</button>
+                    <button>Modifier</button>
+                </footer>
+            </section> 
+            <section class="jobSection Job2Section">
+                <header class="Job2SectionHeader">Job 2</header>   
+                <section class="mineraiJobSection">
+                    
+                </section>  
+
+                <section class="localisation">
+                    <header class="Job1SectionHeader">Localisation: </header>    
+                </section> 
+
+                <section class="timeLeft">
+                    <header class="Job1SectionHeader">Rafinage: </header> 
+                </section>
+                
+                <footer>
+                    <button>Transporté</button>
+                    <button>Modifier</button>
+                </footer>         
+            </section>           
+        </div>
+        
+    </div>
+    
+    <div class="divIn" style="margin-top: 50;">
+        
+        
+        <table>
+            
+            <tr >
+                <th colspan="100%">Tableau de saisie</th>
+            </tr>
+            <tr class="lineTab job">
+                <td>
+                    <select class="listeMinerai"> 
+                        <option>quantainum</option>
+                        <option>bexalite</option>
+                        <option>taranite</option>
+                        <option>borase</option>
+                        <option>laranite</option>
+                        <option>agricium</option>
+                        <option>hephaestanite</option>
+                        <option>titanium</option>
+                        
+                    </select>
+                    <button class="addButton">ajouter</button>
+                    <button class="remButton">suppr</button>
+                </td>
+                <th class="thJob job1">Job 1 <button class="suppbtn SuppButton1">X</button></th>
+                
+            </tr>
+            <tr class="quantainum lineTab" >
+                <td  id="minerai">Quantainum </td>
+                <td class="job1"><input type="number" min="0"></td>
+            </tr>
+            
+            
+            <tr class="bexalite lineTab">
+                <td  id="minerai">Bexalite </td>
+                <td class="job1"><input type="number" min="0"></td>
+                
+            </tr>
+            
+            <tr class="taranite hide lineTab">
+                <td  id="minerai">Taranite </td>
+                <td class="job1"><input type="number" min="0"></td>
+            </tr>
+            
+            <tr class="borase hide lineTab">
+                <td id="minerai">Borase </td>
+                <td class="job1"><input type="number" min="0"></td>
+            </tr>
+            
+            <tr class="laranite hide lineTab">
+                <td id="minerai">Laranite </td>
+                <td class="job1"><input type="number" min="0"></td>
+            </tr>
+            
+            <tr class="agricium hide lineTab">
+                
+                <td id="minerai">Agricium </td>
+                <td class="job1"><input type="number" min="0"></td>
+            </tr>
+            
+            <tr class="hephaestanite hide lineTab">
+                <td id="minerai">Hephaestanite </td>
+                <td class="job1"><input type="number" min="0"></td>
+            </tr>
+            
+            <tr class="titanium hide lineTab">
+                <td id="minerai">Titanium </td>
+                <td class="job1"><input type="number" min="0"></td>
+            </tr> 
+            
+            <tr>
+                <td  colspan="100%">
+                    <button class="boutonPlus">PLUS</button>
+                </td>
+                
+            </tr>
+            
+        </table>
+    </div>
+    
+    <div class="divRes">
+        
+        <table style="margin-bottom: 100px;">
+            
+            <tr>
+                <th colspan="100%"> Tableau de résultat</th>                             
+            </tr>
+            
+            <tr class="lineTab job resLine">
+                <td></td>
+                <th class="job1 thJobRes">Job 1</th>
+            </tr>
+            
+            <tr class="quantainum lineTab resLine" >
+                <td  id="minerai">Quantainum </td>
+                <td class="job1"><h2 class="resH2">0</h2></td>
+            </tr>
+            
+            
+            <tr class="bexalite lineTab resLine">
+                <td  id="minerai">Bexalite </td>
+                <td class="job1"><h2 class="resH2">0</h2></td>
+                
+            </tr>
+            
+            <tr class="taranite hide lineTab resLine">
+                <td  id="minerai">Taranite </td>
+                <td class="job1"><h2 class="resH2">0</h2>
+                </tr>
+                
+                <tr class="borase hide lineTab resLine">
+                    <td id="minerai">Borase </td>
+                    <td class="job1"><h2 class="resH2">0</h2></td>
+                </tr>
+                
+                <tr class="laranite hide lineTab resLine">
+                    <td id="minerai">Laranite </td>
+                    <td class="job1"><h2 class="resH2">0</h2></td>
+                </tr>
+                
+                <tr class="agricium hide lineTab resLine">
+                    
+                    <td id="minerai">Agricium </td>
+                    <td class="job1"><h2 class="resH2">0</h2></td>
+                </tr>
+                
+                <tr class="hephaestanite hide lineTab resLine">
+                    <td id="minerai">Hephaestanite </td>
+                    <td class="job1"><h2 class="resH2">0</h2></td>
+                </tr>
+                
+                <tr class="titanium hide lineTab resLine">
+                    <td id="minerai">Titanium </td>
+                    <td class="job1"><h2 class="resH2">0</h2></td>
+                </tr> 
+                
+                <tr>
+                    <td colspan="100%">Total par jobs</td>
+                </tr>
+                
+                <tr  class="jobRes lineTab resLine totPerJob">
+                    <td>
+                        <h2>aUEC total</h2>
+                        <h2>unités total</h2>
+                    </td>
+                    <td class="job1"><h2 class="resH2 subTotPrice">0</h2><h2 class="resH2 subTotUnit">0</h2></td>
+                    
+                </tr>
+                
+                <tr>
+                    
+                    <td colspan="100%">Total Global</td>
+                </tr>
+                
+                
+                <tr class="totalRes">
+                    <td>
+                        <h2>aUEC total</h2>
+                        <h2>unités total</h2>
+                    </td>
+                    <td colspan="100%" class="totalTD">
+                        <h2 class="totalPrice">0</h2>
+                        <h2 class="totalScu">0</h2>
+                    </td>
+                </tr>
+                
+            </table>
+            
+        </div>
+    </body>
+    
+    <footer class="mainFooter"><h4>Cet assistant a été développé par Coco3244 & Liduen pour les mineurs fans de chiffres :)<br><h5>Appli web JS version 1.0</h5></h4></footer>
+    
+    </html>
