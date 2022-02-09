@@ -1,257 +1,155 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title> Calcul </title>
-    <link rel="stylesheet" href="./Style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png" />
-    <meta charset="utf-8"/>
-    <script src="build/calc.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RefineryCalc</title>
+     <!-- FavIcon -->
+     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png" />
+    
+     <!-- CSS -->
+     <link rel="stylesheet" href="./styleCalc.css">
+     <link rel="stylesheet" href="./styleConnexion.css">
+     
+     <!-- jQuery -->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+     <!-- Scripts -->
+     <!-- <script src="connect.js" defer></script> -->
+     <script src="scriptCalc.js" defer></script>
 </head>
-
-
 <body>
-    <header class="mainHeader">
-        <select class="filterStation"> 
-            <option>CRUL1</option>
-            <option>TBC 1</option>
-            <option>TBC 2</option>
-            
-        </select>
-    </header>
-    
-    <div style="margin-top: 50; ">
-        
-        <div class="leftDiv">
-            <section class="mineralsPercentage">
-                <header class="mineralsPercentageHeader">Minerais: </header>
-                
-            </section> 
-            <section class="totalSection">
-                <header class="totalSectionHeader">Total: </header>
-                <h5>En SCU:</h5>
-                <h5>En aUEC:</h5>
-                
-            </section>
-            <section class="addJobSection">
-                <button>Ajouter un job</button>
-                
-            </section>            
+
+    <div class="toolBar">
+        <div class="left">
+            <label>RefineryCalc</label>
         </div>
-        
-        <div class="mainDiv">
-            <section class="jobSection Job1Section">
-                <header class="Job1SectionHeader">Job 1</header>    
-                <section class="mineraiJobSection">
-                    
-                </section>  
-
-                <section class="localisation">
-                    <header class="Job1SectionHeader">Localisation: </header>    
-                </section> 
-
-                <section class="timeLeft">
-                    <header class="Job1SectionHeader">Rafinage: </header> 
-                </section> 
-
-                <footer>
-                    <button>Transporté</button>
-                    <button>Modifier</button>
-                </footer>
-            </section> 
-            <section class="jobSection Job2Section">
-                <header class="Job2SectionHeader">Job 2</header>   
-                <section class="mineraiJobSection">
-                    
-                </section>  
-
-                <section class="localisation">
-                    <header class="Job1SectionHeader">Localisation: </header>    
-                </section> 
-
-                <section class="timeLeft">
-                    <header class="Job1SectionHeader">Rafinage: </header> 
-                </section>
-                
-                <footer>
-                    <button>Transporté</button>
-                    <button>Modifier</button>
-                </footer>         
-            </section>           
+        <div class="center">
+            <img src="./images/Logo3.png" alt="LogoOOS">
         </div>
-        
+        <div class="right">
+            <label>Filtre : CRU-L1</label>
+            <label>Pseudo</label>
+        </div>
     </div>
-    
-    <div class="divIn" style="margin-top: 50;">
-        
-        
-        <table>
-            
-            <tr >
-                <th colspan="100%">Tableau de saisie</th>
-            </tr>
-            <tr class="lineTab job">
-                <td>
-                    <select class="listeMinerai"> 
-                        <option>quantainum</option>
-                        <option>bexalite</option>
-                        <option>taranite</option>
-                        <option>borase</option>
-                        <option>laranite</option>
-                        <option>agricium</option>
-                        <option>hephaestanite</option>
-                        <option>titanium</option>
-                        
-                    </select>
-                    <button class="addButton">ajouter</button>
-                    <button class="remButton">suppr</button>
-                </td>
-                <th class="thJob job1">Job 1 <button class="suppbtn SuppButton1">X</button></th>
-                
-            </tr>
-            <tr class="quantainum lineTab" >
-                <td  id="minerai">Quantainum </td>
-                <td class="job1"><input type="number" min="0"></td>
-            </tr>
-            
-            
-            <tr class="bexalite lineTab">
-                <td  id="minerai">Bexalite </td>
-                <td class="job1"><input type="number" min="0"></td>
-                
-            </tr>
-            
-            <tr class="taranite hide lineTab">
-                <td  id="minerai">Taranite </td>
-                <td class="job1"><input type="number" min="0"></td>
-            </tr>
-            
-            <tr class="borase hide lineTab">
-                <td id="minerai">Borase </td>
-                <td class="job1"><input type="number" min="0"></td>
-            </tr>
-            
-            <tr class="laranite hide lineTab">
-                <td id="minerai">Laranite </td>
-                <td class="job1"><input type="number" min="0"></td>
-            </tr>
-            
-            <tr class="agricium hide lineTab">
-                
-                <td id="minerai">Agricium </td>
-                <td class="job1"><input type="number" min="0"></td>
-            </tr>
-            
-            <tr class="hephaestanite hide lineTab">
-                <td id="minerai">Hephaestanite </td>
-                <td class="job1"><input type="number" min="0"></td>
-            </tr>
-            
-            <tr class="titanium hide lineTab">
-                <td id="minerai">Titanium </td>
-                <td class="job1"><input type="number" min="0"></td>
-            </tr> 
-            
-            <tr>
-                <td  colspan="100%">
-                    <button class="boutonPlus">PLUS</button>
-                </td>
-                
-            </tr>
-            
-        </table>
-    </div>
-    
-    <div class="divRes">
-        
-        <table style="margin-bottom: 100px;">
-            
-            <tr>
-                <th colspan="100%"> Tableau de résultat</th>                             
-            </tr>
-            
-            <tr class="lineTab job resLine">
-                <td></td>
-                <th class="job1 thJobRes">Job 1</th>
-            </tr>
-            
-            <tr class="quantainum lineTab resLine" >
-                <td  id="minerai">Quantainum </td>
-                <td class="job1"><h2 class="resH2">0</h2></td>
-            </tr>
-            
-            
-            <tr class="bexalite lineTab resLine">
-                <td  id="minerai">Bexalite </td>
-                <td class="job1"><h2 class="resH2">0</h2></td>
-                
-            </tr>
-            
-            <tr class="taranite hide lineTab resLine">
-                <td  id="minerai">Taranite </td>
-                <td class="job1"><h2 class="resH2">0</h2>
-                </tr>
-                
-                <tr class="borase hide lineTab resLine">
-                    <td id="minerai">Borase </td>
-                    <td class="job1"><h2 class="resH2">0</h2></td>
-                </tr>
-                
-                <tr class="laranite hide lineTab resLine">
-                    <td id="minerai">Laranite </td>
-                    <td class="job1"><h2 class="resH2">0</h2></td>
-                </tr>
-                
-                <tr class="agricium hide lineTab resLine">
-                    
-                    <td id="minerai">Agricium </td>
-                    <td class="job1"><h2 class="resH2">0</h2></td>
-                </tr>
-                
-                <tr class="hephaestanite hide lineTab resLine">
-                    <td id="minerai">Hephaestanite </td>
-                    <td class="job1"><h2 class="resH2">0</h2></td>
-                </tr>
-                
-                <tr class="titanium hide lineTab resLine">
-                    <td id="minerai">Titanium </td>
-                    <td class="job1"><h2 class="resH2">0</h2></td>
-                </tr> 
-                
-                <tr>
-                    <td colspan="100%">Total par jobs</td>
-                </tr>
-                
-                <tr  class="jobRes lineTab resLine totPerJob">
-                    <td>
-                        <h2>aUEC total</h2>
-                        <h2>unités total</h2>
-                    </td>
-                    <td class="job1"><h2 class="resH2 subTotPrice">0</h2><h2 class="resH2 subTotUnit">0</h2></td>
-                    
-                </tr>
-                
-                <tr>
-                    
-                    <td colspan="100%">Total Global</td>
-                </tr>
-                
-                
-                <tr class="totalRes">
-                    <td>
-                        <h2>aUEC total</h2>
-                        <h2>unités total</h2>
-                    </td>
-                    <td colspan="100%" class="totalTD">
-                        <h2 class="totalPrice">0</h2>
-                        <h2 class="totalScu">0</h2>
-                    </td>
-                </tr>
-                
-            </table>
-            
+
+
+    <div class="page">
+        <div class="sideBar">
+            <div class="tabMineraisCont">
+                <label>Minerais : </label>
+                <div class="tabMinerais">
+
+
+                </div>
+            </div>
+            <div class="tabTotalCont">
+                <label>Total : </label>
+                <div class="tabTotal">
+
+
+                </div>
+                <select>
+                    <option>Caterpillar</option>
+                    <option>Hercule C2</option>
+                    <option>Mercury StarRunner</option>
+                </select>
+                <div class="chargeBarCont">
+                    <div class="chargeBar"></div>
+                </div>
+
+            </div>
+            <div class="addJobCont">
+                <button>Ajouter un Job</button>
+            </div>
         </div>
-    </body>
-    
-    <footer class="mainFooter"><h4>Cet assistant a été développé par Coco3244 & Liduen pour les mineurs fans de chiffres :)<br><h5>Appli web JS version 1.0</h5></h4></footer>
-    
-    </html>
+
+
+        <div class="jobsContainer">
+            <div class="job">
+                <label class="titleJob">1</label>
+
+                <div class="mineraisContainer">
+                    <div class="mineraisJob">
+                        <div class="listeMinerais">
+                            <label>Quantanium</label>
+                            <label>Borase</label>
+                        </div>
+                        <span class="separate"></span>
+                        <div class="listeQuantites">
+                            <label>2300 cSCU</label>
+                            <label>800 cSCU</label>
+                        </div>
+                    </div>
+                    <label class="titreCat">Total de ce Raffinage : </label>
+                    <div class="tabCat">
+                        250 000 aUEC
+                    </div>
+                </div>
+
+                <div class="emplacementContainer">
+                    <label class="titreCat">Emplacement : </label>
+                    <div class="tabCat">
+                        CRU-L1
+                    </div>
+                </div>
+
+                <div class="tempsContainer">
+                    <label class="titreCat">Temps Restant : </label>
+                    <div class="tabCat">
+                        36h41
+                    </div>
+                </div>
+
+                <div class="btnsContainer">
+                    <button class="btnTransport">Transporter</button>
+                    <button class="btnModif">Modifier</button>
+                </div>
+
+            </div>
+            <div class="job">
+                <label class="titleJob">1</label>
+
+                <div class="mineraisContainer">
+                    <div class="mineraisJob">
+                        <div class="listeMinerais">
+                            <label>Quantanium</label>
+                            <label>Borase</label>
+                        </div>
+                        <span class="separate"></span>
+                        <div class="listeQuantites">
+                            <label>2300 cSCU</label>
+                            <label>800 cSCU</label>
+                        </div>
+                    </div>
+                    <label class="titreCat">Total de ce Raffinage : </label>
+                    <div class="tabCat">
+                        250 000 aUEC
+                    </div>
+                </div>
+
+                <div class="emplacementContainer">
+                    <label class="titreCat">Emplacement : </label>
+                    <div class="tabCat">
+                        CRU-L1
+                    </div>
+                </div>
+
+                <div class="tempsContainer">
+                    <label class="titreCat">Temps Restant : </label>
+                    <div class="tabCat">
+                        36h41
+                    </div>
+                </div>
+
+                <div class="btnsContainer">
+                    <button class="btnTransport">Transporter</button>
+                    <button class="btnModif">Modifier</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

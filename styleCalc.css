@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400&display=swap');
+
+/*------------------------------ Général ------------------------------ */
+:root {
+	/* C'est temporaire, on en choisira une belle ensemble, mais je supporte pas celle par défaut  */
+	--police: 'Titillium Web', sans-serif;
+}
+
+* {
+	/* outline: red 1px solid; */
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	font-family: var(--police);
+}
+
+/*------------------------------ ToolBar ------------------------------ */
+.toolBar {
+	height: 60px;
+	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.5);
+
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.toolBar .left, .toolBar .right {
+	width: 40%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.toolBar .left {
+	font-size: 1.4em;
+}
+
+.toolBar .center img, .toolBar .center {
+	height: 98%;
+	border-radius: 50%;
+}
+
+.toolBar .center img {
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+	
+}
+
+/*------------------------------ Page ------------------------------ */
+.page {
+	height: 100%;
+	
+	display: flex;
+}
+
+/*------------------------------ SideBar ------------------------------ */
+.sideBar {
+	width: 300px;
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	border-right: 2px solid black;
+	padding: 10px;
+}
+
+/* Tableau des minerais */
+.tabMineraisCont {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2em;
+}
+
+.tabMinerais {
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid black;
+}
+
+/* Tableau de total  */
+.tabTotalCont {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2em;
+}
+
+.tabTotal {
+	display: flex;
+	flex-direction: column;
+	min-height: 100px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid black;
+}
+
+.tabTotalCont select {
+	margin: 10px;
+}
+
+.chargeBarCont {
+	height: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+.chargeBar {
+	height: 100%;
+	width: 60%;
+	background-color: royalblue;
+}
+
+/* Bouton d'ajout de Job */
+.addJobCont {
+	display: flex;
+	
+}
+.addJobCont button {
+	width: 100%;
+	height: 30px;
+}
+
+/*------------------------------ Jobs ------------------------------ */
+.jobsContainer {
+	display: flex;
+	flex: 1;
+	
+	overflow-x: auto;
+	padding: 10px;
+	align-items: center;
+	
+}
+
+.job {
+	margin: 10px;
+	height: 95%;
+	width: 260px;
+	border: 1px solid black;
+	border-radius: 20px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+	position: relative;
+}
+
+.titleJob {
+	font-size: 2.2em;
+	padding-right: 20px;
+	text-align: right;
+	margin-top: 7px;
+}
+
+.mineraisContainer {
+	height: 50%;
+	display: flex;
+	flex-direction: column;
+}
+
+.mineraisJob {
+	height: 80%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	overflow: auto;
+}
+
+.listeMinerais, .listeQuantites {
+	height: 85%;
+	width: 48%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.separate {
+	background-color: black;
+	width: 0.1rem;
+	height: 90%;
+	border-radius: 1px;
+}
+
+.listeMinerais label, .listeQuantites label {
+	font-size: 1.1em;
+	margin-bottom: 10px;
+}
+
+.tabCat {
+	border: 1px solid black;
+	text-align: center;
+	font-size: 1.2em;
+}
+
+.btnsContainer {
+	height: 50px;
+}
+
+.btnsContainer button{
+	position: absolute;
+	bottom: 0;
+	height: 35px;
+	width: 43%;
+	border: 0;
+	background-color: #fc6b36;
+	color: white;
+	letter-spacing: 1px;
+	font-size: 16px;
+}
+
+
+.btnTransport {
+	left: 0;
+	border-bottom-left-radius: 20px;
+	border-top-right-radius: 10px;
+}
+
+.btnModif {
+	right: 0;
+	border-bottom-right-radius: 20px;
+	border-top-left-radius: 10px;
+}
