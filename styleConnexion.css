@@ -11,20 +11,36 @@
 .connexionContainer {
 	display: flex;
 	justify-content: center;
+
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .connexionContainer form {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 1);
 	border: 1px solid black;
 	border-radius: 10px;
 	padding: 20px;
 	width: 250px;
+    height: fit-content;
     position: relative;
 
 	display: flex;
 	flex-direction: column;
 	font-family: var(--police-connexion);
     padding-bottom: 60px;
+
+    
 }
 
 .titleConnexion {
@@ -32,10 +48,10 @@
 	/* margin-bottom: 10px; */
 }
 
-.connexionContainer form input[type="text"], .connexionContainer form input[type="password"] {
+.connexionContainer input[type="text"], .connexionContainer input[type="password"] {
     background-color: rgba(255, 255, 255, 0.5);
-    width: 100%;
-    height: 30px;
+    width: 90%;
+    height: 20px;
     padding: 10px;
     font-size: 0.9em;
     font-family: var(--police-connexion);

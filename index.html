@@ -1,45 +1,26 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title> Rafinery Calc </title>
-	<meta charset="utf-8"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RefineryCalc</title>
+     <!-- FavIcon -->
+     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png" />
     
-    <!-- FavIcon -->
-    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png" />
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./styleConnexion.css">
-    
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-	<!-- Scripts -->
-    <script src="connect.js" defer></script>
+     <!-- CSS -->
+     <link rel="stylesheet" href="./styleCalc.css">
+     <link rel="stylesheet" href="./styleConnexion.css">
+     
+     <!-- jQuery -->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+     <!-- Scripts -->
+     <script src="connect.js" defer></script>
+     <script src="scriptCalc.js" defer></script>
 </head>
-
-
 <body>
-	<div id="divindex">
-		<h1 style="text-align:center">Assistance de calcul pour rafinerie</h1>
-		
-		<h2>Bienvenue sur l'assistance de calcul pour mieux anticiper la rentabilité ainsi que les futurs trajets pour tes jobs en cours / finis dans une raffinerie.
-		<br>
-		Pour accéder à la page d'insertion de vos minerais <a href="./calc.html"> NE CLIQUE PAS ICI</a>
-		<br>
-		Ce site est sujet à amélioration suivant les compétences des personnes qui s'en occupent et les idées proposées:)	
-		<br>
-		</h2>
-		<h3>/!\Si vous utilisez Google Chrome et aurez des problèmes d'affichage (page blanche) quand vous voulez avoir plusieurs jobs,
-		<br> 
-		utilisez <a target="_blank" href="https://www.mozilla.org/fr/firefox/new/">Firefox</a> (le temps qu'on trouve une solution si toutefois on en trouve une)</h3>
-		
-		<h4>Tu préfères une appli/un programme sur ton pc plutot que d'aller sur navigateur ? va voir par <a href="appli_java.html">ICI</a> </h4>
-		<h5>Si vous aimez et utilisez ce site et que vous voulez me remercier j'accepte les aUEC :D (coco32444 mais surtout Liduen 😉 sur SC)</h5>
-		
-	</div>
-	
-	<div class="connexionContainer">
+    <div class="connexionContainer">
 		<form>
 			<label class="titleConnexion">Se connecter</label>
 			<label class="mdpWarn">L'inscription est automatique !</label>
@@ -68,8 +49,135 @@
 		</form> 
 	</div>
 
+    <div class="toolBar">
+        <div class="left">
+            <label>RefineryCalc</label>
+        </div>
+        <div class="center">
+            <img src="./images/Logo3.png" alt="LogoOOS" draggable="false">
+        </div>
+        <div class="right">
+            <label>Filtre : CRU-L1</label>
+            <label id="pseudoAct">Pseudo</label>
+        </div>
+    </div>
+
+
+    <div class="page">
+        <div class="sideBar">
+            <div class="tabMineraisCont">
+                <label>Minerais : </label>
+                <div class="tabMinerais">
+
+
+                </div>
+            </div>
+            <div class="tabTotalCont">
+                <label>Total : </label>
+                <div class="tabTotal">
+
+
+                </div>
+                <select>
+                    <option>Caterpillar</option>
+                    <option>Hercule C2</option>
+                    <option>Mercury StarRunner</option>
+                </select>
+                <div class="chargeBarCont">
+                    <div class="chargeBar"></div>
+                </div>
+
+            </div>
+            <div class="addJobCont">
+                <button>Ajouter un Job</button>
+            </div>
+        </div>
+
+
+        <div class="jobsContainer horizontal-scroll-wrapper">
+            <div class="job">
+                <label class="titleJob">1</label>
+
+                <div class="mineraisContainer">
+                    <div class="mineraisJob">
+                        <div class="listeMinerais">
+                            <label>Quantanium</label>
+                            <label>Borase</label>
+                        </div>
+                        <span class="separate"></span>
+                        <div class="listeQuantites">
+                            <label>2300 cSCU</label>
+                            <label>800 cSCU</label>
+                        </div>
+                    </div>
+                    <label class="titreCat">Total de ce Raffinage : </label>
+                    <div class="tabCat">
+                        250 000 aUEC
+                    </div>
+                </div>
+
+                <div class="emplacementContainer">
+                    <label class="titreCat">Emplacement : </label>
+                    <div class="tabCat">
+                        CRU-L1
+                    </div>
+                </div>
+
+                <div class="tempsContainer">
+                    <label class="titreCat">Temps Restant : </label>
+                    <div class="tabCat">
+                        36h41
+                    </div>
+                </div>
+
+                <div class="btnsContainer">
+                    <button class="btnTransport">Transporter</button>
+                    <button class="btnModif">Modifier</button>
+                </div>
+
+            </div>
+            <div class="job">
+                <label class="titleJob">1</label>
+
+                <div class="mineraisContainer">
+                    <div class="mineraisJob">
+                        <div class="listeMinerais">
+                            <label>Quantanium</label>
+                            <label>Borase</label>
+                        </div>
+                        <span class="separate"></span>
+                        <div class="listeQuantites">
+                            <label>2300 cSCU</label>
+                            <label>800 cSCU</label>
+                        </div>
+                    </div>
+                    <label class="titreCat">Total de ce Raffinage : </label>
+                    <div class="tabCat">
+                        250 000 aUEC
+                    </div>
+                </div>
+
+                <div class="emplacementContainer">
+                    <label class="titreCat">Emplacement : </label>
+                    <div class="tabCat">
+                        CRU-L1
+                    </div>
+                </div>
+
+                <div class="tempsContainer">
+                    <label class="titreCat">Temps Restant : </label>
+                    <div class="tabCat">
+                        36h41
+                    </div>
+                </div>
+
+                <div class="btnsContainer">
+                    <button class="btnTransport">Transporter</button>
+                    <button class="btnModif">Modifier</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
-
-<!-- <footer><h4>Cet assistant a été développé par Coco3244 & Liduen pour les mineurs fans de chiffres :)<br><h5>Appli web JS version 1.0</h5></h4></footer> -->
-
 </html>
