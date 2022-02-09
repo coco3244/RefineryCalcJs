@@ -8,13 +8,16 @@ const iPsw = document.querySelector("#iPsw");
 let tabInsert = {};
 tabInsert.insert = {};
 
+const connexionContainer = document.querySelector(".connexionContainer");
+const pseudo = document.getElementById("pseudoAct");
+
 // traitement du form
 $("form").submit(function(evt){	 
     evt.preventDefault();
     let formData = new FormData($(this)[0]);
 
     $.ajax({
-        url: './upload.php',
+        url: './connect.php',
         type: 'POST',
         data: formData,
         cache: false,
@@ -30,7 +33,7 @@ $("form").submit(function(evt){
                 tabInsert.insert.password = iPsw.value;
                 console.log(tabInsert.insert.login + " " + tabInsert.insert.password);
             } else if(response.search("Connect") !== -1) {
-                document.location.href = "./calc.html";
+                connectioooooooon(response);
             } else if(response.search("pswNo") !== -1) {
                 mdpErreur.classList.remove("hide");
             }
@@ -42,12 +45,22 @@ $("form").submit(function(evt){
 //Traitement du btn oui
 yesAdd.addEventListener("click", (e) => {
     $.ajax({
-        url:"./upload.php",
+        url:"./connect.php",
         method: "POST",
         data: tabInsert,
         success: function(res) {
             console.log(res);
-            document.location.href = "./calc.html";
+            connectioooooooon(res);
         }
     });
 });
+
+
+function connectioooooooon(res) {
+    connexionContainer.style.display = "none";
+    let ps = res.search("Pseudo=");
+    let result = res.substr(ps + 7, res.length)
+    console.log(result);
+
+    pseudo.innerHTML = result;
+}

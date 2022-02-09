@@ -10,10 +10,11 @@
     
         $exist = false;
         while($data = $req->fetch(PDO::FETCH_ASSOC)) {
-            print_r($data);
+            // print_r($data);
             if($pseudo == $data["login"]) {
                 if($psw == $data["password"]) {
                     echo "Connect";
+                    print(" Pseudo=".$pseudo);
                 } else {
                     echo "pswNo";
                 }
@@ -31,7 +32,7 @@
         $sql = $BDD->prepare("INSERT INTO User(login, password) VALUES (?, ?)");
         $sql->execute(array($pseudo, $psw));
 
-        // echo "here I remain";
+        print(" Pseudo=".$pseudo);
     }
 
 ?>
