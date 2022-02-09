@@ -1,0 +1,24 @@
+{
+  "name": "rafinerycalcjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "connect.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coco3244/RafineryCalcJs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coco3244/RafineryCalcJs/issues"
+  },
+  "homepage": "https://github.com/coco3244/RafineryCalcJs#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.2",
+    "@babel/preset-env": "^7.16.11"
+  }
+}
