@@ -1,5 +1,3 @@
-const { Z_VERSION_ERROR } = require("zlib");
-
 const mdpErreur = document.querySelector(".mdpError");
 const addLog = document.querySelector(".addLog");
 const yesAdd = document.querySelector(".yesAdd");

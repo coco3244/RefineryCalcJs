@@ -1,8 +1,5 @@
 "use strict";
 
-var _require = require("zlib"),
-    Z_VERSION_ERROR = _require.Z_VERSION_ERROR;
-
 var mdpErreur = document.querySelector(".mdpError");
 var addLog = document.querySelector(".addLog");
 var yesAdd = document.querySelector(".yesAdd");
