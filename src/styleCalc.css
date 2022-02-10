@@ -10,6 +10,10 @@
 	/* outline: red 1px solid; */
 }
 
+.hide{
+	display: none;
+}
+
 html {
 	height: 100%;
 }
@@ -229,7 +233,7 @@ body {
 	border-top-right-radius: 10px;
 }
 
-.btnModif {
+.btnModif, .btnConfirm{
 	right: 0;
 	border-bottom-right-radius: 20px;
 	border-top-left-radius: 10px;
