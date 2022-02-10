@@ -2,6 +2,7 @@
     // print_r($_POST);
     require("./initBDD.php");
 
+    // Connexion -----------------------
     if(isset($_POST["login"])) {
         $pseudo = $_POST["login"];
         $psw = $_POST["psw"];
@@ -26,13 +27,26 @@
         if($exist == false) {
             echo "CRE4TI0N";
         } 
+
+        // Inscription -----------------------
     } elseif(isset($_POST["insert"])) {
         $pseudo = $_POST["insert"]["login"];
         $psw = $_POST["insert"]["password"];
         $sql = $BDD->prepare("INSERT INTO User(login, password) VALUES (?, ?)");
         $sql->execute(array($pseudo, $psw));
 
-        print(" Pseudo=".$pseudo);
+        print("Pseudo=".$pseudo);
+
+    } elseif(isset($_POST["fetch"])) {
+        $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
+        $req = $BDD->query($sql);
+
+        $jobs = [];
+        while($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $jobs[] = $data;
+        }
+        $jobs = json_encode($jobs);
+        print($jobs);
     }
 
 ?>
