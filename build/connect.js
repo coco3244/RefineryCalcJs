@@ -86,7 +86,7 @@ function fetchDB(pseudo) {
     },
     success: function success(res) {
       res = JSON.parse(res);
-      jobContainer.innerHTML = ""; //sécurité à enlever éventuellement
+      jobContainer.innerHTML = ""; //sécurité à enlever ?
 
       if (res.length > 0) {
         // Défilement du tableau et extraction des valeurs

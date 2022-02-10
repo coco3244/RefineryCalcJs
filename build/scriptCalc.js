@@ -2,6 +2,11 @@
 
 var scrollContainer = document.querySelector('.jobsContainer');
 var addJobButton = document.querySelector('.addJobCont');
+var customOptions = document.querySelectorAll(".customOptions");
+var labelOptions;
+customOptions.forEach(function (item) {
+  labelOptions = item.querySelectorAll("label");
+});
 scrollContainer.addEventListener('wheel', function (event) {
   event.preventDefault();
   scrollContainer.scrollLeft += event.deltaY;
@@ -19,5 +24,11 @@ addJobButton.addEventListener('click', function (event) {
     value.innerHTML = "";
   });
   jobsContainer.innerHTML = firstJob.outerHTML + jobsContainer.innerHTML;
+}); //faut le bon sélecteur ici :)
+
+labelOptions.forEach(function (item) {
+  item.addEventListener("click", function (e) {
+    console.log(item);
+  });
 });
 //# sourceMappingURL=scriptCalc.js.map

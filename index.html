@@ -11,13 +11,16 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./src/styleCalc.css">
     <link rel="stylesheet" href="./src/styleConnexion.css">
+
+    <!-- Icones Fontawesome.com -->
+    <script src="https://kit.fontawesome.com/4fde89ed96.js" crossorigin="anonymous"></script>
     
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scripts -->
-    <script src="./build/connect.js" defer></script>
-    <script src="./build/scriptCalc.js" defer></script>
+    <script src="./build/" defer></script>
+    <script src="./src/scriptCalc.js" defer></script>
 </head>
 <body>
     <div class="connexionContainer">
@@ -57,7 +60,16 @@
             <img src="./images/Logo3.png" alt="LogoOOS" draggable="false">
         </div>
         <div class="right">
-            <label>Filtre : CRU-L1</label>
+            <div class="customSelectContainer">
+                <label> Filtre :</label>
+                <input type="text" class="customSelect" id="selectFiltre">
+                <i class="fa-solid fa-sort-down arrowSelect"></i>
+                <div class="customOptions">
+                    <label>CRU-L1</label>
+                    <label>ARC-L1</label>
+                    <label>HUR-L1</label>
+                </div>
+            </div>
             <label id="pseudoAct">Pseudo</label>
         </div>
     </div>
