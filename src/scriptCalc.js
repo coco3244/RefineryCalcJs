@@ -1,6 +1,7 @@
 const scrollContainer = document.querySelector('.jobsContainer');
 const addJobButton = document.querySelector('.addJobCont');
 const selectFiltre = document.querySelector("#selectFiltre");
+let nextId;
 
 scrollContainer.addEventListener('wheel',event=>{
     event.preventDefault();
@@ -195,3 +196,4 @@ function delUnit(numb, nbUnit) {
   numb = numb.join("");
   return Number(numb);
 }
+
