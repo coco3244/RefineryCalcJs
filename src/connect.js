@@ -90,6 +90,7 @@ function connectioooooooon(res, create) {
 }
 
 function fetchDB(pseudo, raffinery) {
+    nextId = -1;
     // Requète ajax pour requérir la BDD
     $.ajax({
         url:"./src/connect.php",

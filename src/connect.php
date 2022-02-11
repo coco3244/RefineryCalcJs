@@ -53,6 +53,47 @@
         }
         $jobs = json_encode($jobs);
         print($jobs);
+
+    } elseif (isset($_POST["nextId"])) {
+        $sql = "SELECT MAX(idJob) FROM jobs";
+        $req = $BDD->query($sql);
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        print_r(json_encode($data));
+
+    } elseif (isset($_POST["newInsert"])) {
+        print_r($_POST["newInsert"]);
+        $ins = $_POST["newInsert"];
+        $i = 0;
+        $colonnes = "";
+        $pointdint = "";
+        $datas = [];
+        foreach($_POST["newInsert"] as $col => $val) {
+            if($i != 0) {
+                $colonnes .= ", ";
+                $pointdint .= ", ";
+            }
+            
+            if ($col == "fk_idUser") {
+                $colonnes .= $col;
+                $pointdint .= "?";
+                $datas[] = $val;        
+                // (SELECT idUser FROM user WHERE login='?')        
+            } else {
+                $colonnes .= $col;
+                $pointdint .= "?";
+                $datas[] = "'".$val."'";
+            }
+            
+            $i++;
+        }
+               
+        $prep = "INSERT INTO jobs ($colonnes) VALUES($pointdint)";
+        print($prep);
+        print_r($datas);
+
+        $sql = $BDD->prepare($prep);
+        $sql->execute($datas);
+
     }
 
 ?>

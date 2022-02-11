@@ -1,24 +1,26 @@
 const scrollContainer = document.querySelector('.jobsContainer');
 const addJobButton = document.querySelector('.addJobCont');
 const selectFiltre = document.querySelector("#selectFiltre");
-let nextId;
 const jobsContainer = document.querySelector(".jobsContainer");
 
+let nextId = -1;
 
 scrollContainer.addEventListener('wheel',event=>{
     event.preventDefault();
     scrollContainer.scrollLeft += event.deltaY;
 });
 
+// Tracking des boutons dans les Jobs -----------------------------------------
 jobContainer.addEventListener("click", (event) => {
     const selectMinerai = event.target.parentNode.parentNode.querySelector('.selectMinerai');
     const listeMineraisDiv = event.target.parentNode.parentNode.querySelector('.listeMinerais');
     const listeQuantitesDiv = event.target.parentNode.parentNode.querySelector('.listeQuantites');
+
     if(event.target.classList.contains("btnAddMineral")) {
         /**
-        * listener pour ajouter un minerai
-        * ca cree un label et un input et ca les insère dans leur div correspondante
-        */                          
+         * listener pour ajouter un minerai
+         * ca cree un label et un input et ca les insère dans leur div correspondante
+         */                          
         if(!listeMineraisDiv.querySelector(`.${selectMinerai.value}`)){
             const input = document.createElement('input');
             
@@ -36,9 +38,8 @@ jobContainer.addEventListener("click", (event) => {
         
     }
     if(event.target.classList.contains("btnSuppMineral")) {
-        /**
-        * Supprime les minerai des 2 div correspondante
-        */                
+        // Supprime les minerai des 2 div correspondante
+                     
         listeQuantitesDiv.querySelector(`.${selectMinerai.value}`).remove();
         listeMineraisDiv.querySelector(`.${selectMinerai.value}`).remove();   
         
@@ -106,10 +107,7 @@ jobContainer.addEventListener("click", (event) => {
                 }
                 
             }
-        })
-        
-       
-        
+        });
     }
 
      /**
@@ -120,11 +118,13 @@ jobContainer.addEventListener("click", (event) => {
         */
     if(event.target.classList.contains("btnConfirm")) {       
         const inputs = event.target.parentNode.parentNode.querySelectorAll('input');
+        let tabInsert = {};
         
-        
-        inputs.forEach(input=>{
-            const label = document.createElement('label');       
-            label.classList.add(`${input.classList.toString()}`)
+        inputs.forEach(input => {
+            const label = document.createElement('label');    
+            label.classList.add(`${input.classList.toString()}`);
+            tabInsert[input.className] = input.value;
+
             if(input.parentNode.classList.contains('listeQuantites')){
                 label.classList.add('MineralQuantityLabel');
             }
@@ -138,11 +138,12 @@ jobContainer.addEventListener("click", (event) => {
             input.parentNode.appendChild(label);
             input.remove();
             
-        })
-        
+        });
         event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
         event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
-        const raffinerySelect = event.target.parentNode.parentNode.querySelector('.Raffinery')
+        const raffinerySelect = event.target.parentNode.parentNode.querySelector('.Raffinery');
+        tabInsert[raffinerySelect.className] = raffinerySelect.value;
+
         const label = document.createElement('label');
         
         label.classList.add(`${raffinerySelect.classList.toString()}`)
@@ -159,29 +160,32 @@ jobContainer.addEventListener("click", (event) => {
         
         tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`;      
         
+        insertNewJob(tabInsert);
     }
 });
 
 
-
-
+// Ajout d'un job -------------------------------------------------------------
 addJobButton.addEventListener("click", (event) => {
     event.preventDefault();
     const numJob = document.querySelectorAll(".job").length + 1;
+
+    getNextId();
+
     let jobHtml = /*html*/ `
-    <div class="job job${numJob}" id="jobId_TOBECHANGED">
+    <div class="job job${nextId}" id="jobId_TOBECHANGED">
         <label class="titleJob dontmod">${numJob}</label>
 
         <div class="mineraisContainer">
                     <select class="selectMinerai"> 
-                    <option>quantainum</option>
-                    <option>bexalite</option>
-                    <option>taranite</option>
-                    <option>borase</option>
-                    <option>laranite</option>
-                    <option>agricium</option>
-                    <option>hephaestanite</option>
-                    <option>titanium</option>                               
+                    <option>Quantainium</option>
+                    <option>Bexalite</option>
+                    <option>Taranite</option>
+                    <option>Borase</option>
+                    <option>Laranite</option>
+                    <option>Agricium</option>
+                    <option>Hephaestanite</option>
+                    <option>Titanium</option>                               
                     </select>
                 <button class="btnAddMineral">Ajouter</button>
                 <button class="btnSuppMineral">Supprimer</button>
@@ -222,7 +226,7 @@ addJobButton.addEventListener("click", (event) => {
         <div class="tempsContainer">
             <label class="titreCat dontmod">Temps Restant : </label>
             <div class="tabCat">
-                <input class="temprestant" type="text">
+                <input class="heurePlace" type="text">
             </div>
         </div>
 
@@ -235,17 +239,25 @@ addJobButton.addEventListener("click", (event) => {
   jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
 });
 
+// Insertion dans la bdd à l'ajout d'un job -----------------------------------
+function insertNewJob(tabInsert) {
+    const pseudo = getPseudo();
+    tabInsert.fk_idUser = 1;
+    console.log(tabInsert);
 
-selectFiltre.addEventListener("input", e => {
-    //console.log(selectFiltre.value);
-    const pseudoCont = document.querySelector("#pseudoAct");
-    const pseudo = pseudoCont.innerHTML;
-    fetchDB(pseudo, selectFiltre.value);
-})
+    $.ajax({
+        url:"./src/connect.php",
+        method: "POST",
+        data: {newInsert : tabInsert},
+        success: function(res) {
+            console.log(res);
+        }
+    });
+}
 
 
 
-/**
+/** ---------------------------------------------------------------------------
  * Fonction qui calcul le total d'unité (cSCU) dans le job donné
  * @param {*} job La div du job
  * @returns Le total d'unité
@@ -269,9 +281,16 @@ function calculTotalUnitGlobal(jobs){
     return result;
 }
 
+// Update du Filtre -----------------------------------------------------------
+selectFiltre.addEventListener("input", e => {
+    //console.log(selectFiltre.value);
+    const pseudoCont = document.querySelector("#pseudoAct");
+    const pseudo = pseudoCont.innerHTML;
+    fetchDB(pseudo, selectFiltre.value);
+});
 
 
-
+// Fonctions d'automatisation -------------------------------------------------
 /**
 * fonction fournie par Liduen
 * @param {*} numb 
@@ -299,4 +318,29 @@ function find(classF, e) {
         if(targ === document.body) {break;}
     } 
     return targ;
+}
+
+function getNextId() {
+    const pseudo = getPseudo();
+    $.ajax({
+        url:"./src/connect.php",
+        method: "POST",
+        async: false,
+        data: "nextId",
+        success: function(res) {
+            res = JSON.parse(res)
+            let previousId = nextId;
+            let tmpId = Number(res["MAX(idJob)"]) + 1;
+            if (tmpId <= previousId) {
+                nextId = previousId + 1;
+            } else {
+                nextId = tmpId;
+            }
+        }
+    });
+}
+
+function getPseudo() {
+    const pseudo = document.querySelector("#pseudoAct").innerHTML;
+    return pseudo;
 }
