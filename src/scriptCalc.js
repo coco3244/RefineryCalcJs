@@ -20,9 +20,9 @@ jobContainer.addEventListener("click", (event) => {
         */                          
         if(!listeMineraisDiv.querySelector(`.${selectMinerai.value}`)){
             const input = document.createElement('input');
+            
             input.setAttribute('type','number');
             input.classList.add(`${selectMinerai.value}`);
-            
             const label = document.createElement('label');
             label.classList.add(`${selectMinerai.value}`);
             label.classList.add(`dontmod`);
@@ -61,6 +61,7 @@ jobContainer.addEventListener("click", (event) => {
             
             if(!label.classList.contains('dontmod')){
                 const input = document.createElement('input');
+               
                 if(label.parentNode.classList.contains('listeQuantites')){
                     input.setAttribute('type','number');
                 }else{
@@ -88,8 +89,17 @@ jobContainer.addEventListener("click", (event) => {
                     label.parentNode.appendChild(select)
                     label.remove();
                 }else{
-                    input.classList.add(`${label.classList[1]}`);
-                    input.setAttribute('value',`${delUnit(label.innerHTML,5)}`)
+                    input.classList.add(`${label.classList[0]}`);
+                    if(!label.classList[1]==='undefined'){
+                        input.classList.add(`${label.classList[1]}`);
+                    }
+                    if(label.classList.contains('temprestant')){
+                        
+                        input.setAttribute('value',`${label.innerHTML}`);
+                    }else{
+                        input.setAttribute('value',`${delUnit(label.innerHTML,5)}`)
+                    }
+                   
                     label.parentNode.appendChild(input);
                     label.remove();
                 }
@@ -107,29 +117,30 @@ jobContainer.addEventListener("click", (event) => {
         * ca transforme les input en label
         * ca cache le bouton confirmer et re affiche le bouton modifier
         */
-    if(event.target.classList.contains("btnConfirm")) {
-       
-        event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
-        event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
-        
+    if(event.target.classList.contains("btnConfirm")) {       
         const inputs = event.target.parentNode.parentNode.querySelectorAll('input');
+        
+        
         inputs.forEach(input=>{
-            const label = document.createElement('label');
-            
+            const label = document.createElement('label');       
             label.classList.add(`${input.classList.toString()}`)
             if(input.parentNode.classList.contains('listeQuantites')){
                 label.classList.add('MineralQuantityLabel');
             }
             if(!label.classList.contains('temprestant')){
+                
                 label.innerHTML=`${input.value} cSCU`;
+                
             }else{
                 label.innerHTML=`${input.value}`;
-            }
-            
+            }           
             input.parentNode.appendChild(label);
             input.remove();
+            
         })
         
+        event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
+        event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
         const raffinerySelect = event.target.parentNode.parentNode.querySelector('.Raffinery')
         const label = document.createElement('label');
         
@@ -144,8 +155,9 @@ jobContainer.addEventListener("click", (event) => {
         event.target.parentNode.parentNode.querySelector('.totalJobDiv').innerHTML=`Total: ${calculTotalUnitJob(event.target.parentNode.parentNode)}`
         
         const tabTotal = document.querySelector('.tabTotal');
-
-        tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`;
+        
+        tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`;      
+        
     }
 });
 

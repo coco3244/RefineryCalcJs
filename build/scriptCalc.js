@@ -76,9 +76,17 @@ jobContainer.addEventListener("click", function (event) {
           label.parentNode.appendChild(select);
           label.remove();
         } else {
-          _input.classList.add("".concat(label.classList[1]));
+          _input.classList.add("".concat(label.classList[0]));
 
-          _input.setAttribute('value', "".concat(delUnit(label.innerHTML, 5)));
+          if (!label.classList[1] === 'undefined') {
+            _input.classList.add("".concat(label.classList[1]));
+          }
+
+          if (label.classList.contains('temprestant')) {
+            _input.setAttribute('value', "".concat(label.innerHTML));
+          } else {
+            _input.setAttribute('value', "".concat(delUnit(label.innerHTML, 5)));
+          }
 
           label.parentNode.appendChild(_input);
           label.remove();
@@ -95,8 +103,6 @@ jobContainer.addEventListener("click", function (event) {
 
 
   if (event.target.classList.contains("btnConfirm")) {
-    event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
-    event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
     var inputs = event.target.parentNode.parentNode.querySelectorAll('input');
     inputs.forEach(function (input) {
       var label = document.createElement('label');
@@ -115,6 +121,8 @@ jobContainer.addEventListener("click", function (event) {
       input.parentNode.appendChild(label);
       input.remove();
     });
+    event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
+    event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
     var raffinerySelect = event.target.parentNode.parentNode.querySelector('.Raffinery');
 
     var _label = document.createElement('label');
