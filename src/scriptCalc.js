@@ -88,7 +88,7 @@ jobContainer.addEventListener("click", (event) => {
                     label.parentNode.appendChild(select)
                     label.remove();
                 }else{
-                    input.classList.add(`${label.classList.toString()}`);
+                    input.classList.add(`${label.classList[1]}`);
                     input.setAttribute('value',`${delUnit(label.innerHTML,5)}`)
                     label.parentNode.appendChild(input);
                     label.remove();
@@ -100,13 +100,15 @@ jobContainer.addEventListener("click", (event) => {
        
         
     }
-    if(event.target.classList.contains("btnConfirm")) {
-        /**
-        * listener pour la confirmation de modification
+
+     /**
+        * Si on clique sur le bouton confirmer
         * ca cache le menu déroulant avec les minerai ainsi que les boutons ajouter et supprimer
         * ca transforme les input en label
         * ca cache le bouton confirmer et re affiche le bouton modifier
         */
+    if(event.target.classList.contains("btnConfirm")) {
+       
         event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
         event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
         
@@ -115,6 +117,9 @@ jobContainer.addEventListener("click", (event) => {
             const label = document.createElement('label');
             
             label.classList.add(`${input.classList.toString()}`)
+            if(input.parentNode.classList.contains('listeQuantites')){
+                label.classList.add('MineralQuantityLabel');
+            }
             if(!label.classList.contains('temprestant')){
                 label.innerHTML=`${input.value} cSCU`;
             }else{
@@ -136,7 +141,11 @@ jobContainer.addEventListener("click", (event) => {
         
         event.target.parentNode.parentNode.querySelector('.btnAddMineral').classList.add('hide');
         event.target.parentNode.parentNode.querySelector('.btnSuppMineral').classList.add('hide');
+        event.target.parentNode.parentNode.querySelector('.totalJobDiv').innerHTML=`Total: ${calculTotalUnitJob(event.target.parentNode.parentNode)}`
         
+        const tabTotal = document.querySelector('.tabTotal');
+
+        tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`;
     }
 });
 
@@ -175,8 +184,10 @@ addJobButton.addEventListener("click", (event) => {
                     
                 </div>
             </div>
+           
+            
             <label class="titreCat dontmod">Total de ce Raffinage : </label>
-            <div class="tabCat">
+            <div class="tabCat totalJobDiv">
                 0
             </div>
         </div>
@@ -218,6 +229,33 @@ selectFiltre.addEventListener("input", e => {
     const pseudo = pseudoCont.innerHTML;
     fetchDB(pseudo, selectFiltre.value);
 })
+
+
+
+/**
+ * Fonction qui calcul le total d'unité (cSCU) dans le job donné
+ * @param {*} job La div du job
+ * @returns Le total d'unité
+ */
+function calculTotalUnitJob(job){
+    let result = 0;
+    const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
+    quantityLabels.forEach(value=>{
+        
+        result+=delUnit(value.innerHTML,5);
+    })
+    return result;
+}
+
+
+function calculTotalUnitGlobal(jobs){
+    let result =0;
+    jobs.forEach(job=>{
+        result+=calculTotalUnitJob(job);
+    })
+    return result;
+}
+
 
 
 

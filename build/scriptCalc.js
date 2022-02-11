@@ -76,7 +76,7 @@ jobContainer.addEventListener("click", function (event) {
           label.parentNode.appendChild(select);
           label.remove();
         } else {
-          _input.classList.add("".concat(label.classList.toString()));
+          _input.classList.add("".concat(label.classList[1]));
 
           _input.setAttribute('value', "".concat(delUnit(label.innerHTML, 5)));
 
@@ -86,20 +86,25 @@ jobContainer.addEventListener("click", function (event) {
       }
     });
   }
+  /**
+     * Si on clique sur le bouton confirmer
+     * ca cache le menu déroulant avec les minerai ainsi que les boutons ajouter et supprimer
+     * ca transforme les input en label
+     * ca cache le bouton confirmer et re affiche le bouton modifier
+     */
+
 
   if (event.target.classList.contains("btnConfirm")) {
-    /**
-    * listener pour la confirmation de modification
-    * ca cache le menu déroulant avec les minerai ainsi que les boutons ajouter et supprimer
-    * ca transforme les input en label
-    * ca cache le bouton confirmer et re affiche le bouton modifier
-    */
     event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
     event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
     var inputs = event.target.parentNode.parentNode.querySelectorAll('input');
     inputs.forEach(function (input) {
       var label = document.createElement('label');
       label.classList.add("".concat(input.classList.toString()));
+
+      if (input.parentNode.classList.contains('listeQuantites')) {
+        label.classList.add('MineralQuantityLabel');
+      }
 
       if (!label.classList.contains('temprestant')) {
         label.innerHTML = "".concat(input.value, " cSCU");
@@ -122,6 +127,9 @@ jobContainer.addEventListener("click", function (event) {
     selectMinerai.classList.add('hide');
     event.target.parentNode.parentNode.querySelector('.btnAddMineral').classList.add('hide');
     event.target.parentNode.parentNode.querySelector('.btnSuppMineral').classList.add('hide');
+    event.target.parentNode.parentNode.querySelector('.totalJobDiv').innerHTML = "Total: ".concat(calculTotalUnitJob(event.target.parentNode.parentNode));
+    var tabTotal = document.querySelector('.tabTotal');
+    tabTotal.innerHTML = "Total global cSCU: ".concat(calculTotalUnitGlobal(document.querySelectorAll('.job')));
   }
 });
 addJobButton.addEventListener("click", function (event) {
@@ -129,7 +137,7 @@ addJobButton.addEventListener("click", function (event) {
   var numJob = document.querySelectorAll(".job").length + 1;
   var jobHtml =
   /*html*/
-  "\n    <div class=\"job job".concat(numJob, "\" id=\"jobId_TOBECHANGED\">\n        <label class=\"titleJob dontmod\">").concat(numJob, "</label>\n\n        <div class=\"mineraisContainer\">\n                    <select class=\"selectMinerai\"> \n                    <option>quantainum</option>\n                    <option>bexalite</option>\n                    <option>taranite</option>\n                    <option>borase</option>\n                    <option>laranite</option>\n                    <option>agricium</option>\n                    <option>hephaestanite</option>\n                    <option>titanium</option>                               \n                    </select>\n                <button class=\"btnAddMineral\">Ajouter</button>\n                <button class=\"btnSuppMineral\">Supprimer</button>\n            <div class=\"mineraisJob\">\n                \n                \n                <div class=\"listeMinerais\">\n                    \n                </div>\n\n                <span class=\"separate\"></span>\n                <div class=\"listeQuantites\">\n                    \n                </div>\n            </div>\n            <label class=\"titreCat dontmod\">Total de ce Raffinage : </label>\n            <div class=\"tabCat\">\n                0\n            </div>\n        </div>\n        \n        <div class=\"emplacementContainer\">\n            <label class=\"titreCat dontmod\">Emplacement : </label>\n            <div class=\"tabCat\">\n                <select class=\"Raffinery\"> \n                    <option>CRU-L1</option>\n                    <option>ARC-L1</option>\n                    <option>ARC-L2</option>\n                    <option>HUR-L1</option>\n                    <option>HUR-L2</option>\n                    <option>MIC-L2</option>                             \n                </select>\n            </div>\n        </div>\n\n        <div class=\"tempsContainer\">\n            <label class=\"titreCat dontmod\">Temps Restant : </label>\n            <div class=\"tabCat\">\n                <input class=\"temprestant\" type=\"text\">\n            </div>\n        </div>\n\n        <div class=\"btnsContainer\">\n            <button class=\"btnTransport\">Transporter</button>\n            <button class=\"btnModif hide\">Modifier</button>\n            <button class=\"btnConfirm\">Confirmer</button>\n        </div>\n    </div>");
+  "\n    <div class=\"job job".concat(numJob, "\" id=\"jobId_TOBECHANGED\">\n        <label class=\"titleJob dontmod\">").concat(numJob, "</label>\n\n        <div class=\"mineraisContainer\">\n                    <select class=\"selectMinerai\"> \n                    <option>quantainum</option>\n                    <option>bexalite</option>\n                    <option>taranite</option>\n                    <option>borase</option>\n                    <option>laranite</option>\n                    <option>agricium</option>\n                    <option>hephaestanite</option>\n                    <option>titanium</option>                               \n                    </select>\n                <button class=\"btnAddMineral\">Ajouter</button>\n                <button class=\"btnSuppMineral\">Supprimer</button>\n            <div class=\"mineraisJob\">\n                \n                \n                <div class=\"listeMinerais\">\n                    \n                </div>\n\n                <span class=\"separate\"></span>\n                <div class=\"listeQuantites\">\n                    \n                </div>\n            </div>\n           \n            \n            <label class=\"titreCat dontmod\">Total de ce Raffinage : </label>\n            <div class=\"tabCat totalJobDiv\">\n                0\n            </div>\n        </div>\n        \n        <div class=\"emplacementContainer\">\n            <label class=\"titreCat dontmod\">Emplacement : </label>\n            <div class=\"tabCat\">\n                <select class=\"Raffinery\"> \n                    <option>CRU-L1</option>\n                    <option>ARC-L1</option>\n                    <option>ARC-L2</option>\n                    <option>HUR-L1</option>\n                    <option>HUR-L2</option>\n                    <option>MIC-L2</option>                             \n                </select>\n            </div>\n        </div>\n\n        <div class=\"tempsContainer\">\n            <label class=\"titreCat dontmod\">Temps Restant : </label>\n            <div class=\"tabCat\">\n                <input class=\"temprestant\" type=\"text\">\n            </div>\n        </div>\n\n        <div class=\"btnsContainer\">\n            <button class=\"btnTransport\">Transporter</button>\n            <button class=\"btnModif hide\">Modifier</button>\n            <button class=\"btnConfirm\">Confirmer</button>\n        </div>\n    </div>");
   jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
 });
 selectFiltre.addEventListener("input", function (e) {
@@ -139,11 +147,34 @@ selectFiltre.addEventListener("input", function (e) {
   fetchDB(pseudo, selectFiltre.value);
 });
 /**
+ * Fonction qui calcul le total d'unité (cSCU) dans le job donné
+ * @param {*} job La div du job
+ * @returns Le total d'unité
+ */
+
+function calculTotalUnitJob(job) {
+  var result = 0;
+  var quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
+  quantityLabels.forEach(function (value) {
+    result += delUnit(value.innerHTML, 5);
+  });
+  return result;
+}
+
+function calculTotalUnitGlobal(jobs) {
+  var result = 0;
+  jobs.forEach(function (job) {
+    result += calculTotalUnitJob(job);
+  });
+  return result;
+}
+/**
 * fonction fournie par Liduen
 * @param {*} numb 
 * @param {*} nbUnit 
 * @returns 
 */
+
 
 function delUnit(numb, nbUnit) {
   numb = numb.split("");
