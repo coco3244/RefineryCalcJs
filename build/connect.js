@@ -76,15 +76,17 @@ function connectioooooooon(res, create) {
   fetchDB(result);
 }
 
-function fetchDB(pseudo) {
+function fetchDB(pseudo, raffinery) {
   // Requète ajax pour requérir la BDD
   $.ajax({
     url: "./src/connect.php",
     method: "POST",
     data: {
-      "fetch": pseudo
+      fetch: pseudo,
+      raffinery: raffinery
     },
     success: function success(res) {
+      // console.log(res);
       res = JSON.parse(res);
       jobContainer.innerHTML = ""; //sécurité à enlever ?
 
@@ -92,7 +94,9 @@ function fetchDB(pseudo) {
         // Défilement du tableau et extraction des valeurs
         for (var i = 0; i < res.length; i++) {
           var jobId = void 0;
-          var raffinery = void 0;
+
+          var _raffinery = void 0;
+
           var time = void 0;
           var labelMinerais = "";
           var labelVal = "";
@@ -109,7 +113,7 @@ function fetchDB(pseudo) {
                 break;
 
               case "Raffinery":
-                raffinery = res[i][val];
+                _raffinery = res[i][val];
                 break;
 
               case "heurePlace":
@@ -126,7 +130,7 @@ function fetchDB(pseudo) {
           } // Setup de l'html avec les variables
 
 
-          var jobHtml = "\n                    <div class=\"job\" id=\"jobId_".concat(jobId, "\">\n                        <label class=\"titleJob\">").concat(i + 1, "</label>\n        \n                        <div class=\"mineraisContainer\">\n                            <div class=\"mineraisJob\">\n                                <div class=\"listeMinerais\">\n                                    ").concat(labelMinerais, "\n                                </div>\n                                <span class=\"separate\"></span>\n                                <div class=\"listeQuantites\">\n                                    ").concat(labelVal, "\n                                </div>\n                            </div>\n                            <label class=\"titreCat\">Total de ce Raffinage : </label>\n                            <div class=\"tabCat\">\n                                250 000 aUEC\n                            </div>\n                        </div>\n        \n                        <div class=\"emplacementContainer\">\n                            <label class=\"titreCat\">Emplacement : </label>\n                            <div class=\"tabCat\">\n                                ").concat(raffinery, "\n                            </div>\n                        </div>\n        \n                        <div class=\"tempsContainer\">\n                            <label class=\"titreCat\">Temps Restant : </label>\n                            <div class=\"tabCat\">\n                                ").concat(time, "\n                            </div>\n                        </div>\n        \n                        <div class=\"btnsContainer\">\n                            <button class=\"btnTransport\">Transporter</button>\n                            <button class=\"btnModif\">Modifier</button>\n                        </div>\n                    </div>"); //Affichage des cases remplies
+          var jobHtml = "\n                    <div class=\"job\" id=\"jobId_".concat(jobId, "\">\n                        <label class=\"titleJob\">").concat(i + 1, "</label>\n        \n                        <div class=\"mineraisContainer\">\n                            <div class=\"mineraisJob\">\n                                <div class=\"listeMinerais\">\n                                    ").concat(labelMinerais, "\n                                </div>\n                                <span class=\"separate\"></span>\n                                <div class=\"listeQuantites\">\n                                    ").concat(labelVal, "\n                                </div>\n                            </div>\n                            <label class=\"titreCat\">Total de ce Raffinage : </label>\n                            <div class=\"tabCat\">\n                                250 000 aUEC\n                            </div>\n                        </div>\n        \n                        <div class=\"emplacementContainer\">\n                            <label class=\"titreCat\">Emplacement : </label>\n                            <div class=\"tabCat\">\n                                ").concat(_raffinery, "\n                            </div>\n                        </div>\n        \n                        <div class=\"tempsContainer\">\n                            <label class=\"titreCat\">Temps Restant : </label>\n                            <div class=\"tabCat\">\n                                ").concat(time, "\n                            </div>\n                        </div>\n        \n                        <div class=\"btnsContainer\">\n                            <button class=\"btnTransport\">Transporter</button>\n                            <button class=\"btnModif\">Modifier</button>\n                        </div>\n                    </div>"); //Affichage des cases remplies
 
           jobContainer.innerHTML = jobHtml + jobContainer.innerHTML;
         }

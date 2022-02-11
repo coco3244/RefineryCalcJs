@@ -19,8 +19,8 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scripts -->
-    <script src="./build/" defer></script>
-    <script src="./src/scriptCalc.js" defer></script>
+    <script src="./build/connect.js" defer></script>
+    <script src="./build/scriptCalc.js" defer></script>
 </head>
 <body>
     <div class="connexionContainer">
@@ -61,14 +61,17 @@
         </div>
         <div class="right">
             <div class="customSelectContainer">
-                <label> Filtre :</label>
-                <input type="text" class="customSelect" id="selectFiltre">
+                <label> Raffinerie :</label>
+                <input type="text" class="customSelect" id="selectFiltre" list="selectFilterData">
+                <datalist id="selectFilterData">
+                    <option>CRU-L1</option>
+                    <option>ARC-L1</option>
+                    <option>ARC-L2</option>
+                    <option>HUR-L1</option>
+                    <option>HUR-L2</option>
+                    <option>MIC-L2</option>
+                </datalist>
                 <i class="fa-solid fa-sort-down arrowSelect"></i>
-                <div class="customOptions">
-                    <label>CRU-L1</label>
-                    <label>ARC-L1</label>
-                    <label>HUR-L1</label>
-                </div>
             </div>
             <label id="pseudoAct">Pseudo</label>
         </div>

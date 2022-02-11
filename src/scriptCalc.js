@@ -1,10 +1,6 @@
 const scrollContainer = document.querySelector('.jobsContainer');
 const addJobButton = document.querySelector('.addJobCont');
-const customOptions = document.querySelectorAll(".customOptions");
-let labelOptions;
-customOptions.forEach(item => {
-    labelOptions = item.querySelectorAll("label");
-})
+const selectFiltre = document.querySelector("#selectFiltre");
 
 scrollContainer.addEventListener('wheel',event=>{
     event.preventDefault();
@@ -30,10 +26,10 @@ addJobButton.addEventListener('click',event=>{
 
 });
 
-//faut le bon sélecteur ici :)
-labelOptions.forEach(item => {
-    item.addEventListener("click", e => {
-        console.log(item);
-    });
-});
 
+selectFiltre.addEventListener("input", e => {
+    console.log(selectFiltre.value);
+    const pseudoCont = document.querySelector("#pseudoAct");
+    const pseudo = pseudoCont.innerHTML;
+    fetchDB(pseudo, selectFiltre.value);
+})

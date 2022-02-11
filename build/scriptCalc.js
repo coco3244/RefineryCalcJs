@@ -2,11 +2,7 @@
 
 var scrollContainer = document.querySelector('.jobsContainer');
 var addJobButton = document.querySelector('.addJobCont');
-var customOptions = document.querySelectorAll(".customOptions");
-var labelOptions;
-customOptions.forEach(function (item) {
-  labelOptions = item.querySelectorAll("label");
-});
+var selectFiltre = document.querySelector("#selectFiltre");
 scrollContainer.addEventListener('wheel', function (event) {
   event.preventDefault();
   scrollContainer.scrollLeft += event.deltaY;
@@ -24,11 +20,11 @@ addJobButton.addEventListener('click', function (event) {
     value.innerHTML = "";
   });
   jobsContainer.innerHTML = firstJob.outerHTML + jobsContainer.innerHTML;
-}); //faut le bon sélecteur ici :)
-
-labelOptions.forEach(function (item) {
-  item.addEventListener("click", function (e) {
-    console.log(item);
-  });
+});
+selectFiltre.addEventListener("input", function (e) {
+  console.log(selectFiltre.value);
+  var pseudoCont = document.querySelector("#pseudoAct");
+  var pseudo = pseudoCont.innerHTML;
+  fetchDB(pseudo, selectFiltre.value);
 });
 //# sourceMappingURL=scriptCalc.js.map
