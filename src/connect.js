@@ -89,16 +89,20 @@ function connectioooooooon(res, create) {
     fetchDB(result);
 }
 
-function fetchDB(pseudo) {
+function fetchDB(pseudo, raffinery) {
     // Requète ajax pour requérir la BDD
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
-        data: {"fetch" : pseudo},
+        data: {
+            fetch : pseudo,
+            raffinery : raffinery
+        },
         success: function(res) {
+            // console.log(res);
             res = JSON.parse(res)
 
-            jobContainer.innerHTML = ""; //sécurité à enlever éventuellement
+            jobContainer.innerHTML = ""; //sécurité à enlever ?
             
             if(res.length > 0) {
                 // Défilement du tableau et extraction des valeurs

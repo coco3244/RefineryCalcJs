@@ -1,9 +1,10 @@
-const scrollContainer = document.querySelector(".jobsContainer");
-const addJobButton = document.querySelector(".addJobCont");
+const scrollContainer = document.querySelector('.jobsContainer');
+const addJobButton = document.querySelector('.addJobCont');
+const selectFiltre = document.querySelector("#selectFiltre");
 
-scrollContainer.addEventListener("wheel", (event) => {
-  event.preventDefault();
-  scrollContainer.scrollLeft += event.deltaY;
+scrollContainer.addEventListener('wheel',event=>{
+    event.preventDefault();
+    scrollContainer.scrollLeft += event.deltaY;
 });
 
 addJobButton.addEventListener("click", (event) => {
@@ -173,8 +174,12 @@ newJob.querySelector('.btnConfirm').addEventListener('click',event=>{
 });
 
 
-
-
+selectFiltre.addEventListener("input", e => {
+    console.log(selectFiltre.value);
+    const pseudoCont = document.querySelector("#pseudoAct");
+    const pseudo = pseudoCont.innerHTML;
+    fetchDB(pseudo, selectFiltre.value);
+})
 
 
 

@@ -11,6 +11,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./src/styleCalc.css">
     <link rel="stylesheet" href="./src/styleConnexion.css">
+
+    <!-- Icones Fontawesome.com -->
+    <script src="https://kit.fontawesome.com/4fde89ed96.js" crossorigin="anonymous"></script>
     
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -57,7 +60,19 @@
             <img src="./images/Logo3.png" alt="LogoOOS" draggable="false">
         </div>
         <div class="right">
-            <label>Filtre : CRU-L1</label>
+            <div class="customSelectContainer">
+                <label> Raffinerie :</label>
+                <input type="text" class="customSelect" id="selectFiltre" list="selectFilterData">
+                <datalist id="selectFilterData">
+                    <option>CRU-L1</option>
+                    <option>ARC-L1</option>
+                    <option>ARC-L2</option>
+                    <option>HUR-L1</option>
+                    <option>HUR-L2</option>
+                    <option>MIC-L2</option>
+                </datalist>
+                <i class="fa-solid fa-sort-down arrowSelect"></i>
+            </div>
             <label id="pseudoAct">Pseudo</label>
         </div>
     </div>

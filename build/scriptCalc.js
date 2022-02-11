@@ -1,8 +1,9 @@
 "use strict";
 
-var scrollContainer = document.querySelector(".jobsContainer");
-var addJobButton = document.querySelector(".addJobCont");
-scrollContainer.addEventListener("wheel", function (event) {
+var scrollContainer = document.querySelector('.jobsContainer');
+var addJobButton = document.querySelector('.addJobCont');
+var selectFiltre = document.querySelector("#selectFiltre");
+scrollContainer.addEventListener('wheel', function (event) {
   event.preventDefault();
   scrollContainer.scrollLeft += event.deltaY;
 });
@@ -105,6 +106,12 @@ addJobButton.addEventListener("click", function (event) {
     target.querySelector('.btnConfirm').classList.remove('hide');
     target.querySelector('.btnModif').classList.add('hide');
   });
+});
+selectFiltre.addEventListener("input", function (e) {
+  console.log(selectFiltre.value);
+  var pseudoCont = document.querySelector("#pseudoAct");
+  var pseudo = pseudoCont.innerHTML;
+  fetchDB(pseudo, selectFiltre.value);
 });
 /**
  * fonction fournie par Liduen

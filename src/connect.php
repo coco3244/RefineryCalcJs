@@ -38,7 +38,13 @@
         print("Pseudo=".$pseudo);
 
     } elseif(isset($_POST["fetch"])) {
-        $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
+
+        if(isset($_POST["raffinery"])) {
+            $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."') AND Raffinery LIKE '%".$_POST["raffinery"]."%';";
+
+        } else {
+            $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
+        }
         $req = $BDD->query($sql);
 
         $jobs = [];
