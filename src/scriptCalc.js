@@ -242,7 +242,7 @@ addJobButton.addEventListener("click", (event) => {
 // Insertion dans la bdd à l'ajout d'un job -----------------------------------
 function insertNewJob(tabInsert) {
     const pseudo = getPseudo();
-    tabInsert.fk_idUser = 1;
+    tabInsert.fk_idUser = pseudo;
     console.log(tabInsert);
 
     $.ajax({

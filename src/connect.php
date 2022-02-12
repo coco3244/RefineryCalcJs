@@ -61,7 +61,6 @@
         print_r(json_encode($data));
 
     } elseif (isset($_POST["newInsert"])) {
-        print_r($_POST["newInsert"]);
         $ins = $_POST["newInsert"];
         $i = 0;
         $colonnes = "";
@@ -74,23 +73,23 @@
             }
             
             if ($col == "fk_idUser") {
+                $sql = "SELECT idUser FROM user WHERE login='$val'";
+                $req = $BDD->query($sql);
+                $data = $req->fetch(PDO::FETCH_ASSOC);
+                
                 $colonnes .= $col;
                 $pointdint .= "?";
-                $datas[] = $val;        
-                // (SELECT idUser FROM user WHERE login='?')        
+                $datas[] = $data["idUser"];
             } else {
                 $colonnes .= $col;
                 $pointdint .= "?";
-                $datas[] = "'".$val."'";
+                $datas[] = $val;
             }
             
             $i++;
         }
                
         $prep = "INSERT INTO jobs ($colonnes) VALUES($pointdint)";
-        print($prep);
-        print_r($datas);
-
         $sql = $BDD->prepare($prep);
         $sql->execute($datas);
 
