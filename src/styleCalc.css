@@ -185,11 +185,11 @@ body {
 }
 
 /* Bouton d'ajout de Job */
-.addJobCont {
+.addJobCont , .transportJobsCont{
 	display: flex;
 	
 }
-.addJobCont button {
+.addJobCont button , .transportJobsCont button{
 	width: 100%;
 	height: 35px;
 
@@ -215,6 +215,30 @@ body {
 	
 }
 
+.checkBoxDiv{
+	left: 0;
+}
+
+.jobTransportCheckbox{
+	
+}
+.transportContainer {
+	display: flex;
+	justify-content: center;
+
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.6);
+}
 .job {
 	margin: 10px;
 	height: 95%;
@@ -297,7 +321,7 @@ body {
 }
 
 
-.btnTransport {
+.btnSupprimer {
 	left: 0;
 	border-bottom-left-radius: 20px;
 	border-top-right-radius: 10px;
@@ -307,4 +331,56 @@ body {
 	right: 0;
 	border-bottom-right-radius: 20px;
 	border-top-left-radius: 10px;
+}
+
+/*------------------------------ Transport ------------------------------ */
+
+.CancelButtonCont button ,.ValidateButtonCont button{
+	width: 100%;
+	height: 35px;
+
+	background-color: #fc6b36;
+	border: 0;
+	font-size: 16px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: white;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.CancelButtonCont,.ValidateButtonCont{
+	width: 25%;
+}
+
+.panierJob{
+	border: 2px solid red; /*TEMPORAIRE*/
+	background-color: white;
+	position: relative;
+	height: 80%;
+	width: 25%;
+}
+.vaisseauCont{
+	border: 2px solid blue; /*TEMPORAIRE*/
+	background-color: white;
+	height: 80%;
+	width: 70%;
+}
+.jobsResumeCont{
+	border: 2px solid green; /*TEMPORAIRE*/
+	height: 75%;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.jobsResumeCont label{
+	left: 0;
+}
+
+.totalPanierCont{
+	border: 2px solid purple; /*TEMPORAIRE*/
+	width: 80%;
+	position: absolute;
+	bottom: 0;
+	margin: 5%;
 }

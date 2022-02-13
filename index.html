@@ -19,10 +19,41 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scripts -->
-    <script src="./build/connect.js" defer></script>
-    <script src="./build/scriptCalc.js" defer></script>
+    <script src="./src/connect.js" defer></script>
+    <script src="./src/scriptCalc.js" defer></script>
 </head>
 <body>
+    <div class="transportContainer hide">
+        <div class="panierJob">
+            <label class="dontmod"> Panier De Job</label>
+
+            <div class="jobsResumeCont">
+
+            </div>
+
+            <div class="totalPanierCont">
+                <label class="dontmod"> Total:</label>
+
+            </div>
+        </div>
+
+        <div class="vaisseauCont">
+            <div class="vaisseauxListCont">
+
+            </div>
+            <div class="vaisseauxPhotoCont">
+
+            </div>
+
+            <div class="CancelButtonCont">
+                <button>Annuler</button>
+            </div>
+            <div class="ValidateButtonCont">
+                <button>Valider</button>
+            </div>
+        </div>
+        
+    </div>
     <div class="connexionContainer">
 		<form>
 			<label class="titleConnexion">Se connecter </label>
@@ -51,6 +82,8 @@
 			<label class="mdpError hide">Erreur : Mot de passe Incorrect !</label>
 		</form> 
 	</div>
+
+   
 
     <div class="toolBar">
         <div class="left">
@@ -105,6 +138,9 @@
             </div>
             <div class="addJobCont">
                 <button>Ajouter un Job</button>
+            </div>
+            <div class="transportJobsCont">
+                <button>Transporter</button>
             </div>
         </div>
 

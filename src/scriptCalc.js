@@ -1,7 +1,9 @@
 const scrollContainer = document.querySelector('.jobsContainer');
 const addJobButton = document.querySelector('.addJobCont');
+const transportButton = document.querySelector('.transportJobsCont');
 const selectFiltre = document.querySelector("#selectFiltre");
 const jobsContainer = document.querySelector(".jobsContainer");
+const transportContainer = document.querySelector('.transportContainer');
 
 
 scrollContainer.addEventListener('wheel',event=>{
@@ -42,16 +44,19 @@ jobContainer.addEventListener("click", (event) => {
         listeMineraisDiv.querySelector(`.${selectMinerai.value}`).remove();   
         
     }
+    /**
+    * Si on clique sur le bouton modifier
+    * ça confirme la modification
+    * ca re-affiche le menu déroulant des minerai et les bouton ajouter/supprimer
+    * ca cache le bouton modifier et re affiche le bouton confirmer
+    */
     if(event.target.classList.contains("btnModif")) {
-        /**
-        * listener du bouton confirmation
-        * ça confirme la modification
-        * ca re-affiche le menu déroulant des minerai et les bouton ajouter/supprimer
-        * ca cache le bouton modifier et re affiche le bouton confirmer
-        */
+        
         event.target.parentNode.querySelector('.btnConfirm').classList.remove('hide');
         event.target.parentNode.querySelector('.btnModif').classList.add('hide');
-        
+        event.target.parentNode.parentNode.querySelector('.checkBoxDiv').classList.add('hide'); //je cache la div avec la checkbox
+        event.target.parentNode.parentNode.querySelector('.checkBoxDiv').querySelector('input').checked=false; //je décoche la checkbox
+
         const labels = event.target.parentNode.parentNode.querySelectorAll('label');
         selectMinerai.classList.remove('hide');
         event.target.parentNode.parentNode.querySelector('.btnAddMineral').classList.remove('hide');
@@ -119,24 +124,25 @@ jobContainer.addEventListener("click", (event) => {
         */
     if(event.target.classList.contains("btnConfirm")) {       
         const inputs = event.target.parentNode.parentNode.querySelectorAll('input');
-        
-        
+        event.target.parentNode.parentNode.querySelector('.checkBoxDiv').classList.remove('hide');
+
         inputs.forEach(input=>{
-            const label = document.createElement('label');       
-            label.classList.add(`${input.classList.toString()}`)
-            if(input.parentNode.classList.contains('listeQuantites')){
-                label.classList.add('MineralQuantityLabel');
+            if(!input.classList.contains('dontmod')){
+                const label = document.createElement('label');       
+                label.classList.add(`${input.classList.toString()}`)
+                if(input.parentNode.classList.contains('listeQuantites')){
+                    label.classList.add('MineralQuantityLabel');
+                }
+                if(!label.classList.contains('temprestant')){
+                    
+                    label.innerHTML=`${input.value} cSCU`;
+                    
+                }else{
+                    label.innerHTML=`${input.value}`;
+                }           
+                input.parentNode.appendChild(label);
+                input.remove();
             }
-            if(!label.classList.contains('temprestant')){
-                
-                label.innerHTML=`${input.value} cSCU`;
-                
-            }else{
-                label.innerHTML=`${input.value}`;
-            }           
-            input.parentNode.appendChild(label);
-            input.remove();
-            
         })
         
         event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
@@ -169,11 +175,16 @@ addJobButton.addEventListener("click", (event) => {
     const numJob = document.querySelectorAll(".job").length + 1;
     let jobHtml = /*html*/ `
     <div class="job job${numJob}" id="jobId_TOBECHANGED">
+        <div class="checkBoxDiv hide"> 
+            <label class="dontmod">bouh: </label>
+            <input class="jobTransportCheckbox dontmod"type="checkbox">
+        </div>
+    
         <label class="titleJob dontmod">${numJob}</label>
 
         <div class="mineraisContainer">
                     <select class="selectMinerai"> 
-                    <option>quantainum</option>
+                    <option>quantainium</option>
                     <option>bexalite</option>
                     <option>taranite</option>
                     <option>borase</option>
@@ -226,7 +237,7 @@ addJobButton.addEventListener("click", (event) => {
         </div>
 
         <div class="btnsContainer">
-            <button class="btnTransport">Transporter</button>
+            <button class="btnSupprimer">Supprimer</button>
             <button class="btnModif hide">Modifier</button>
             <button class="btnConfirm">Confirmer</button>
         </div>
@@ -234,6 +245,147 @@ addJobButton.addEventListener("click", (event) => {
   jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
 });
 
+
+transportButton.addEventListener('click',event=>{
+    const jobs = jobsContainer.querySelectorAll('.job');
+    const jobsResumeCont = transportContainer.querySelector('.jobsResumeCont');
+    let quantainium=0;
+    let bexalite=0;
+    let taranite=0;
+    let borase=0;
+    let laranite=0;
+    let agricium=0
+    let hephaestanite=0;
+    let titanium=0;
+    let diamond=0;
+    let gold=0;
+    let copper=0;
+    let beryl=0;
+    let tungsten=0;
+    let corundum=0;
+    let quartz=0;
+    let aluminum=0;
+    jobs.forEach(job=>{
+        if(job.querySelector('.jobTransportCheckbox').checked){ 
+            /**
+             * une cascade de IF qui verifie si la 2eme case du queryselector, qui correspond
+             * au label avec la quantité n'est pas 'undefined' alors on peut incrémenté
+             * la variable correspondante 
+             */
+            
+            if(!job.querySelectorAll('.quantainium')[1]==='undefined'){
+                quantainium+=delUnit(job.querySelectorAll('.quantainium')[1].innerHTML,5);
+            }
+            
+            if(!job.querySelectorAll('.bexalite')[1]==='undefined'){
+                bexalite+=delUnit(job.querySelectorAll('.bexalite')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.taranite')[1]==='undefined'){
+                taranite+=delUnit(job.querySelectorAll('.taranite')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.borase')[1]==='undefined'){
+                borase+=delUnit(job.querySelectorAll('.borase')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.laranite')[1]==='undefined'){
+                laranite+=delUnit(job.querySelectorAll('.laranite')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.agricium')[1]==='undefined'){
+                agricium+=delUnit(job.querySelectorAll('.agricium')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.hephaestanite')[1]==='undefined'){
+                hephaestanite+=delUnit(job.querySelectorAll('.hephaestanite')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.titanium')[1]==='undefined'){
+                titanium+=delUnit(job.querySelectorAll('.titanium')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.diamond')[1]==='undefined'){
+                diamond+=delUnit(job.querySelectorAll('.diamond')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.gold')[1]==='undefined'){
+                gold+=delUnit(job.querySelectorAll('.gold')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.copper')[1]==='undefined'){
+                copper+=delUnit(job.querySelectorAll('.copper')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.beryl')[1]==='undefined'){
+                beryl+=delUnit(job.querySelectorAll('.beryl')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.tungsten')[1]==='undefined'){
+                tungsten+=delUnit(job.querySelectorAll('.tungsten')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.corundum')[1]==='undefined'){
+                corundum+=delUnit(job.querySelectorAll('.corundum')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.quartz')[1]==='undefined'){
+                quartz+=delUnit(job.querySelectorAll('.quartz')[1].innerHTML,5);
+            }
+
+            if(!job.querySelectorAll('.aluminum')[1]==='undefined'){
+                aluminum+=delUnit(job.querySelectorAll('.aluminum')[1].innerHTML,5);
+            }
+                                              
+        }
+    });
+
+    const br = document.createElement('br');
+    jobsResumeCont.innerHTML="";
+
+
+    let label = document.createElement('label');
+    labelQuant.innerHTML=`Quantainium: ${quantainium}`;
+
+    if(quantainium>0){
+        jobsResumeCont.appendChild(labelQuant);
+        jobsResumeCont.appendChild(br);
+    }
+
+    label = document.createElement('label');
+    labelBexa.innerHTML=`Bexalite: ${bexalite}`;
+    
+    if(bexalite>0){
+        jobsResumeCont.appendChild(labelBexa);
+        jobsResumeCont.appendChild(br);
+    }
+
+    label = document.createElement('label');
+    labelBexa.innerHTML=`Taranite: ${taranite}`;
+    
+    if(taranite>0){
+        jobsResumeCont.appendChild(labelBexa);
+        jobsResumeCont.appendChild(br);
+    }
+    
+    label = document.createElement('label');
+    labelBexa.innerHTML=`Borase: ${borase}`;
+    
+    if(borase>0){
+        jobsResumeCont.appendChild(labelBexa);
+        jobsResumeCont.appendChild(br);
+    }
+
+
+    transportContainer.classList.remove('hide');
+})
+
+transportContainer.querySelector('.CancelButtonCont').addEventListener('click',event=>{
+    transportContainer.querySelectorAll('.job').forEach(job=>{
+        job.remove();
+    })
+    transportContainer.classList.add('hide');
+})
 
 selectFiltre.addEventListener("input", e => {
     //console.log(selectFiltre.value);
@@ -259,7 +411,11 @@ function calculTotalUnitJob(job){
     return result;
 }
 
-
+/**
+ * Fonction qui prend une liste de jobs et qui calcul les cSCU globaux
+ * @param {*} jobs La liste des jobs
+ * @returns le compte de tout les cSCU de tout les jobs
+ */
 function calculTotalUnitGlobal(jobs){
     let result =0;
     jobs.forEach(job=>{
