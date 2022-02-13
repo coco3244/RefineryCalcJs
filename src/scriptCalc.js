@@ -4,6 +4,7 @@ const selectFiltre = document.querySelector("#selectFiltre");
 const jobsContainer = document.querySelector(".jobsContainer");
 
 
+
 scrollContainer.addEventListener('wheel',event=>{
     event.preventDefault();
     scrollContainer.scrollLeft += event.deltaY;
@@ -119,9 +120,21 @@ jobContainer.addEventListener("click", (event) => {
         */
     if(event.target.classList.contains("btnConfirm")) {       
         const inputs = event.target.parentNode.parentNode.querySelectorAll('input');
+        // création du tableau pour récuperer les cSCU
+        let compactecSCU = []; 
         
-        
+
         inputs.forEach(input=>{
+
+            let nomMinerai = input.classList.value;
+            
+            // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
+            if(nomMinerai !== "temprestant"){
+                 // appelle des minerais avec la fonction push
+                compactecSCU[nomMinerai] = input.value;
+            }
+            
+
             const label = document.createElement('label');       
             label.classList.add(`${input.classList.toString()}`)
             if(input.parentNode.classList.contains('listeQuantites')){
@@ -136,9 +149,36 @@ jobContainer.addEventListener("click", (event) => {
             }           
             input.parentNode.appendChild(label);
             input.remove();
-            
+
         })
-        
+
+        console.log(compactecSCU);
+        // on crée le tableau (prixmineraisrefined) et on y rajoute les prix par rapport ah un nom de minerai
+        let prixMineraiRefined = {
+            "Quantainium" : 88.00,
+            "Bexalite" : 40.65,
+            "Taranite" : 32.58,
+            "Borase" : 32.58,
+            "Laranite" : 31.01,
+            "Agricuim" : 27.50,
+            "Hephaestanite" : 14.76,
+            "Titanium" : 8.93,
+            "Diamond" : 7.36,
+            "Gold" : 6.40,
+            "Copper" : 5.73,
+            "Beryl" : 4.41,
+            "Tungsten" : 4.10,
+            "Corundum" : 2.70,
+            "Quartz" : 1.56,
+            "Aluminum" : 1.33,
+            "Inert Material" : 0.02,
+        }; 
+
+
+
+
+
+
         event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
         event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
         const raffinerySelect = event.target.parentNode.parentNode.querySelector('.Raffinery')
@@ -173,14 +213,22 @@ addJobButton.addEventListener("click", (event) => {
 
         <div class="mineraisContainer">
                     <select class="selectMinerai"> 
-                    <option>quantainum</option>
-                    <option>bexalite</option>
-                    <option>taranite</option>
-                    <option>borase</option>
-                    <option>laranite</option>
-                    <option>agricium</option>
-                    <option>hephaestanite</option>
-                    <option>titanium</option>                               
+                    <option>Quantainium</option>
+                    <option>Bexalite</option>
+                    <option>Taranite</option>
+                    <option>Borase</option>
+                    <option>Laranite</option>
+                    <option>Agricuim</option>
+                    <option>Hephaestanite</option>
+                    <option>Diamond</option>
+                    <option>Gold</option> 
+                    <option>Copper</option> 
+                    <option>Beryl</option> 
+                    <option>Tungsten</option> 
+                    <option>Corundum</option> 
+                    <option>Quartz</option> 
+                    <option>Aluminum</option> 
+                    <option>Inert Material</option>                               
                     </select>
                 <button class="btnAddMineral">Ajouter</button>
                 <button class="btnSuppMineral">Supprimer</button>
@@ -210,10 +258,9 @@ addJobButton.addEventListener("click", (event) => {
                 <select class="Raffinery"> 
                     <option>CRU-L1</option>
                     <option>ARC-L1</option>
-                    <option>ARC-L2</option>
                     <option>HUR-L1</option>
                     <option>HUR-L2</option>
-                    <option>MIC-L2</option>                             
+                    <option>MIC-L1</option>                             
                 </select>
             </div>
         </div>
@@ -268,7 +315,9 @@ function calculTotalUnitGlobal(jobs){
     return result;
 }
 
-
+function calculTotalPrixJobs(message){
+    return message + " !";
+}
 
 
 /**
