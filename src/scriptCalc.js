@@ -74,10 +74,9 @@ jobContainer.addEventListener("click", (event) => {
                     select.innerHTML=`
                     <option>CRU-L1</option>
                     <option>ARC-L1</option>
-                    <option>ARC-L2</option>
                     <option>HUR-L1</option>
                     <option>HUR-L2</option>
-                    <option>MIC-L2</option>                             
+                    <option>MIC-L1</option>                             
                     `
                     select.classList.add('Raffinery')
                     const options = select.querySelectorAll('option');
@@ -133,6 +132,8 @@ jobContainer.addEventListener("click", (event) => {
                  // appelle des minerais avec la fonction push
                 compactecSCU[nomMinerai] = input.value;
             }
+
+            console.log(compactecSCU);
             
 
             const label = document.createElement('label');       
@@ -151,8 +152,6 @@ jobContainer.addEventListener("click", (event) => {
             input.remove();
 
         })
-
-        console.log(compactecSCU);
         // on crée le tableau (prixmineraisrefined) et on y rajoute les prix par rapport ah un nom de minerai
         let prixMineraiRefined = {
             "Quantainium" : 88.00,
@@ -160,7 +159,7 @@ jobContainer.addEventListener("click", (event) => {
             "Taranite" : 32.58,
             "Borase" : 32.58,
             "Laranite" : 31.01,
-            "Agricuim" : 27.50,
+            "Agricium" : 27.50,
             "Hephaestanite" : 14.76,
             "Titanium" : 8.93,
             "Diamond" : 7.36,
@@ -171,11 +170,19 @@ jobContainer.addEventListener("click", (event) => {
             "Corundum" : 2.70,
             "Quartz" : 1.56,
             "Aluminum" : 1.33,
-            "Inert Material" : 0.02,
+            "Inert-Material" : 0.02,
         }; 
 
+        let multipliMineraiParPrix = {};  //j'apprends que multipliMineraiParPrix et un tableau
+        let totaljob = 0; //j'apprends que totalJob et à 0
 
-
+        //je demande de dissocier la quantité de minerai du nom du minerai
+        for (const minerai in compactecSCU) {
+            // je demande de multiplier la quantité de minerai par le prix
+            multipliMineraiParPrix[minerai] = Number(compactecSCU[minerai]) * prixMineraiRefined[minerai];
+            totaljob += multipliMineraiParPrix[minerai]
+            multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
+        };
 
 
 
@@ -192,7 +199,7 @@ jobContainer.addEventListener("click", (event) => {
         
         event.target.parentNode.parentNode.querySelector('.btnAddMineral').classList.add('hide');
         event.target.parentNode.parentNode.querySelector('.btnSuppMineral').classList.add('hide');
-        event.target.parentNode.parentNode.querySelector('.totalJobDiv').innerHTML=`Total: ${calculTotalUnitJob(event.target.parentNode.parentNode)}`
+        event.target.parentNode.parentNode.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(event.target.parentNode.parentNode)} cSCU | ${totaljob} aUEC`
         
         const tabTotal = document.querySelector('.tabTotal');
         
@@ -218,7 +225,7 @@ addJobButton.addEventListener("click", (event) => {
                     <option>Taranite</option>
                     <option>Borase</option>
                     <option>Laranite</option>
-                    <option>Agricuim</option>
+                    <option>Agricium</option>
                     <option>Hephaestanite</option>
                     <option>Diamond</option>
                     <option>Gold</option> 
@@ -228,7 +235,7 @@ addJobButton.addEventListener("click", (event) => {
                     <option>Corundum</option> 
                     <option>Quartz</option> 
                     <option>Aluminum</option> 
-                    <option>Inert Material</option>                               
+                    <option>Inert-Material</option>                               
                     </select>
                 <button class="btnAddMineral">Ajouter</button>
                 <button class="btnSuppMineral">Supprimer</button>
@@ -246,7 +253,7 @@ addJobButton.addEventListener("click", (event) => {
             </div>
            
             
-            <label class="titreCat dontmod">Total de ce Raffinage : </label>
+            <label class="titreCat dontmod">Total de ce Raffinage : </label> 
             <div class="tabCat totalJobDiv">
                 0
             </div>
@@ -315,9 +322,7 @@ function calculTotalUnitGlobal(jobs){
     return result;
 }
 
-function calculTotalPrixJobs(message){
-    return message + " !";
-}
+// function calculTotalPrixJobs{};
 
 
 /**
