@@ -10,7 +10,26 @@ scrollContainer.addEventListener('wheel',event=>{
     event.preventDefault();
     scrollContainer.scrollLeft += event.deltaY;
 });
-
+// on crée le tableau (prixmineraisrefined) et on y rajoute les prix par rapport ah un nom de minerai
+    let prixMineraiRefined = {
+        "Quantainium" : 88.00,
+        "Bexalite" : 40.65,
+        "Taranite" : 32.58,
+        "Borase" : 32.58,
+        "Laranite" : 31.01,
+        "Agricium" : 27.50,
+        "Hephaestanite" : 14.76,
+        "Titanium" : 8.93,
+        "Diamond" : 7.36,
+        "Gold" : 6.40,
+        "Copper" : 5.73,
+        "Beryl" : 4.41,
+        "Tungsten" : 4.10,
+        "Corundum" : 2.70,
+        "Quartz" : 1.56,
+        "Aluminum" : 1.33,
+        "Inert-Material" : 0.02,
+    };
 jobContainer.addEventListener("click", (event) => {
     const selectMinerai = event.target.parentNode.parentNode.querySelector('.selectMinerai');
     const listeMineraisDiv = event.target.parentNode.parentNode.querySelector('.listeMinerais');
@@ -116,6 +135,8 @@ jobContainer.addEventListener("click", (event) => {
         
     }
 
+    
+
      /**
         * Si on clique sur le bouton confirmer
         * ca cache le menu déroulant avec les minerai ainsi que les boutons ajouter et supprimer
@@ -125,8 +146,15 @@ jobContainer.addEventListener("click", (event) => {
     if(event.target.classList.contains("btnConfirm")) {       
         const inputs = event.target.parentNode.parentNode.querySelectorAll('input');
         event.target.parentNode.parentNode.querySelector('.checkBoxDiv').classList.remove('hide');
+        let compactecSCU = []; 
 
         inputs.forEach(input=>{
+            let nomMinerai = input.classList.value;
+             // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
+             if(nomMinerai !== "temprestant" && nomMinerai!=='jobTransportCheckbox dontmod'){
+                // appelle des minerais avec la fonction push
+               compactecSCU[nomMinerai] = input.value;
+           }          
             if(!input.classList.contains('dontmod')){
                 const label = document.createElement('label');       
                 label.classList.add(`${input.classList.toString()}`)
@@ -144,7 +172,20 @@ jobContainer.addEventListener("click", (event) => {
                 input.remove();
             }
         })
-        
+         
+
+        let multipliMineraiParPrix = {};  //j'apprends que multipliMineraiParPrix et un tableau
+        let totaljob = 0; //j'apprends que totalJob et à 0
+
+        //je demande de dissocier la quantité de minerai du nom du minerai
+        for (const minerai in compactecSCU) {
+            // je demande de multiplier la quantité de minerai par le prix
+            multipliMineraiParPrix[minerai] = Number(compactecSCU[minerai]) * prixMineraiRefined[minerai];
+           
+            totaljob += multipliMineraiParPrix[minerai];
+            multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
+        };
+
         event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
         event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
         const raffinerySelect = event.target.parentNode.parentNode.querySelector('.Raffinery')
@@ -158,7 +199,7 @@ jobContainer.addEventListener("click", (event) => {
         
         event.target.parentNode.parentNode.querySelector('.btnAddMineral').classList.add('hide');
         event.target.parentNode.parentNode.querySelector('.btnSuppMineral').classList.add('hide');
-        event.target.parentNode.parentNode.querySelector('.totalJobDiv').innerHTML=`Total: ${calculTotalUnitJob(event.target.parentNode.parentNode)}`
+        event.target.parentNode.parentNode.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(event.target.parentNode.parentNode)} cSCU | ${totaljob} aUEC`
         
         const tabTotal = document.querySelector('.tabTotal');
         
@@ -184,14 +225,22 @@ addJobButton.addEventListener("click", (event) => {
 
         <div class="mineraisContainer">
                     <select class="selectMinerai"> 
-                    <option>quantainium</option>
-                    <option>bexalite</option>
-                    <option>taranite</option>
-                    <option>borase</option>
-                    <option>laranite</option>
-                    <option>agricium</option>
-                    <option>hephaestanite</option>
-                    <option>titanium</option>                               
+                    <option>Quantainium</option>
+                    <option>Bexalite</option>
+                    <option>Taranite</option>
+                    <option>Borase</option>
+                    <option>Laranite</option>
+                    <option>Agricium</option>
+                    <option>Hephaestanite</option>
+                    <option>Diamond</option>
+                    <option>Gold</option> 
+                    <option>Copper</option> 
+                    <option>Beryl</option> 
+                    <option>Tungsten</option> 
+                    <option>Corundum</option> 
+                    <option>Quartz</option> 
+                    <option>Aluminum</option> 
+                    <option>Inert-Material</option>                                
                     </select>
                 <button class="btnAddMineral">Ajouter</button>
                 <button class="btnSuppMineral">Supprimer</button>
@@ -219,12 +268,11 @@ addJobButton.addEventListener("click", (event) => {
             <label class="titreCat dontmod">Emplacement : </label>
             <div class="tabCat">
                 <select class="Raffinery"> 
-                    <option>CRU-L1</option>
-                    <option>ARC-L1</option>
-                    <option>ARC-L2</option>
-                    <option>HUR-L1</option>
-                    <option>HUR-L2</option>
-                    <option>MIC-L2</option>                             
+                <option>CRU-L1</option>
+                <option>ARC-L1</option>
+                <option>HUR-L1</option>
+                <option>HUR-L2</option>
+                <option>MIC-L1</option>                               
                 </select>
             </div>
         </div>
@@ -249,134 +297,44 @@ addJobButton.addEventListener("click", (event) => {
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
     const jobsResumeCont = transportContainer.querySelector('.jobsResumeCont');
-    let quantainium=0;
-    let bexalite=0;
-    let taranite=0;
-    let borase=0;
-    let laranite=0;
-    let agricium=0
-    let hephaestanite=0;
-    let titanium=0;
-    let diamond=0;
-    let gold=0;
-    let copper=0;
-    let beryl=0;
-    let tungsten=0;
-    let corundum=0;
-    let quartz=0;
-    let aluminum=0;
+    let mineraisList = []; 
+
     jobs.forEach(job=>{
         if(job.querySelector('.jobTransportCheckbox').checked){ 
             /**
-             * une cascade de IF qui verifie si la 2eme case du queryselector, qui correspond
-             * au label avec la quantité n'est pas 'undefined' alors on peut incrémenté
-             * la variable correspondante 
-             */
+            * une cascade de IF qui verifie si la 2eme case du queryselector, qui correspond
+            * au label avec la quantité n'est pas 'undefined' alors on peut incrémenté
+            * la variable correspondante 
+            */
+            const minerals = job.querySelectorAll('.listeQuantites');
             
-            if(!job.querySelectorAll('.quantainium')[1]==='undefined'){
-                quantainium+=delUnit(job.querySelectorAll('.quantainium')[1].innerHTML,5);
-            }
-            
-            if(!job.querySelectorAll('.bexalite')[1]==='undefined'){
-                bexalite+=delUnit(job.querySelectorAll('.bexalite')[1].innerHTML,5);
-            }
+            minerals.forEach(mineral=>{
 
-            if(!job.querySelectorAll('.taranite')[1]==='undefined'){
-                taranite+=delUnit(job.querySelectorAll('.taranite')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.borase')[1]==='undefined'){
-                borase+=delUnit(job.querySelectorAll('.borase')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.laranite')[1]==='undefined'){
-                laranite+=delUnit(job.querySelectorAll('.laranite')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.agricium')[1]==='undefined'){
-                agricium+=delUnit(job.querySelectorAll('.agricium')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.hephaestanite')[1]==='undefined'){
-                hephaestanite+=delUnit(job.querySelectorAll('.hephaestanite')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.titanium')[1]==='undefined'){
-                titanium+=delUnit(job.querySelectorAll('.titanium')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.diamond')[1]==='undefined'){
-                diamond+=delUnit(job.querySelectorAll('.diamond')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.gold')[1]==='undefined'){
-                gold+=delUnit(job.querySelectorAll('.gold')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.copper')[1]==='undefined'){
-                copper+=delUnit(job.querySelectorAll('.copper')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.beryl')[1]==='undefined'){
-                beryl+=delUnit(job.querySelectorAll('.beryl')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.tungsten')[1]==='undefined'){
-                tungsten+=delUnit(job.querySelectorAll('.tungsten')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.corundum')[1]==='undefined'){
-                corundum+=delUnit(job.querySelectorAll('.corundum')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.quartz')[1]==='undefined'){
-                quartz+=delUnit(job.querySelectorAll('.quartz')[1].innerHTML,5);
-            }
-
-            if(!job.querySelectorAll('.aluminum')[1]==='undefined'){
-                aluminum+=delUnit(job.querySelectorAll('.aluminum')[1].innerHTML,5);
-            }
-                                              
-        }
+                const labels = mineral.querySelectorAll('label');
+                labels.forEach(label=>{                     
+                    if(mineraisList[label.classList[0]]=== undefined ){
+                        mineraisList[label.classList[0]]=delUnit(label.innerHTML,5);
+                    }else{
+                        mineraisList[label.classList[0]]+=delUnit(label.innerHTML,5);
+                    }         
+                   
+                })                          
+            })         
+        }      
     });
-
-    const br = document.createElement('br');
+    
     jobsResumeCont.innerHTML="";
 
+    for (const minerai in mineraisList) {
+        const br = document.createElement('br');
+        const label = document.createElement('label');
+        label.innerHTML=`${minerai}: ${mineraisList[minerai]} cSCU | ${Number(mineraisList[minerai]) * prixMineraiRefined[minerai]}  aUEC`;
 
-    let label = document.createElement('label');
-    labelQuant.innerHTML=`Quantainium: ${quantainium}`;
-
-    if(quantainium>0){
-        jobsResumeCont.appendChild(labelQuant);
+        jobsResumeCont.appendChild(label);
         jobsResumeCont.appendChild(br);
-    }
 
-    label = document.createElement('label');
-    labelBexa.innerHTML=`Bexalite: ${bexalite}`;
-    
-    if(bexalite>0){
-        jobsResumeCont.appendChild(labelBexa);
-        jobsResumeCont.appendChild(br);
-    }
-
-    label = document.createElement('label');
-    labelBexa.innerHTML=`Taranite: ${taranite}`;
-    
-    if(taranite>0){
-        jobsResumeCont.appendChild(labelBexa);
-        jobsResumeCont.appendChild(br);
-    }
-    
-    label = document.createElement('label');
-    labelBexa.innerHTML=`Borase: ${borase}`;
-    
-    if(borase>0){
-        jobsResumeCont.appendChild(labelBexa);
-        jobsResumeCont.appendChild(br);
-    }
-
-
+    };
+   
     transportContainer.classList.remove('hide');
 })
 
