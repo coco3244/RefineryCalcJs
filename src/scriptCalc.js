@@ -299,6 +299,8 @@ addJobButton.addEventListener("click", (event) => {
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
     const jobsResumeCont = transportContainer.querySelector('.jobsResumeCont');
+
+
     let mineraisList = []; 
 
     jobs.forEach(job=>{
@@ -328,6 +330,7 @@ transportButton.addEventListener('click',event=>{
     jobsResumeCont.innerHTML="";
     let totalcSCU=0;
     let totalaUEC=0;
+    
     for (const minerai in mineraisList) {
         const br = document.createElement('br');
         const label = document.createElement('label');
@@ -339,8 +342,55 @@ transportButton.addEventListener('click',event=>{
         jobsResumeCont.appendChild(br);
 
     };
+    
+    const vaisseauxListCont = transportContainer.querySelector('.vaisseauxListCont');
+    /**
+     * Je creer une tableau de tableau, le tableau interne :
+     * l'indice 0 le nom du vaisseau
+     * l'indice 1 la capacité de cargo
+     * l'indice 2 le lien dudis vaisseau sur le site de RSI
+     * /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ 
+     * C EST TEMPORAIRE, L'ORSQUE QUE LE TABLEAU SERA GéNéRé VIA BDD CA SERA LUI QUI PRENDRA LE RELAIS DANS L AFFICHAGE
+     * JE N AI VOLONTAIREMENT PAS MIS TOUT LES VAISSEAUX PRéSENT DANS L APPLI INITIAL PAR FLEMME CAR CA SERA CHANGé APRèS
+     */
+    let ships = [ 
+        ["600i Touring",1600,"https://robertsspaceindustries.com/pledge/ships/600i/600i-Touring"],
+        ["600i Explorer",4000,"https://robertsspaceindustries.com/pledge/ships/600i/600i-Explorer"],
+        ["Hammerhead",4000,"https://robertsspaceindustries.com/pledge/ships/hammerhead/Hammerhead"],
+        ["Mercury Star Runner",11400,"https://robertsspaceindustries.com/pledge/ships/crusader-mercury-star-runner/"],
+        ["C2 Hercules",69600,"https://robertsspaceindustries.com/pledge/ships/crusader-starlifter/C2-Hercules"]
+    ]
+    let images={
+        "600i Touring":"https://robertsspaceindustries.com/media/6leim20dm8avcr/store_slideshow_large/600i-Swanky-Apartment.jpg",
+        "600i Explorer":"https://robertsspaceindustries.com/media/edwd8vsufwmdxr/store_slideshow_large/600i_01_Beach-Squashed.jpg",
+        "Hammerhead":"https://robertsspaceindustries.com/media/sjzzdy79hoq0sr/store_slideshow_large/Aegis-Hammerhead-Piece-02-Full-Force-03-06.jpg",
+        "Mercury Star Runner":"https://robertsspaceindustries.com/media/k8z9y4skemjncr/store_slideshow_large/Crusader-Three-Quater-Updated.png",
+        "C2 Hercules": "https://media.robertsspaceindustries.com/datp88pyz74xg/store_slideshow_large.jpg"
+    }
+    const vaisseauxPhotoCont = transportContainer.querySelector('.vaisseauxPhotoCont');
     const totalLabel = totalPanierCont.querySelector('.totalLabel');
     totalLabel.innerHTML=`${totalcSCU} cSCU | ${totalaUEC} aUEC`;
+    vaisseauxListCont.innerHTML="";
+    ships.forEach(ship=>{
+        if(ship[1]>=totalcSCU){
+            const label = document.createElement('label');
+            const br = document.createElement('br');
+            label.classList.add('vaisseau');
+            label.innerHTML=`Le <a target="_blank "href="${ship[2]}">${ship[0]}</a> avec ${ship[1]} cSCU`;
+            const link = label.querySelector('a');
+            link.addEventListener('mouseover',event=>{
+                const image = document.createElement('img');
+                image.setAttribute('src',images[event.target.innerHTML]);
+                vaisseauxPhotoCont.innerHTML="";
+                vaisseauxPhotoCont.appendChild(image);
+
+            })
+            vaisseauxListCont.appendChild(label);
+            vaisseauxListCont.appendChild(br);
+        }
+    })
+    
+
     transportContainer.classList.remove('hide');
 })
 
