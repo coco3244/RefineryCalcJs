@@ -4,7 +4,7 @@ const transportButton = document.querySelector('.transportJobsCont');
 const selectFiltre = document.querySelector("#selectFiltre");
 const jobsContainer = document.querySelector(".jobsContainer");
 const transportContainer = document.querySelector('.transportContainer');
-
+const totalPanierCont = document.querySelector('.totalPanierCont');
 
 scrollContainer.addEventListener('wheel',event=>{
     event.preventDefault();
@@ -135,8 +135,6 @@ jobContainer.addEventListener("click", (event) => {
         
     }
 
-    
-
      /**
         * Si on clique sur le bouton confirmer
         * ca cache le menu déroulant avec les minerai ainsi que les boutons ajouter et supprimer
@@ -210,7 +208,11 @@ jobContainer.addEventListener("click", (event) => {
 
 
 
-
+/**
+ * Ajout de l'écoute sur le bouton d'ajout de job
+ * cela crée un job de toute piece, l'intègre a gauche ce ceux présent
+ * et ajoute les listener sur tout ce qu'il faut
+ */
 addJobButton.addEventListener("click", (event) => {
     event.preventDefault();
     const numJob = document.querySelectorAll(".job").length + 1;
@@ -324,17 +326,21 @@ transportButton.addEventListener('click',event=>{
     });
     
     jobsResumeCont.innerHTML="";
-
+    let totalcSCU=0;
+    let totalaUEC=0;
     for (const minerai in mineraisList) {
         const br = document.createElement('br');
         const label = document.createElement('label');
+        totalcSCU+=mineraisList[minerai];
+        totalaUEC+=Number(mineraisList[minerai]) * prixMineraiRefined[minerai];
         label.innerHTML=`${minerai}: ${mineraisList[minerai]} cSCU | ${Number(mineraisList[minerai]) * prixMineraiRefined[minerai]}  aUEC`;
 
         jobsResumeCont.appendChild(label);
         jobsResumeCont.appendChild(br);
 
     };
-   
+    const totalLabel = totalPanierCont.querySelector('.totalLabel');
+    totalLabel.innerHTML=`${totalcSCU} cSCU | ${totalaUEC} aUEC`;
     transportContainer.classList.remove('hide');
 })
 

@@ -220,8 +220,10 @@ body {
 }
 
 .jobTransportCheckbox{
-	
+	width:30px;
+    height:30px;
 }
+
 .transportContainer {
 	display: flex;
 	justify-content: center;
