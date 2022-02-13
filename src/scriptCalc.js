@@ -219,7 +219,7 @@ addJobButton.addEventListener("click", (event) => {
     let jobHtml = /*html*/ `
     <div class="job job${numJob}" id="jobId_TOBECHANGED">
         <div class="checkBoxDiv hide"> 
-            <label class="dontmod">bouh: </label>
+            <label class="dontmod">Transporter ? </label>
             <input class="jobTransportCheckbox dontmod"type="checkbox">
         </div>
     
