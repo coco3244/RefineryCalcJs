@@ -376,7 +376,7 @@ transportButton.addEventListener('click',event=>{
             const label = document.createElement('label');
             const br = document.createElement('br');
             label.classList.add('vaisseau');
-            label.innerHTML=`Le <a target="_blank "href="${ship[2]}">${ship[0]}</a> avec ${ship[1]} cSCU`;
+            label.innerHTML=`Le <a target="_blank "href="${ship[2]}">${ship[0]}</a> avec ${ship[1]} cSCU, ${ship[1]-totalcSCU} après chargement`;
             const link = label.querySelector('a');
             link.addEventListener('mouseover',event=>{
                 const image = document.createElement('img');
