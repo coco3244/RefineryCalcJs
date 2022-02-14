@@ -240,6 +240,11 @@ body {
 	width: 240px;
 }
 
+.selectContainer {
+	display: flex;
+	flex-direction: column;
+}
+
 .mineraisContainer {
 	height: 50%;
 	display: flex;

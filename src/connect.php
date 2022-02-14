@@ -66,33 +66,64 @@
         $colonnes = "";
         $pointdint = "";
         $datas = [];
-        foreach($_POST["newInsert"] as $col => $val) {
-            if($i != 0) {
-                $colonnes .= ", ";
-                $pointdint .= ", ";
-            }
-            
-            if ($col == "fk_idUser") {
-                $sql = "SELECT idUser FROM user WHERE login='$val'";
-                $req = $BDD->query($sql);
-                $data = $req->fetch(PDO::FETCH_ASSOC);
-                
-                $colonnes .= $col;
-                $pointdint .= "?";
-                $datas[] = $data["idUser"];
-            } else {
-                $colonnes .= $col;
-                $pointdint .= "?";
-                $datas[] = $val;
-            }
-            
-            $i++;
-        }
-               
-        $prep = "INSERT INTO jobs ($colonnes) VALUES($pointdint)";
-        $sql = $BDD->prepare($prep);
-        $sql->execute($datas);
 
+        $id = $_POST["newInsert"]["idJob"];
+
+        $req = $BDD->query("SELECT EXISTS (SELECT idJob FROM jobs WHERE idJob=$id) AS Exist" );
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        
+        $datas = [];
+
+        if ($data["Exist"] == 1) {
+            foreach($_POST["newInsert"] as $col => $val) {
+                
+                if ($col != "fk_idUser") {
+                    if($i != 0) {
+                        $colonnes .= ", ";
+                    }
+                    
+                    $colonnes .= $col."=?";
+                    $datas[] = $val;
+                }
+                
+                $i++;
+            }
+            
+            print_r($datas);
+                   
+            $prep = "UPDATE jobs SET $colonnes WHERE idJob=$id";
+            print($prep);
+            $sql = $BDD->prepare($prep);
+            $sql->execute($datas);
+            
+        } else {
+            foreach($_POST["newInsert"] as $col => $val) {
+                if($i != 0) {
+                    $colonnes .= ", ";
+                    $pointdint .= ", ";
+                }
+                
+                if ($col == "fk_idUser") {
+                    $sql = "SELECT idUser FROM user WHERE login='$val'";
+                    $req = $BDD->query($sql);
+                    $data = $req->fetch(PDO::FETCH_ASSOC);
+                    
+                    $colonnes .= $col;
+                    $pointdint .= "?";
+                    $datas[] = $data["idUser"];
+                } else {
+                    $colonnes .= $col;
+                    $pointdint .= "?";
+                    $datas[] = $val;
+                }
+                
+                $i++;
+            }
+                   
+            $prep = "INSERT INTO jobs ($colonnes) VALUES($pointdint)";
+            $sql = $BDD->prepare($prep);
+            $sql->execute($datas);
+        }
     }
 
 ?>
