@@ -46,7 +46,7 @@
             $sql2 = "UPDATE user SET lastFilter='".$_POST["raffinery"]."' WHERE login = '".$_POST["fetch"]."'";
             $req2 = $BDD->query($sql2);
 
-            $sql = `SELECT * FROM 'jobs' WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '`.$_POST["fetch"].`') AND Raffinery LIKE '%`.$_POST["raffinery"].`%';`;
+            $sql = "SELECT * FROM jobs WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."') AND Raffinery LIKE concat('%', '".$_POST["raffinery"]."','%');";
 
         } else {
             $sql = "SELECT *, (SELECT lastFilter  FROM user WHERE fk_idUser='".$_POST["fetch"]."') AS lastFilter FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
