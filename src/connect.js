@@ -86,10 +86,10 @@ function connectioooooooon(res, create) {
     let result = res.substr(ps + 7, res.length)
 
     pseudo.innerHTML = result;
-    fetchDB(result);
+    fetchDB(result, undefined, 1);
 }
 
-function fetchDB(pseudo, raffinery) {
+function fetchDB(pseudo, raffinery, load) {
     nextId = -1;
     // Requète ajax pour requérir la BDD
     $.ajax({
@@ -97,7 +97,8 @@ function fetchDB(pseudo, raffinery) {
         method: "POST",
         data: {
             fetch : pseudo,
-            raffinery : raffinery
+            raffinery : raffinery,
+            firstLoad : load
         },
         success: function(res) {
             // console.log(res);
@@ -126,6 +127,9 @@ function fetchDB(pseudo, raffinery) {
                             break;
                             case "heurePlace":
                                 time = res[i][val];
+                            break;
+                            case "lastFilter":
+                                selectFiltre.value = res[i][val];
                             break;
                             default:
                                 if(res[i][val] !== null) {
