@@ -26,7 +26,8 @@ jobsContainer.addEventListener("click", (event) => {
         /**
          * listener pour ajouter un minerai
          * ca cree un label et un input et ca les insère dans leur div correspondante
-         */                          
+         */
+
         if(!listeMineraisDiv.querySelector(`.${selectMinerai.value}`)){
             const input = document.createElement('input');
             
@@ -68,7 +69,7 @@ jobsContainer.addEventListener("click", (event) => {
         // Transformation des labels de valeur en inputs
         labels.forEach(label=>{
             if (findParent("listeQuantites", label) !== 0) {
-                console.log(label);
+                // Les valeurs
                 label.classList.add('hide');
 
                 const input = label.previousElementSibling;
@@ -77,7 +78,7 @@ jobsContainer.addEventListener("click", (event) => {
                 label.remove();
 
             } else if (findParent("emplacementContainer", label, 2) !== 0) {
-                console.log(label);
+                // La localisation
                 label.classList.add("hide");
 
                 const select = label.previousElementSibling;
@@ -86,7 +87,7 @@ jobsContainer.addEventListener("click", (event) => {
                 label.remove();
                 
             } else if (findParent("tempsContainer", label, 2) !== 0) {
-                console.log(label);
+                // Le temps
                 label.classList.add("hide");
                 
                 const input = label.previousElementSibling;
@@ -113,16 +114,16 @@ jobsContainer.addEventListener("click", (event) => {
         
         // On vérifie qu'il n'y a pas d'input vide
         inputs.forEach(input => {
-            if (input.parentNode.classList.contains("tabCat")) {
+            if (input.parentNode.classList.contains("tabCat") && input.value === "") {
                 tVide = true;
             } else if (input.value === "") {
                 iVide = true;
             }
         });
 
-        // Si il y a des champs vide, on les suppr, oup 
+        // Si il y a des champs vide, on les suppr, ou pas :)
+        let confirmDel = false;
         if (iVide === true) {
-            let confirmDel = false;
             confirmDel = window.confirm("Vous laissez des champs vides ! Voulez vous les supprimer ?");
 
             if (confirmDel === true) {
@@ -139,11 +140,11 @@ jobsContainer.addEventListener("click", (event) => {
         }
 
         //Si le champ de temps est vide, on le signale
-        if (tVide == true) {
+        if (tVide === true) {
             alert("Vous devez définir le temps restant !");
         }
 
-        if (confirmDel === false && tVide === false) {
+        if (iVide === false && tVide === false) {
             inputs.forEach(input => {
                 const label = document.createElement('label');    
                 label.classList.add(input.className);
@@ -156,6 +157,8 @@ jobsContainer.addEventListener("click", (event) => {
                     label.classList.add('MineralQuantityLabel');
     
                     label.innerHTML=`${input.value} cSCU`;
+                } else {
+                    label.innerHTML = input.value;
                 }
                 
                 input.parentNode.appendChild(label);
@@ -170,12 +173,10 @@ jobsContainer.addEventListener("click", (event) => {
             // Insertion dans le tab pour la bdd
             tabInsert[raffinerySelect.className] = raffinerySelect.value;
             let idJob = jobActuel.id.split("_");
-            console.log(jobActuel.id);
-            console.log(idJob);
             tabInsert["idJob"] = idJob[1];
 
 
-            // Création des lables pour remplacer les inputs
+            // Création des labels pour remplacer les inputs
             const label = document.createElement('label');
             label.classList.add(`${raffinerySelect.className}`);
             label.innerHTML = raffinerySelect.value;
@@ -274,22 +275,22 @@ addJobButton.addEventListener("click", (event) => {
     jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
 });
 
-// Insertion dans la bdd à l'ajout d'un job -----------------------------------
+/** Insertion dans la bdd à l'ajout d'un job
+ * @param {*} tabInsert Le tableau contenant les vasleurs à insérer
+ */
 function insertNewJob(tabInsert) {
     const pseudo = getPseudo();
     tabInsert.fk_idUser = pseudo;
-    console.log(tabInsert);
 
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
+        async: false,
         data: {newInsert : tabInsert},
         success: function(res) {
             console.log(res);
         }
     });
-
-    // fetchDB(pseudo); Faut récup l'id correctement, ça c'est pas possible pak si refresh on perd les autres jobs en train d'être ajoutés
 }
 
 // Update du Filtre -----------------------------------------------------------
@@ -311,7 +312,7 @@ function calculTotalUnitJob(job){
     const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
     quantityLabels.forEach(value=>{
         
-        result+=delUnit(value.innerHTML,5);
+        result+=Number(delUnit(value.innerHTML,5));
     })
     return result;
 }
@@ -320,7 +321,7 @@ function calculTotalUnitJob(job){
 function calculTotalUnitGlobal(jobs){
     let result =0;
     jobs.forEach(job=>{
-        result+=calculTotalUnitJob(job);
+        result+=Number(calculTotalUnitJob(job));
     })
     return result;
 }
@@ -358,16 +359,16 @@ function find(classF, e) {
 }
 
 
-/** Fonction permettant de vérifier qu'un élément à bien un parent contentant telle classe
+/** Fonction permettant de vérifier qu'un élément à bien un parent contenant @classF
  * @param classF La classe qu'on recherche sur le parent
  * @param elem L'enfant à partir duquel vous faites la recherche
- * @param {int} stringParent Optionnel : mettez un Nombre si vous savez de combien de noeuds remonter
+ * @param {int} numParent Optionnel : mettez un Nombre si vous savez de combien de noeuds remonter
  * @returns Le noeud parent si elle le trouve, sinon 0
  */
-function findParent(classF, elem, stringParent) {
+function findParent(classF, elem, numParent) {
     let targ = elem;
 
-    if(stringParent === undefined) {
+    if(numParent === undefined) {
         while(!targ.classList.contains(classF)) {
             targ = targ.parentNode;
             
@@ -378,7 +379,7 @@ function findParent(classF, elem, stringParent) {
         } 
         
     } else {
-        for (let i = 0; i < stringParent; i++) {
+        for (let i = 0; i < numParent; i++) {
             targ = targ.parentNode;
     
             if(targ === document.body) {
@@ -408,7 +409,7 @@ function getNextId() {
         success: function(res) {
             res = JSON.parse(res)
             let previousId = nextId;
-            let tmpId = stringer(res["MAX(idJob)"]) + 1;
+            let tmpId = Number(res["MAX(idJob)"]) + 1;
             if (tmpId <= previousId) {
                 nextId = previousId + 1;
             } else {
@@ -419,7 +420,7 @@ function getNextId() {
 }
 
 /**
- * Fonction qui return le pseudo actuel
+ * Fonction qui retourne le pseudo actuel
  * @returns le pseudo
  */
 function getPseudo() {

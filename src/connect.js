@@ -208,18 +208,18 @@ function fetchDB(pseudo, raffinery) {
         
                 }
 
-                const jobs = document.querySelectorAll('.job');
-                jobs.forEach(jobActuel => {
-                    // console.log(jobActuel);
-                    // Calcul des totaux
-                    // Par Job
-                    jobActuel.querySelector('.totalJobDiv').innerHTML = `Total: ${calculTotalUnitJob(jobActuel)}`;
-                    // console.log(jobActuel.querySelector('.totalJobDiv').innerHTML);
+                // const jobs = document.querySelectorAll('.job');
+                // jobs.forEach(jobActuel => {
+                //     // console.log(jobActuel);
+                //     // Calcul des totaux
+                //     // Par Job
+                //     jobActuel.querySelector('.totalJobDiv').innerHTML = `Total: ${calculTotalUnitJob(jobActuel)}`;
+                //     // console.log(jobActuel.querySelector('.totalJobDiv').innerHTML);
                     
-                });
+                // });
 
-                // Et total
-                tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`; 
+                // // Et total
+                // tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`; 
 
             }
         }
