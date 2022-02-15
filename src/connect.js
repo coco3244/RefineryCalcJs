@@ -143,6 +143,11 @@ function fetchDB(pseudo, raffinery, load) {
                     // Setup de l'html avec les variables
                     let jobHtml = `
                     <div class="job" id="jobId_${jobId}">
+                        <div class="checkBoxDiv"> 
+                            <label>Transporter ? </label>
+                            <input class="jobTransportCheckbox"type="checkbox">
+                        </div>
+
                         <label class="titleJob">${i + 1}</label>
                     
                         <div class="selectContainer hide">
@@ -154,7 +159,16 @@ function fetchDB(pseudo, raffinery, load) {
                                 <option>Laranite</option>
                                 <option>Agricium</option>
                                 <option>Hephaestanite</option>
-                                <option>Titanium</option>                               
+                                <option>Titanium</option>    
+                                <option>Diamond</option>
+                                <option>Gold</option> 
+                                <option>Copper</option> 
+                                <option>Beryl</option> 
+                                <option>Tungsten</option> 
+                                <option>Corundum</option> 
+                                <option>Quartz</option> 
+                                <option>Aluminum</option> 
+                                <option>Inert-Material</option>                            
                             </select>
 
                             <button class="btnAddMineral">Ajouter</button>

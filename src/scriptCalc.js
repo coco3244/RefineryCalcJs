@@ -174,7 +174,7 @@ jobsContainer.addEventListener("click", (event) => {
             jobActuel.querySelector('.checkBoxDiv').classList.remove('hide');
             inputs.forEach(input => {
                 const label = document.createElement('label');    
-                label.classList.add(input.className);
+                label.classList.add(input.classList[0]);
 
                 let nomMinerai = input.classList.value;
                 // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
@@ -184,7 +184,9 @@ jobsContainer.addEventListener("click", (event) => {
                 }   
     
                 // Insertion dans le tab pour la bdd
-                tabInsert[input.className] = input.value;
+                if (!input.classList.contains("jobTransportCheckbox")) {
+                    tabInsert[input.className] = input.value;
+                }
     
                 // Extraction des valeurs des inputs pour les mettre dans les labels
                 if(input.parentNode.classList.contains('listeQuantites')){
@@ -197,7 +199,6 @@ jobsContainer.addEventListener("click", (event) => {
                 
                 input.parentNode.appendChild(label);
                 input.classList.add("hide");
-                
             });
 
         
@@ -263,7 +264,7 @@ addJobButton.addEventListener("click", (event) => {
     <div class="job job${numJob}" id="jobId_${nextId}">
         <div class="checkBoxDiv hide"> 
             <label>Transporter ? </label>
-            <input class="jobTransportCheckbox dontmod"type="checkbox">
+            <input class="jobTransportCheckbox"type="checkbox">
         </div>
 
         <label class="titleJob">${numJob}</label>
