@@ -5,208 +5,248 @@ const selectFiltre = document.querySelector("#selectFiltre");
 const jobsContainer = document.querySelector(".jobsContainer");
 const transportContainer = document.querySelector('.transportContainer');
 const totalPanierCont = document.querySelector('.totalPanierCont');
+const tabTotal = document.querySelector('.tabTotal');
+
+let nextId = -1;
+
+
 
 scrollContainer.addEventListener('wheel',event=>{
     event.preventDefault();
     scrollContainer.scrollLeft += event.deltaY;
 });
 // on crée le tableau (prixmineraisrefined) et on y rajoute les prix par rapport ah un nom de minerai
-    let prixMineraiRefined = {
-        "Quantainium" : 88.00,
-        "Bexalite" : 40.65,
-        "Taranite" : 32.58,
-        "Borase" : 32.58,
-        "Laranite" : 31.01,
-        "Agricium" : 27.50,
-        "Hephaestanite" : 14.76,
-        "Titanium" : 8.93,
-        "Diamond" : 7.36,
-        "Gold" : 6.40,
-        "Copper" : 5.73,
-        "Beryl" : 4.41,
-        "Tungsten" : 4.10,
-        "Corundum" : 2.70,
-        "Quartz" : 1.56,
-        "Aluminum" : 1.33,
-        "Inert-Material" : 0.02,
-    };
-jobContainer.addEventListener("click", (event) => {
-    const selectMinerai = event.target.parentNode.parentNode.querySelector('.selectMinerai');
-    const listeMineraisDiv = event.target.parentNode.parentNode.querySelector('.listeMinerais');
-    const listeQuantitesDiv = event.target.parentNode.parentNode.querySelector('.listeQuantites');
+let prixMineraiRefined = {
+    "Quantainium" : 88.00,
+    "Bexalite" : 40.65,
+    "Taranite" : 32.58,
+    "Borase" : 32.58,
+    "Laranite" : 31.01,
+    "Agricium" : 27.50,
+    "Hephaestanite" : 14.76,
+    "Titanium" : 8.93,
+    "Diamond" : 7.36,
+    "Gold" : 6.40,
+    "Copper" : 5.73,
+    "Beryl" : 4.41,
+    "Tungsten" : 4.10,
+    "Corundum" : 2.70,
+    "Quartz" : 1.56,
+    "Aluminum" : 1.33,
+    "Inert-Material" : 0.02,
+};
+
+
+// Tracking des boutons dans les Jobs -----------------------------------------
+jobsContainer.addEventListener("click", (event) => {
+    const jobActuel = find("job", event);
+
+    const selectMineraiCont = jobActuel.querySelector('.selectContainer');
+    const selectMinerai = jobActuel.querySelector(".selectMinerai")
+    const listeMineraisDiv = jobActuel.querySelector('.listeMinerais');
+    const listeQuantitesDiv = jobActuel.querySelector('.listeQuantites');
+
     if(event.target.classList.contains("btnAddMineral")) {
         /**
-        * listener pour ajouter un minerai
-        * ca cree un label et un input et ca les insère dans leur div correspondante
-        */                          
+         * listener pour ajouter un minerai
+         * ca cree un label et un input et ca les insère dans leur div correspondante
+         */
+
         if(!listeMineraisDiv.querySelector(`.${selectMinerai.value}`)){
             const input = document.createElement('input');
             
             input.setAttribute('type','number');
-            input.classList.add(`${selectMinerai.value}`);
+            input.classList.add(selectMinerai.value);
+            input.requiered = true;
+
             const label = document.createElement('label');
-            label.classList.add(`${selectMinerai.value}`);
-            label.classList.add(`dontmod`);
-            label.innerHTML=`${selectMinerai.value}`;
+            label.classList.add(selectMinerai.value);
+            label.innerHTML = selectMinerai.value;
             
             listeQuantitesDiv.appendChild(input);
             listeMineraisDiv.appendChild(label);
         }     
         
         
-    }
-    if(event.target.classList.contains("btnSuppMineral")) {
-        /**
-        * Supprime les minerai des 2 div correspondante
-        */                
+    } else if(event.target.classList.contains("btnSuppMineral")) {
+        // Supprime les minerai des 2 div correspondante
+                     
         listeQuantitesDiv.querySelector(`.${selectMinerai.value}`).remove();
         listeMineraisDiv.querySelector(`.${selectMinerai.value}`).remove();   
         
-    }
-    /**
-    * Si on clique sur le bouton modifier
-    * ça confirme la modification
-    * ca re-affiche le menu déroulant des minerai et les bouton ajouter/supprimer
-    * ca cache le bouton modifier et re affiche le bouton confirmer
-    */
-    if(event.target.classList.contains("btnModif")) {
-        
-        event.target.parentNode.querySelector('.btnConfirm').classList.remove('hide');
-        event.target.parentNode.querySelector('.btnModif').classList.add('hide');
-        event.target.parentNode.parentNode.querySelector('.checkBoxDiv').classList.add('hide'); //je cache la div avec la checkbox
-        event.target.parentNode.parentNode.querySelector('.checkBoxDiv').querySelector('input').checked=false; //je décoche la checkbox
 
-        const labels = event.target.parentNode.parentNode.querySelectorAll('label');
-        selectMinerai.classList.remove('hide');
-        event.target.parentNode.parentNode.querySelector('.btnAddMineral').classList.remove('hide');
-        event.target.parentNode.parentNode.querySelector('.btnSuppMineral').classList.remove('hide');
-        
-        labels.forEach(label=>{
-            
-            if(!label.classList.contains('dontmod')){
-                const input = document.createElement('input');
-               
-                if(label.parentNode.classList.contains('listeQuantites')){
-                    input.setAttribute('type','number');
-                }else{
-                    input.setAttribute('type','text');
-                }
-                
-                if(label.classList.contains('Raffinery')){
-                    const select = document.createElement('select');
-                    select.innerHTML=`
-                    <option>CRU-L1</option>
-                    <option>ARC-L1</option>
-                    <option>ARC-L2</option>
-                    <option>HUR-L1</option>
-                    <option>HUR-L2</option>
-                    <option>MIC-L2</option>                             
-                    `
-                    select.classList.add('Raffinery')
-                    const options = select.querySelectorAll('option');
-                    const raffinerie = label.innerHTML;
-                    options.forEach(value=>{
-                        if(value.innerHTML===raffinerie){
-                            select.value=raffinerie;
-                        }
-                    });
-                    label.parentNode.appendChild(select)
-                    label.remove();
-                }else{
-                    input.classList.add(`${label.classList[0]}`);
-                    if(!label.classList[1]==='undefined'){
-                        input.classList.add(`${label.classList[1]}`);
-                    }
-                    if(label.classList.contains('temprestant')){
-                        
-                        input.setAttribute('value',`${label.innerHTML}`);
-                    }else{
-                        input.setAttribute('value',`${delUnit(label.innerHTML,5)}`)
-                    }
-                   
-                    label.parentNode.appendChild(input);
-                    label.remove();
-                }
-                
-            }
-        })
-        
-       
-        
-    }
-
-     /**
-        * Si on clique sur le bouton confirmer
-        * ca cache le menu déroulant avec les minerai ainsi que les boutons ajouter et supprimer
-        * ca transforme les input en label
-        * ca cache le bouton confirmer et re affiche le bouton modifier
+    } else if(event.target.classList.contains("btnModif")) {
+        /**
+        * listener du bouton modifier
+        * permet d'entrer en mode modif
+        * ça re-affiche le menu déroulant des minerai et les bouton ajouter/supprimer
+        * ça cache le bouton modifier et re affiche le bouton confirmer
         */
-    if(event.target.classList.contains("btnConfirm")) {       
-        const inputs = event.target.parentNode.parentNode.querySelectorAll('input');
-        event.target.parentNode.parentNode.querySelector('.checkBoxDiv').classList.remove('hide');
-        let compactecSCU = []; 
 
-        inputs.forEach(input=>{
-            let nomMinerai = input.classList.value;
-             // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
-             if(nomMinerai !== "temprestant" && nomMinerai!=='jobTransportCheckbox dontmod'){
-                // appelle des minerais avec la fonction push
-               compactecSCU[nomMinerai] = input.value;
-           }          
-            if(!input.classList.contains('dontmod')){
-                const label = document.createElement('label');       
-                label.classList.add(`${input.classList.toString()}`)
+        // On retire les hide de touts les élem d'édition
+        jobActuel.querySelector('.btnConfirm').classList.remove('hide');
+        jobActuel.querySelector('.btnModif').classList.add('hide');
+        
+        const labels = jobActuel.querySelectorAll('label');
+        selectMineraiCont.classList.remove('hide');
+        
+        // Transformation des labels de valeur en inputs
+        labels.forEach(label=>{
+            if (findParent("listeQuantites", label) !== 0) {
+                // Les valeurs
+                label.classList.add('hide');
+
+                const input = label.previousElementSibling;
+                input.value = delUnit(label.innerHTML, 5);
+                input.classList.remove("hide");
+                label.remove();
+
+            } else if (findParent("emplacementContainer", label, 2) !== 0) {
+                // La localisation
+                label.classList.add("hide");
+
+                const select = label.previousElementSibling;
+                select.value = label.innerHTML;
+                select.classList.remove("hide");
+                label.remove();
+                
+            } else if (findParent("tempsContainer", label, 2) !== 0) {
+                // Le temps
+                label.classList.add("hide");
+                
+                const input = label.previousElementSibling;
+                input.value = label.innerHTML;
+                input.classList.remove("hide");
+                label.remove();
+                
+            } 
+        });
+
+
+    } else if(event.target.classList.contains("btnConfirm")) {       
+        /**
+           * Si on clique sur le bouton confirmer
+           * ça cache le menu déroulant avec les minerai ainsi que les boutons ajouter et supprimer
+           * ça transforme les input en label
+           * ça cache le bouton confirmer et re affiche le bouton modifier
+           */
+        const inputs = jobActuel.querySelectorAll('input');
+        const raffinerySelect = jobActuel.querySelector('.Raffinery');
+        
+        let tabInsert = {};
+        let iVide = false;
+        let tVide = false;
+        let compactecSCU = []; 
+        
+        // On vérifie qu'il n'y a pas d'input vide
+        inputs.forEach(input => {
+            if (input.parentNode.classList.contains("tabCat") && input.value === "") {
+                tVide = true;
+            } else if (input.value === "") {
+                iVide = true;
+            }
+        });
+
+        // Si il y a des champs vide, on les suppr, ou pas :)
+        let confirmDel = false;
+        if (iVide === true) {
+            confirmDel = window.confirm("Vous laissez des champs vides ! Voulez vous les supprimer ?");
+
+            if (confirmDel === true) {
+                inputs.forEach(input => {
+                    if (input.value === "") {
+                        let classe = input.classList[0];
+                        const toRem = jobActuel.querySelectorAll(`.${classe}`);
+                        toRem.forEach(item => {
+                            item.remove();
+                        })
+                    }
+                });
+            } 
+        }
+
+        //Si le champ de temps est vide, on le signale
+        if (tVide === true) {
+            alert("Vous devez définir le temps restant !");
+        }
+
+        if (iVide === false && tVide === false) {
+            jobActuel.querySelector('.checkBoxDiv').classList.remove('hide');
+            inputs.forEach(input => {
+                const label = document.createElement('label');    
+                label.classList.add(input.className);
+
+                let nomMinerai = input.classList.value;
+                // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
+                if(nomMinerai !== "temprestant" && nomMinerai !== 'jobTransportCheckbox'){
+                    // appelle des minerais avec la fonction push
+                    compactecSCU[nomMinerai] = input.value;
+                }   
+    
+                // Insertion dans le tab pour la bdd
+                tabInsert[input.className] = input.value;
+    
+                // Extraction des valeurs des inputs pour les mettre dans les labels
                 if(input.parentNode.classList.contains('listeQuantites')){
                     label.classList.add('MineralQuantityLabel');
-                }
-                if(!label.classList.contains('temprestant')){
-                    
+    
                     label.innerHTML=`${input.value} cSCU`;
-                    
-                }else{
-                    label.innerHTML=`${input.value}`;
-                }           
+                } else {
+                    label.innerHTML = input.value;
+                }
+                
                 input.parentNode.appendChild(label);
-                input.remove();
-            }
-        })
-         
+                input.classList.add("hide");
+                
+            });
 
-        let multipliMineraiParPrix = {};  //j'apprends que multipliMineraiParPrix et un tableau
-        let totaljob = 0; //j'apprends que totalJob et à 0
+        
+            jobActuel.querySelector('.btnConfirm').classList.add('hide');
+            jobActuel.querySelector('.btnModif').classList.remove('hide');
 
-        //je demande de dissocier la quantité de minerai du nom du minerai
-        for (const minerai in compactecSCU) {
-            // je demande de multiplier la quantité de minerai par le prix
-            multipliMineraiParPrix[minerai] = Number(compactecSCU[minerai]) * prixMineraiRefined[minerai];
-           
-            totaljob += multipliMineraiParPrix[minerai];
-            multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
-        };
 
-        event.target.parentNode.querySelector('.btnConfirm').classList.add('hide');
-        event.target.parentNode.querySelector('.btnModif').classList.remove('hide');
-        const raffinerySelect = event.target.parentNode.parentNode.querySelector('.Raffinery')
-        const label = document.createElement('label');
-        
-        label.classList.add(`${raffinerySelect.classList.toString()}`)
-        label.innerHTML=raffinerySelect.value
-        raffinerySelect.parentNode.appendChild(label)
-        raffinerySelect.remove();
-        selectMinerai.classList.add('hide');
-        
-        event.target.parentNode.parentNode.querySelector('.btnAddMineral').classList.add('hide');
-        event.target.parentNode.parentNode.querySelector('.btnSuppMineral').classList.add('hide');
-        event.target.parentNode.parentNode.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(event.target.parentNode.parentNode)} cSCU | ${totaljob} aUEC`
-        
-        const tabTotal = document.querySelector('.tabTotal');
-        
-        tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`;      
-        
+            // Calculs Okaaa
+            let multipliMineraiParPrix = {};  //j'apprends que multipliMineraiParPrix et un tableau
+            let totaljob = 0; //j'apprends que totalJob et à 0
+
+            //je demande de dissocier la quantité de minerai du nom du minerai
+            for (const minerai in compactecSCU) {
+                // je demande de multiplier la quantité de minerai par le prix
+                multipliMineraiParPrix[minerai] = Number(compactecSCU[minerai]) * prixMineraiRefined[minerai];
+            
+                totaljob += multipliMineraiParPrix[minerai];
+                multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
+            };
+            
+            // Insertion dans le tab pour la bdd
+            tabInsert[raffinerySelect.className] = raffinerySelect.value;
+            let idJob = jobActuel.id.split("_");
+            tabInsert["idJob"] = idJob[1];
+
+
+            // Création des labels pour remplacer les inputs
+            const label = document.createElement('label');
+            label.classList.add(`${raffinerySelect.className}`);
+            label.innerHTML = raffinerySelect.value;
+            raffinerySelect.parentNode.appendChild(label);
+
+            // On cache les selects et autres btns de modif
+            raffinerySelect.classList.add('hide');
+            selectMineraiCont.classList.add('hide');
+            
+
+            // Calcul des totaux
+            // Par Job
+            jobActuel.querySelector('.totalJobDiv').innerHTML=`Total: ${calculTotalUnitJob(jobActuel)}`
+            
+            // Et total
+            tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`;      
+            
+            // Insertion dans la bdd
+            insertNewJob(tabInsert);
+        }
     }
 });
-
-
 
 /**
  * Ajout de l'écoute sur le bouton d'ajout de job
@@ -216,17 +256,21 @@ jobContainer.addEventListener("click", (event) => {
 addJobButton.addEventListener("click", (event) => {
     event.preventDefault();
     const numJob = document.querySelectorAll(".job").length + 1;
+
+    getNextId();
+
     let jobHtml = /*html*/ `
-    <div class="job job${numJob}" id="jobId_TOBECHANGED">
+    <div class="job job${numJob}" id="jobId_${nextId}">
         <div class="checkBoxDiv hide"> 
-            <label class="dontmod">Transporter ? </label>
+            <label>Transporter ? </label>
             <input class="jobTransportCheckbox dontmod"type="checkbox">
         </div>
-    
-        <label class="titleJob dontmod">${numJob}</label>
+
+        <label class="titleJob">${numJob}</label>
 
         <div class="mineraisContainer">
-                    <select class="selectMinerai"> 
+            <div class="selectContainer">
+                <select class="selectMinerai"> 
                     <option>Quantainium</option>
                     <option>Bexalite</option>
                     <option>Taranite</option>
@@ -234,6 +278,7 @@ addJobButton.addEventListener("click", (event) => {
                     <option>Laranite</option>
                     <option>Agricium</option>
                     <option>Hephaestanite</option>
+                    <option>Titanium</option>    
                     <option>Diamond</option>
                     <option>Gold</option> 
                     <option>Copper</option> 
@@ -242,47 +287,46 @@ addJobButton.addEventListener("click", (event) => {
                     <option>Corundum</option> 
                     <option>Quartz</option> 
                     <option>Aluminum</option> 
-                    <option>Inert-Material</option>                                
-                    </select>
+                    <option>Inert-Material</option>
+                </select>
+
                 <button class="btnAddMineral">Ajouter</button>
                 <button class="btnSuppMineral">Supprimer</button>
+            </div>
+
             <div class="mineraisJob">
-                
-                
                 <div class="listeMinerais">
                     
                 </div>
-
                 <span class="separate"></span>
                 <div class="listeQuantites">
                     
                 </div>
             </div>
-           
             
-            <label class="titreCat dontmod">Total de ce Raffinage : </label>
+            <label class="titreCat">Total de ce Raffinage : </label>
             <div class="tabCat totalJobDiv">
                 0
             </div>
         </div>
         
         <div class="emplacementContainer">
-            <label class="titreCat dontmod">Emplacement : </label>
+            <label class="titreCat">Emplacement : </label>
             <div class="tabCat">
                 <select class="Raffinery"> 
-                <option>CRU-L1</option>
-                <option>ARC-L1</option>
-                <option>HUR-L1</option>
-                <option>HUR-L2</option>
-                <option>MIC-L1</option>                               
+                    <option>CRU-L1</option>
+                    <option>ARC-L1</option>
+                    <option>HUR-L1</option>
+                    <option>HUR-L2</option>
+                    <option>MIC-L1</option>          
                 </select>
             </div>
         </div>
 
         <div class="tempsContainer">
-            <label class="titreCat dontmod">Temps Restant : </label>
+            <label class="titreCat">Temps Restant : </label>
             <div class="tabCat">
-                <input class="temprestant" type="text">
+                <input class="heurePlace" type="text">
             </div>
         </div>
 
@@ -292,9 +336,26 @@ addJobButton.addEventListener("click", (event) => {
             <button class="btnConfirm">Confirmer</button>
         </div>
     </div>`;
-  jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
+    jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
 });
 
+/** Insertion dans la bdd à l'ajout d'un job
+ * @param {*} tabInsert Le tableau contenant les vasleurs à insérer
+ */
+function insertNewJob(tabInsert) {
+    const pseudo = getPseudo();
+    tabInsert.fk_idUser = pseudo;
+
+    $.ajax({
+        url:"./src/connect.php",
+        method: "POST",
+        async: false,
+        data: {newInsert : tabInsert},
+        success: function(res) {
+            console.log(res);
+        }
+    });
+}
 
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
@@ -401,17 +462,17 @@ transportContainer.querySelector('.CancelButtonCont').addEventListener('click',e
     transportContainer.classList.add('hide');
 })
 
+// Update du Filtre -----------------------------------------------------------
 selectFiltre.addEventListener("input", e => {
     //console.log(selectFiltre.value);
     const pseudoCont = document.querySelector("#pseudoAct");
     const pseudo = pseudoCont.innerHTML;
     fetchDB(pseudo, selectFiltre.value);
-})
+});
 
 
-
-/**
- * Fonction qui calcul le total d'unité (cSCU) dans le job donné
+/** ---------------------------------------------------------------------------
+ * Fonction qui calcule le total d'unités (cSCU) dans le job donné
  * @param {*} job La div du job
  * @returns Le total d'unité
  */
@@ -420,7 +481,7 @@ function calculTotalUnitJob(job){
     const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
     quantityLabels.forEach(value=>{
         
-        result+=delUnit(value.innerHTML,5);
+        result+=Number(delUnit(value.innerHTML,5));
     })
     return result;
 }
@@ -433,31 +494,32 @@ function calculTotalUnitJob(job){
 function calculTotalUnitGlobal(jobs){
     let result =0;
     jobs.forEach(job=>{
-        result+=calculTotalUnitJob(job);
+        result+=Number(calculTotalUnitJob(job));
     })
     return result;
 }
 
 
-
-
+// Fonctions d'automatisation -------------------------------------------------
 /**
-* fonction fournie par Liduen
-* @param {*} numb 
-* @param {*} nbUnit 
+* Fonction permettant de retirer @nbUnit de 
+* @param {*} string La chaine de 
+* @param {int} nbUnit 
 * @returns 
 */
-function delUnit(numb, nbUnit) {
-    numb = numb.split("");
-    numb.splice((numb.length - nbUnit), nbUnit);
-    numb = numb.join("");
-    return Number(numb);
+function delUnit(string, nbUnit) {
+    string = string.split("");
+    string.splice((string.length - nbUnit), nbUnit);
+    string = string.join("");
+    return string;
 }
+
+
 /**
  * fonction fournie par Liduen
- * @param {*} classF 
- * @param {*} e 
- * @returns 
+ * @param {*} classF La classe qu'on recherche sur le parent
+ * @param {*} e L'event
+ * @returns Le noeud parent si elle le trouve, sinon 0
  */
 function find(classF, e) {
     let targ = e.target;
@@ -468,3 +530,74 @@ function find(classF, e) {
     } 
     return targ;
 }
+
+
+/** Fonction permettant de vérifier qu'un élément à bien un parent contenant @classF
+ * @param classF La classe qu'on recherche sur le parent
+ * @param elem L'enfant à partir duquel vous faites la recherche
+ * @param {int} numParent Optionnel : mettez un Nombre si vous savez de combien de noeuds remonter
+ * @returns Le noeud parent si elle le trouve, sinon 0
+ */
+function findParent(classF, elem, numParent) {
+    let targ = elem;
+
+    if(numParent === undefined) {
+        while(!targ.classList.contains(classF)) {
+            targ = targ.parentNode;
+            
+            if(targ === document.body) {
+                targ = 0;
+                break;
+            }
+        } 
+        
+    } else {
+        for (let i = 0; i < numParent; i++) {
+            targ = targ.parentNode;
+    
+            if(targ === document.body) {
+                targ = 0;
+                break;
+            }
+        }
+        if (!targ.classList.contains(classF)) {
+            targ = 0;
+        }
+
+    }
+    return targ;
+}
+
+
+/**
+ * Fonction qui set le prochain id à mettre sur un nouveau Job sur nextId
+ */
+function getNextId() {
+    const pseudo = getPseudo();
+    $.ajax({
+        url:"./src/connect.php",
+        method: "POST",
+        async: false,
+        data: "nextId",
+        success: function(res) {
+            res = JSON.parse(res)
+            let previousId = nextId;
+            let tmpId = Number(res["MAX(idJob)"]) + 1;
+            if (tmpId <= previousId) {
+                nextId = previousId + 1;
+            } else {
+                nextId = tmpId;
+            }
+        }
+    });
+}
+
+/**
+ * Fonction qui retourne le pseudo actuel
+ * @returns le pseudo
+ */
+function getPseudo() {
+    const pseudo = document.querySelector("#pseudoAct").innerHTML;
+    return pseudo;
+}
+
