@@ -2,27 +2,43 @@
     // print_r($_POST);
     require("./initBDD.php");
 
-    if(isset($_POST["login"])) {
+    if (isset($_POST["autoConnect"])) {
+        // print("auto");
+        print_r($_COOKIE);
+        if (isset($_COOKIE["login"])) {
+            print("autoConnect");
+            print("Pseudo=".$_COOKIE["login"]);
+        }
+
+    } elseif(isset($_POST["login"])) {
         // Connexion ----------------------------------------------------------
         $pseudo = $_POST["login"];
         $psw = $_POST["psw"];
         $sql = "SELECT login, password FROM User";
         $req = $BDD->query($sql);
-    
-        while($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        
+        $exist = false;
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             // print_r($data);
             if($pseudo == $data["login"]) {
                 if($psw == $data["password"]) {
                     echo "Connect";
                     print(" Pseudo=".$pseudo);
+                    if (isset($_POST["rememberMe"])) {
+                        // On set les cookies à 3 mois si remember coché
+                        setcookie("login", $pseudo, time()+7889400);
+                    } else {
+                        // On set les cookies à 1 sec si remember pas coché
+                        setcookie("login", $pseudo, 1);
+                    }
                 } else {
                     echo "pswNo";
                 }
                 $exist = true;
-                break;
             }
         }
-    
+
+
         if($exist == false) {
             echo "CRE4TI0N";
         } 
@@ -34,13 +50,21 @@
         $sql = $BDD->prepare("INSERT INTO User(login, password) VALUES (?, ?)");
         $sql->execute(array($pseudo, $psw));
 
+        if (isset($_POST["insert"]["rememberMe"])) {
+            // On set les cookies à 3 mois si remember coché
+            setcookie("login", $pseudo, time()+7889400);
+        } else {
+            // On set les cookies à 1 sec si remember pas coché
+            setcookie("login", $pseudo, 1);
+        }
+
         print("Pseudo=".$pseudo);
 
     } elseif(isset($_POST["fetch"])) {
         // Récupération des jobs ----------------------------------------------
 
         if (isset($_POST["firstLoad"])) {
-            $sql = "SELECT U.lastFilter, J.* FROM jobs J INNER JOIN user U ON J.Raffinery LIKE concat('%', U.lastFilter ,'%')";
+            $sql = "SELECT DISTINCT U.lastFilter, J.* FROM jobs J INNER JOIN user U ON J.Raffinery LIKE concat('%', U.lastFilter ,'%') WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."')";
 
         } elseif(isset($_POST["raffinery"])) {
             $sql2 = "UPDATE user SET lastFilter='".$_POST["raffinery"]."' WHERE login = '".$_POST["fetch"]."'";
@@ -51,6 +75,8 @@
         } else {
             $sql = "SELECT *, (SELECT lastFilter  FROM user WHERE fk_idUser='".$_POST["fetch"]."') AS lastFilter FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
         }
+        // print($sql);
+
         $req = $BDD->query($sql);
 
         $jobs = [];
@@ -80,7 +106,6 @@
 
         $req = $BDD->query("SELECT * FROM jobs WHERE idJob=$id" );
         $prevData = $req->fetch(PDO::FETCH_ASSOC);
-        print_r($prevData);
 
         // On vérifie si toutes les valeurs existent déjà, et si non, on les met à null dans l'update
         if (isset($prevData["idJob"])) {
@@ -95,10 +120,6 @@
                 }
             }
         }
-
-        
-        print_r($prevData);
-        print_r($_POST["newInsert"]);
         
         // SI la ligne existe, update
         if ($alreadyExist == true) {

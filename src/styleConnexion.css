@@ -8,9 +8,14 @@
 	display: none;
 }
 
+.display {
+    display: flex;
+}
+
 .connexionContainer {
 	display: flex;
 	justify-content: center;
+    align-items: center;
 
     position: absolute;
     z-index: 10;
@@ -19,11 +24,15 @@
     right: 0;
     bottom: 0;
     
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     background-color: rgba(0, 0, 0, 0.6);
+
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.connect-hidden {
+    opacity: 0;
+    visibility: collapse;
 }
 
 .connexionContainer form {
@@ -124,3 +133,4 @@
     font-size: 0.7em;
     margin-bottom: 10px;
 }
+

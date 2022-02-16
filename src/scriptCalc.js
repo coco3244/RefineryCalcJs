@@ -6,6 +6,7 @@ const jobsContainer = document.querySelector(".jobsContainer");
 const transportContainer = document.querySelector('.transportContainer');
 const totalPanierCont = document.querySelector('.totalPanierCont');
 const tabTotal = document.querySelector('.tabTotal');
+const xSelect = document.querySelector(".xSelect");
 
 let nextId = -1;
 
@@ -97,8 +98,6 @@ jobsContainer.addEventListener("click", (event) => {
         labels.forEach(label=>{
             if (findParent("listeQuantites", label) !== 0) {
                 // Les valeurs
-                label.classList.add('hide');
-
                 const input = label.previousElementSibling;
                 input.value = delUnit(label.innerHTML, 5);
                 input.classList.remove("hide");
@@ -106,8 +105,6 @@ jobsContainer.addEventListener("click", (event) => {
 
             } else if (findParent("emplacementContainer", label, 2) !== 0) {
                 // La localisation
-                label.classList.add("hide");
-
                 const select = label.previousElementSibling;
                 select.value = label.innerHTML;
                 select.classList.remove("hide");
@@ -115,14 +112,15 @@ jobsContainer.addEventListener("click", (event) => {
                 
             } else if (findParent("tempsContainer", label, 2) !== 0) {
                 // Le temps
-                label.classList.add("hide");
-                
                 const input = label.previousElementSibling;
                 input.value = label.innerHTML;
                 input.classList.remove("hide");
                 label.remove();
                 
-            } 
+            } else if(findParent("checkBoxDiv", label) !== 0) {
+                // La checkbox
+                label.parentNode.classList.add("hide");
+            }
         });
 
 
@@ -196,12 +194,20 @@ jobsContainer.addEventListener("click", (event) => {
                     label.classList.add('MineralQuantityLabel');
     
                     label.innerHTML=`${input.value} cSCU`;
+                    input.classList.add("hide");
+                    input.parentNode.appendChild(label);
+
+                } else if (input.parentNode.classList.contains("checkBoxDiv")) {
+                    input.parentNode.classList.remove("hide");
+
                 } else {
                     label.innerHTML = input.value;
+                    input.classList.add("hide");
+                    input.parentNode.appendChild(label);
                 }
                 
-                input.parentNode.appendChild(label);
-                input.classList.add("hide");
+                
+                
             });
 
         
@@ -467,11 +473,19 @@ transportContainer.querySelector('.CancelButtonCont').addEventListener('click',e
 })
 
 // Update du Filtre -----------------------------------------------------------
-selectFiltre.addEventListener("input", e => {
+selectFiltre.addEventListener("input", inputSelect());
+function inputSelect() {
     //console.log(selectFiltre.value);
-    const pseudoCont = document.querySelector("#pseudoAct");
-    const pseudo = pseudoCont.innerHTML;
-    fetchDB(pseudo, selectFiltre.value);
+    const pseudo = getPseudo();
+    console.log("here");
+    if (connected === true) {
+        fetchDB(pseudo, selectFiltre.value);
+    }
+}
+
+xSelect.addEventListener("click", () => {
+    selectFiltre.value = "";
+    inputSelect();
 });
 
 
