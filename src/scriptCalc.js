@@ -370,7 +370,8 @@ function insertNewJob(tabInsert) {
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
     const jobsResumeCont = transportContainer.querySelector('.jobsResumeCont');
-    var audio = new Audio('./audio/Boing.mp3');
+    var audio = new Audio('./audio/Boing.mp3');   
+    audio.volume=0.02;   
     audio.play();
 
     let mineraisList = []; 
