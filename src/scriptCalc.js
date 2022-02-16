@@ -370,7 +370,7 @@ function insertNewJob(tabInsert) {
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
     const jobsResumeCont = transportContainer.querySelector('.jobsResumeCont');
-    console.log(volumeCheckbox);
+    //console.log(volumeCheckbox);
     if(volumeCheckbox.checked==true){
         var audio = new Audio('./audio/Boing.mp3');   
         audio.volume=0.1;   
@@ -419,7 +419,7 @@ transportButton.addEventListener('click',event=>{
 
     };
     
-    const vaisseauxListCont = transportContainer.querySelector('.vaisseauxListCont');
+   
     /**
      * Je creer une tableau de tableau, le tableau interne :
      * l'indice 0 le nom du vaisseau
@@ -443,17 +443,33 @@ transportButton.addEventListener('click',event=>{
         "Mercury Star Runner":"https://robertsspaceindustries.com/media/k8z9y4skemjncr/store_slideshow_large/Crusader-Three-Quater-Updated.png",
         "C2 Hercules": "https://media.robertsspaceindustries.com/iohxx8vfa9hbh/store_small.jpg"
     }
+    const vaisseauxListCont = transportContainer.querySelector('.vaisseauxListCont');
+    
     const vaisseauxPhotoCont = transportContainer.querySelector('.vaisseauxPhotoCont');
     const totalLabel = totalPanierCont.querySelector('.totalLabel');
     totalLabel.innerHTML=`${totalcSCU} cSCU | ${totalaUEC} aUEC`;
-    vaisseauxListCont.innerHTML="";
+
+    vaisseauxListCont.innerHTML=`<table class="vaisseauxListTable">
+                    <tr>
+                        <th>Vaisseau</th>
+                        <th>Capacité cargo</th>
+                        <th>Cargo restant</th>
+                    </tr>
+
+                </table>`;
+    const vaisseauxListTable = vaisseauxListCont.querySelector('.vaisseauxListTable');
     ships.forEach(ship=>{
         if(ship[1]>=totalcSCU){
-            const label = document.createElement('label');
-            const br = document.createElement('br');
-            label.classList.add('vaisseau');
-            label.innerHTML=`Le <a target="_blank "href="${ship[2]}">${ship[0]}</a> avec ${ship[1]} cSCU, ${ship[1]-totalcSCU} après chargement`;
-            const link = label.querySelector('a');
+            const tr = document.createElement('tr');
+            const tdShip = document.createElement('td');
+            const tdShipCargo = document.createElement('td');
+            const tdShipCargoLeft = document.createElement('td');
+            tr.classList.add('vaisseau');
+            tdShip.innerHTML=`<a target="_blank "href="${ship[2]}">${ship[0]}</a>`;
+            tdShipCargo.innerHTML=` ${ship[1]} cSCU`;
+            tdShipCargoLeft.innerHTML=`${ship[1]-totalcSCU} cSCU`;
+
+            const link = tdShip.querySelector('a');
             link.addEventListener('mouseover',event=>{
                 const image = document.createElement('img');
                 image.setAttribute('src',images[event.target.innerHTML]);
@@ -461,8 +477,13 @@ transportButton.addEventListener('click',event=>{
                 vaisseauxPhotoCont.appendChild(image);
 
             })
-            vaisseauxListCont.appendChild(label);
-            vaisseauxListCont.appendChild(br);
+            tr.appendChild(tdShip);
+            tr.appendChild(tdShipCargo);
+            tr.appendChild(tdShipCargoLeft);
+            
+            
+            vaisseauxListTable.appendChild(tr);
+            
         }
     })
     
@@ -472,7 +493,7 @@ transportButton.addEventListener('click',event=>{
 
 //Fermeture de la fenètre de transport
 transportContainer.addEventListener("click", e => {
-    console.log(e.target);
+    //console.log(e.target);
     if (e.target.classList.contains("transportContainer") || e.target.classList.contains("bntCancelTransport")) {
         transportContainer.querySelectorAll('.job').forEach(job=>{
             job.remove();
