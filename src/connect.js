@@ -8,18 +8,49 @@ const iPsw = document.querySelector("#iPsw");
 
 const connexionContainer = document.querySelector(".connexionContainer");
 const pseudo = document.getElementById("pseudoAct");
-const jobContainer = document.querySelector(".jobsContainer");
+const iRemember = document.getElementById("rememberMe");
+const deco = document.getElementById("labelDeco");
 
 let tabInsert = {};
+let connected = false;
 
+window.onload = init();
+function init() {
+    $.ajax({
+        url:"./src/connect.php",
+        method: "POST",
+        data: "autoConnect",
+        // async: false,
+        success: function(res) {
+            console.log(res);
+            let searchAuto = res.search("autoConnect");
+            console.log(searchAuto);
+            if (searchAuto !== -1) {
+                connexionContainer.classList.add("connect-hidden");
+                connectioooooooon(res, true);
+            } else {
+                // connexionContainer.style.display = "flex";
+                connexionContainer.classList.remove("connect-hidden");
+            }
+        }
+    });
+}
 
-const titleConnexion = document.querySelector(".titleConnexion");
-// A virer, c'est pour le dev uniquement
-titleConnexion.addEventListener("mouseover", (e) => {
-    console.log("Connecté :D");
-    connexionContainer.style.display = "none";
-    pseudo.innerHTML = "Liduen";
+deco.addEventListener("click", e => {
+    pseudo.innerHTML = "Pseudo";
+    jobsContainer.innerHTML = "";
+    connected = false;
+    // connexionContainer.style.display = "flex";
+    connexionContainer.classList.remove("connect-hidden");
 });
+
+// const titleConnexion = document.querySelector(".titleConnexion");
+// // A virer, c'est pour le dev uniquement
+// titleConnexion.addEventListener("mouseover", (e) => {
+//     console.log("Connecté :D");
+//     connexionContainer.style.display = "none";
+//     pseudo.innerHTML = "Liduen";
+// });
 
 
 // traitement du form
@@ -35,6 +66,7 @@ $("form").submit(function(evt){
         contentType: false,
         enctype: 'multipart/form-data',
         processData: false,
+        async: false,
         success: function (response) {
             console.log(response);
 
@@ -45,6 +77,7 @@ $("form").submit(function(evt){
                 tabInsert.insert = {};
                 tabInsert.insert.login = iLogin.value;
                 tabInsert.insert.password = iPsw.value;
+                tabInsert.insert.rememberMe = iRemember.value;
 
                 console.log(tabInsert.insert.login + " " + tabInsert.insert.password);
 
@@ -68,7 +101,7 @@ yesAdd.addEventListener("click", (e) => {
         data: tabInsert,
         success: function(res) {
             console.log(res);
-            connectioooooooon(res, true);
+            connectioooooooon(res);
         }
     });
 });
@@ -80,13 +113,17 @@ noAdd.addEventListener("click", (e) => {
     iPsw.value = "";
 })
 
-function connectioooooooon(res, create) {
-    connexionContainer.style.display = "none";
+function connectioooooooon(res, auto) {
+    if (auto !== true) {
+        connexionContainer.classList.add("connect-hidden");
+    }
+    connected = true;
     let ps = res.search("Pseudo=");
     let result = res.substr(ps + 7, res.length)
-
+    
     pseudo.innerHTML = result;
     fetchDB(result, undefined, 1);
+    
 }
 
 function fetchDB(pseudo, raffinery, load) {
@@ -101,10 +138,10 @@ function fetchDB(pseudo, raffinery, load) {
             firstLoad : load
         },
         success: function(res) {
-            // console.log(res);
             res = JSON.parse(res)
+            console.log(res);
 
-            jobContainer.innerHTML = ""; 
+            jobsContainer.innerHTML = ""; 
             
             if(res.length > 0) {
                 // Défilement du tableau et extraction des valeurs
@@ -215,14 +252,14 @@ function fetchDB(pseudo, raffinery, load) {
                         </div>
         
                         <div class="btnsContainer">
-                            <button class="btnTransport">Transporter</button>
+                            <button class="btnSupprimer">Supprimer</button>
                             <button class="btnModif">Modifier</button>
                             <button class="btnConfirm hide">Confirmer</button>
                         </div>
                     </div>`;
         
                     //Affichage des cases remplies
-                    jobContainer.innerHTML = jobHtml + jobContainer.innerHTML;
+                    jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
         
                 }
 

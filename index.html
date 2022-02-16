@@ -64,7 +64,7 @@
         </div>
         
     </div>
-    <div class="connexionContainer">
+    <div class="connexionContainer connect-hidden">
 		<form>
 			<label class="titleConnexion">Se connecter </label>
 			<label class="mdpWarn">L'inscription est automatique !</label>
@@ -78,6 +78,10 @@
 				<input type="password" name="psw" id="iPsw" max="70" required placeholder="Mot de passe">
 			</label>
 			<label class="mdpWarn">Ne pas mettre de MDP important, ce site n'est pas sécurisé !!</label>
+            <label>
+                <input type="checkbox" name="rememberMe" id="rememberMe">
+                Rester connecté
+            </label>
 
 			<button id="submit">CONNEXION</button>
 			
@@ -114,9 +118,18 @@
                     <option>HUR-L2</option>
                     <option>MIC-L2</option>
                 </datalist>
+                <i class="fa-solid fa-x xSelect"></i>
                 <i class="fa-solid fa-sort-down arrowSelect"></i>
             </div>
-            <label id="pseudoAct">Pseudo</label>
+            <div class="pseudoCont">
+                <label id="pseudoAct">Pseudo</label>
+                <i class="fa-solid fa-sort-down arrowPseudo"></i>
+
+                <div class="pseudoMenu">
+                    <label id="labelDeco">Déconnexion</label>
+                    <!-- <label>Paramètres (plus tard)</label> -->
+                </div>
+            </div>
         </div>
     </div>
 
