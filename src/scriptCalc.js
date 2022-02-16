@@ -466,12 +466,16 @@ transportButton.addEventListener('click',event=>{
     transportContainer.classList.remove('hide');
 })
 
-transportContainer.querySelector('.CancelButtonCont').addEventListener('click',event=>{
-    transportContainer.querySelectorAll('.job').forEach(job=>{
-        job.remove();
-    })
-    transportContainer.classList.add('hide');
-})
+//Fermeture de la fenètre de transport
+transportContainer.addEventListener("click", e => {
+    console.log(e.target);
+    if (e.target.classList.contains("transportContainer") || e.target.classList.contains("bntCancelTransport")) {
+        transportContainer.querySelectorAll('.job').forEach(job=>{
+            job.remove();
+        }); 
+        transportContainer.classList.add('hide');
+    }
+}); 
 
 // Update du Filtre -----------------------------------------------------------
 selectFiltre.addEventListener("input", inputSelect());
