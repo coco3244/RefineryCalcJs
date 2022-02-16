@@ -78,10 +78,13 @@
 				<input type="password" name="psw" id="iPsw" max="70" required placeholder="Mot de passe">
 			</label>
 			<label class="mdpWarn">Ne pas mettre de MDP important, ce site n'est pas sécurisé !!</label>
-            <label>
-                <input type="checkbox" name="rememberMe" id="rememberMe">
-                Rester connecté
+           
+            <label class="stayConnectedLabel" >Rester connecté
+                <input class="stayConnectedCheckbox" type="checkbox" name="rememberMe" id="rememberMe">
+                <div class="stayConnectedContRemplissage"></div>
+                
             </label>
+           
 
 			<button id="submit">CONNEXION</button>
 			
@@ -127,6 +130,15 @@
 
                 <div class="pseudoMenu">
                     <label id="labelDeco">Déconnexion</label>
+
+                    
+                    <label class="volumeLabel" for="VolumeSwitch">Volume
+                        <input class="volumeCheckbox" id="VolumeSwitch" type="checkbox" checked>
+                        <div class="volumeContRemplissage"></div>
+                    </label> 
+                    
+                    
+                    
                     <!-- <label>Paramètres (plus tard)</label> -->
                 </div>
             </div>

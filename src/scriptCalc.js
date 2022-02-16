@@ -7,7 +7,7 @@ const transportContainer = document.querySelector('.transportContainer');
 const totalPanierCont = document.querySelector('.totalPanierCont');
 const tabTotal = document.querySelector('.tabTotal');
 const xSelect = document.querySelector(".xSelect");
-
+const volumeCheckbox = document.querySelector('.volumeCheckbox');
 let nextId = -1;
 
 
@@ -370,9 +370,12 @@ function insertNewJob(tabInsert) {
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
     const jobsResumeCont = transportContainer.querySelector('.jobsResumeCont');
-    var audio = new Audio('./audio/Boing.mp3');   
-    audio.volume=0.1;   
-    audio.play();
+    console.log(volumeCheckbox);
+    if(volumeCheckbox.checked==true){
+        var audio = new Audio('./audio/Boing.mp3');   
+        audio.volume=0.1;   
+        audio.play();
+    }
 
     let mineraisList = []; 
 
