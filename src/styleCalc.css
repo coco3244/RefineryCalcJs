@@ -24,6 +24,9 @@ body {
 	font-family: var(--police);
 }
 
+label {
+	user-select: none;
+}
 
 /*------------------------------ ToolBar ------------------------------ */
 .toolBar {
@@ -162,7 +165,7 @@ body {
 
 .pseudoMenu {
 	position: absolute;
-	left: 0;
+	right: 0px;
 	top: 100%;
 	display: none;
 	flex-direction: column;
@@ -517,8 +520,10 @@ body {
 	--height:calc(var(--width)/2);
 	--border-radius:calc(var(--height)/2);
 	
-	display: inline-block;
 	cursor: pointer;	
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .volumeCheckbox,.stayConnectedCheckbox{
 	display: none;
@@ -532,9 +537,9 @@ body {
 	border-radius: var(--border-radius);
 	background: #dddddd;
 	transition: background 0.2s;
+	top: 1px;
 }
 .volumeContRemplissage{
-	top: 4px;
 	margin-left: 5px;
 	
 }
