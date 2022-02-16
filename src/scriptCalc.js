@@ -71,8 +71,11 @@ jobsContainer.addEventListener("click", (event) => {
     } else if(event.target.classList.contains("btnSuppMineral")) {
         // Supprime les minerai des 2 div correspondante
                      
-        listeQuantitesDiv.querySelector(`.${selectMinerai.value}`).remove();
-        listeMineraisDiv.querySelector(`.${selectMinerai.value}`).remove();   
+        if(listeQuantitesDiv.querySelector(`.${selectMinerai.value}`) && listeMineraisDiv.querySelector(`.${selectMinerai.value}`)){
+            listeQuantitesDiv.querySelector(`.${selectMinerai.value}`).remove();
+            listeMineraisDiv.querySelector(`.${selectMinerai.value}`).remove();   
+        }
+        
         
 
     } else if(event.target.classList.contains("btnModif")) {
