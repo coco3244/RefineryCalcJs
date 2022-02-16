@@ -23,6 +23,130 @@
     <script src="./src/scriptCalc.js" defer></script>
 </head>
 <body>
+    <div class="statistiqueContainer hide">
+        <div class="statSecondCont">
+            <div class="titleStatCont">
+                <h4>WORK IN PROGRESS</h4>
+                <h5>SECTION UNIQUEMENT EN VISUEL MAIS NON FONCTIONNEL</h5>
+            </div>
+           
+            <div class="mineralStatCont">
+                <h5>Nombre de raffinage: </h5>
+                <div class="mineralStatTableCont1">
+                    <table class="mineralStatTable1">
+                        <tr>
+                            <th>Minerais</th>
+                            <th>Masse</th>
+                            <th>Revenu</th>
+                        </tr>               
+                        <tr class="Quantainium StatLine">
+                            <td>Quantainium</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        
+                        <tr class="Bexalite StatLine">
+                            <td>Bexalite</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Taranite StatLine">
+                            <td>Taranite</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Borase StatLine">
+                            <td>Borase</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Laranite StatLine"> 
+                            <td>Laranite</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Agricium StatLine">
+                            <td>Agricium</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Hephaestanite StatLine">
+                            <td>Hephaestanite</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Titanium StatLine">
+                            <td>Titanium</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>                
+                    </table>
+                </div>
+                <div class="mineralStatTableCont2">
+                    <table class="mineralStatTable2">
+                        <tr>
+                            <th>Minerais</th>
+                            <th>Masse</th>
+                            <th>Revenu</th>
+                        </tr> 
+                        <tr class="Diamond StatLine">
+                            <td>Diamond</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Gold StatLine">
+                            <td>Gold</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Copper StatLine">
+                            <td>Copper</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Beryl StatLine">
+                            <td>Beryl</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Tungsten StatLine">
+                            <td>Tungsten</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Corundum StatLine">
+                            <td>Corundum</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Quartz StatLine">
+                            <td>Quartz</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>
+                        <tr class="Aluminum statLine">
+                            <td>Aluminum</td>
+                            <td class="masseTd"></td>
+                            <td class="revenuTd"></td>
+                        </tr>                     
+                    </table>
+                </div>
+                
+            
+        </div>
+
+            <div class="totalStatCont">
+                <label>Total: </label>
+            </div>
+            <div class="statButton">
+                <button class="btnCloseStat">Fermer</button>
+            </div>
+        </div>
+
+
+        
+    </div>
+
     <div class="transportContainer hide">
         <div class="panierJob">
             <label class="dontmod"> Panier De Job</label>
@@ -136,13 +260,15 @@
                 <i class="fa-solid fa-sort-down arrowPseudo"></i>
 
                 <div class="pseudoMenu">
-                    <label id="labelDeco">Déconnexion</label>
 
-                    
+                    <label class="labelStat" >Statistiques</label>         
+                    <label id="labelDeco">Déconnexion</label>
                     <label class="volumeLabel" for="VolumeSwitch">Volume
                         <input class="volumeCheckbox" id="VolumeSwitch" type="checkbox" checked>
                         <div class="volumeContRemplissage"></div>
                     </label> 
+                  
+                    
                     
                     
                     

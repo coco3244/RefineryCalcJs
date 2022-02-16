@@ -559,3 +559,74 @@ body {
 .volumeCheckbox:checked ~ .volumeContRemplissage::after , .stayConnectedCheckbox:checked ~  .stayConnectedContRemplissage::after{
 	transform: translateX(var(--height));
 }
+
+
+/*---------------------Statistiques--------------------*/
+.statistiqueContainer{
+	display: flex;
+	justify-content: center;
+	
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: rgba(0, 0, 0, 0.6);
+}
+.statButton{
+	position: absolute;
+	right: 10%;
+	bottom: 10%;
+	
+}
+.btnCloseStat{
+	width: 100%;
+	height: 35px;
+	
+	background-color: #fc6b37;
+	border: 0;
+	font-size: 16px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: white;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.statSecondCont{
+	background-color: white;
+	width: 80%;
+	height: 80%;
+	border-radius: 10px;
+}
+.titleStatCont{
+	text-align: center;
+}
+.mineralStatCont{
+	
+	text-align: center;
+
+}
+.totalStatCont{
+	text-align: center;
+}
+.mineralStatTableCont1{/*tableau de gauche*/	
+	
+	float: left;
+	margin-left: 10%;
+}
+.mineralStatTableCont2{/*tableau de droite*/
+	
+	float: right;
+	margin-right: 10%;
+}
+
+.mineralStatTable1 td,.mineralStatTable2 td{
+	margin-left: 5px;
+	border-top: 2px solid black;
+}
