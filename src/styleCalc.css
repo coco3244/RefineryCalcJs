@@ -6,9 +6,9 @@
 	--police: 'Titillium Web', sans-serif;
 }
 
-* {
-	/* outline: red 1px solid; */
-}
+/* * {
+	 outline: red 1px solid; 
+}*/
 
 .hide{
 	display: none;
@@ -349,12 +349,13 @@ body {
 	height: 35px;
 	background-color: #fc6b36;
 	border: 0;
-	font-size: 16px;
+	font-size: 20px;
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	color: white;
 	border-radius: 10px;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 
@@ -362,17 +363,17 @@ body {
 	/*border: 2px solid lime; /*TEMPORAIRE*/
 	width: 25%;
 	position: absolute;
-	right: 0;
+	right: 5%;
 	bottom: 10%;
 }
 
 .panierJob{
-	border :2px solid black; /*TEMPORAIRE*/
+	border :2px solid black; 
 	text-align: center;
 	font-size: large;
 	background-color: white;
 	height: 80%;
-	width: 25%;
+	width: 20%;
 }
 
 .jobsResumeCont{
@@ -385,20 +386,22 @@ body {
 	overflow: hidden;
 	/*border: 2px solid blue; /*TEMPORAIRE*/
 	background-color: white;
-	text-align: center;
 	height: 80%;
-	width: 100%;
+	width: 70%;
+}
+.vaisseauContTitleCont{
+	text-align: center;
 }
 .vaisseauxListCont{
 	/*border: 2px solid pink; TEMPORAIRE*/
 	width: 49%;
-	font-size: x-large;
+	font-size: larger;
 	float: left;
 }
 .vaisseauxPhotoCont{
 	/*border: 2px solid orange; TEMPORAIRE*/
 	width: 49%;
-	height: 30%;
+	height: 49%;
 	float: right;
 }
 
@@ -414,7 +417,7 @@ body {
 }
 .totalPanierCont{
 	border: 2px solid black; 
-	width: 80%;
+	width: 90%;
 	
 	bottom: 0;
 	margin: 5%;
