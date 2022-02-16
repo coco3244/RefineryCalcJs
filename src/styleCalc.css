@@ -24,6 +24,7 @@ body {
 	font-family: var(--police);
 }
 
+
 /*------------------------------ ToolBar ------------------------------ */
 .toolBar {
 	height: 60px;
@@ -489,4 +490,54 @@ body {
 	
 	bottom: 0;
 	margin: 5%;
+}
+
+/*---------------------Slider checkbox--------------------*/
+
+.volumeLabel,.stayConnectedLabel{
+	--width: 35px;
+	--height:calc(var(--width)/2);
+	--border-radius:calc(var(--height)/2);
+	
+	display: inline-block;
+	cursor: pointer;	
+}
+.volumeCheckbox,.stayConnectedCheckbox{
+	display: none;
+}
+
+.volumeContRemplissage , .stayConnectedContRemplissage{	
+	float: right;
+	position: relative;
+	width: var(--width);
+	height: var(--height);
+	border-radius: var(--border-radius);
+	background: #dddddd;
+	transition: background 0.2s;
+}
+.volumeContRemplissage{
+	top: 4px;
+	margin-left: 5px;
+	
+}
+
+.volumeCheckbox:checked ~ .volumeContRemplissage , .stayConnectedCheckbox:checked ~ .stayConnectedContRemplissage{
+	background: #fc6b36;
+}
+
+.volumeContRemplissage::after , .stayConnectedContRemplissage::after{
+	
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: var(--height);
+	width: var(--height);
+	background: white;
+	box-shadow: 0 0 10px rgba(0,0,0,0.25);
+	border-radius: var(--border-radius);
+	transition: transform 0.2s;
+}
+.volumeCheckbox:checked ~ .volumeContRemplissage::after , .stayConnectedCheckbox:checked ~  .stayConnectedContRemplissage::after{
+	transform: translateX(var(--height));
 }
