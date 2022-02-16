@@ -68,7 +68,7 @@ body {
 	height: 25px;
 	padding-left: 10px;
 	padding-right: 10px;
-	border: 1px solid black;
+	outline: 1px solid black;
 	border-bottom-left-radius: 10px;
 	border-top-left-radius: 10px;
 	margin-right: 0;
@@ -77,11 +77,9 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
+	border: 0;
 }
-.customSelect:focus-within {
-	border: 1px solid #fc6b37;
-	outline: 0;
-}
+
 
 .arrowSelect {
 	position: relative;
@@ -93,12 +91,16 @@ body {
 
 .xSelect {
 	position: relative;
-	color: red;
+	color: #fc6b37;
 	font-size: 0.9em;
-	border: 1px solid black;
-	padding: 6px;
+	outline: 1px solid black;
+	height: 26px;
+	width: 20px;
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	background-color: rgba(128, 128, 128, 0.5);
 	text-shadow: 0px 0px 10px white;
@@ -106,7 +108,7 @@ body {
 
 
 }
-.xSelect:hover {
+.xSelect:hover, .customSelect:focus-within {
 	border: 1px solid #fc6b37;
 	background-color: rgba(128, 128, 128, 0.7);
 }

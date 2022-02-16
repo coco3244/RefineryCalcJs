@@ -479,7 +479,7 @@ transportContainer.addEventListener("click", e => {
 }); 
 
 // Update du Filtre -----------------------------------------------------------
-selectFiltre.addEventListener("input", inputSelect());
+selectFiltre.addEventListener("input", inputSelect);
 function inputSelect() {
     //console.log(selectFiltre.value);
     const pseudo = getPseudo();
