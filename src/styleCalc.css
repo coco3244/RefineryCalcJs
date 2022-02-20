@@ -4,6 +4,7 @@
 :root {
 	/* C'est temporaire, on en choisira une belle ensemble, mais je supporte pas celle par défaut  */
 	--police: 'Titillium Web', sans-serif;
+	--orange: #fc6b36;
 }
 
 /* * {
@@ -68,7 +69,7 @@ label {
 .customSelect {
 	background-color: rgba(128, 128, 128, 0.5);
 	margin: 5px;
-	width: 130px;
+	width: 80px;
 	height: 25px;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -95,7 +96,7 @@ label {
 
 .xSelect {
 	position: relative;
-	color: #fc6b37;
+	color: var(--orange);
 	font-size: 0.9em;
 	outline: 1px solid black;
 	height: 26px;
@@ -113,7 +114,7 @@ label {
 
 }
 .xSelect:hover, .customSelect:focus-within {
-	border: 1px solid #fc6b37;
+	border: 1px solid var(--orange);
 	background-color: rgba(128, 128, 128, 0.7);
 }
 
@@ -172,6 +173,7 @@ label {
 	background: rgba(128, 128, 128, 0.7);
 	padding: 10px;
 	border-radius: 10px;
+	z-index: 5;
 }
 
 .pseudoMenu label:hover {
@@ -263,7 +265,7 @@ label {
 	width: 100%;
 	height: 35px;
 	
-	background-color: #fc6b37;
+	background-color: var(--orange);
 	border: 0;
 	font-size: 16px;
 	text-transform: uppercase;
@@ -374,7 +376,7 @@ label {
 	height: 35px;
 	width: 45%;
 	border: 0;
-	background-color: #fc6b36;
+	background-color: var(--orange);
 	color: white;
 	font-size: 16px;
 	cursor: pointer;
@@ -383,7 +385,7 @@ label {
 }
 
 
-.btnSupprimer {
+.btnSupprimer, .btnCancel {
 	left: 0;
 	border-bottom-left-radius: 20px;
 	border-top-right-radius: 10px;
@@ -416,10 +418,10 @@ label {
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
-.CancelButtonCont button ,.ValidateButtonCont button{
+.CancelButtonCont button ,.ValidateButtonCont button {
 	width: 100%;
 	height: 35px;
-	background-color: #fc6b36;
+	background-color: var(--orange);
 	border: 0;
 	font-size: 20px;
 	text-transform: uppercase;
@@ -429,7 +431,6 @@ label {
 	cursor: pointer;
 	font-weight: bold;
 }
-
 
 .transportButtons{
 	/*border: 2px solid lime; /*TEMPORAIRE*/
@@ -545,7 +546,7 @@ label {
 }
 
 .volumeCheckbox:checked ~ .volumeContRemplissage , .stayConnectedCheckbox:checked ~ .stayConnectedContRemplissage{
-	background: #fc6b36;
+	background-color: var(--orange);
 }
 
 .volumeContRemplissage::after , .stayConnectedContRemplissage::after{
@@ -594,7 +595,7 @@ label {
 	width: 100%;
 	height: 35px;
 	
-	background-color: #fc6b37;
+	background-color: var(--orange);
 	border: 0;
 	font-size: 16px;
 	text-transform: uppercase;

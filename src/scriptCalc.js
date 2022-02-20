@@ -46,6 +46,7 @@ jobsContainer.addEventListener("click", (event) => {
     const selectMinerai = jobActuel.querySelector(".selectMinerai")
     const listeMineraisDiv = jobActuel.querySelector('.listeMinerais');
     const listeQuantitesDiv = jobActuel.querySelector('.listeQuantites');
+    const raffinerySelect = jobActuel.querySelector('.Raffinery');
 
     if(event.target.classList.contains("btnAddMineral")) {
         /**
@@ -54,18 +55,24 @@ jobsContainer.addEventListener("click", (event) => {
          */
 
         if(!listeMineraisDiv.querySelector(`.${selectMinerai.value}`)){
-            const input = document.createElement('input');
             
-            input.setAttribute('type','number');
-            input.classList.add(selectMinerai.value);
-            input.requiered = true;
-
+            // Création du nom du minerais
             const label = document.createElement('label');
             label.classList.add(selectMinerai.value);
             label.innerHTML = selectMinerai.value;
             
-            listeQuantitesDiv.appendChild(input);
+            // Création de l'input et du label de valeurs
+            const input = document.createElement('input');
+            input.setAttribute('type','number');
+            input.classList.add(selectMinerai.value);
+            input.setAttribute("placeholder", "1357 cSCU");
+
+            const labelVal = document.createElement("label");
+            labelVal.classList.add(selectMinerai.value);
+            
+            
             listeMineraisDiv.appendChild(label);
+            listeQuantitesDiv.appendChild(input);
         }     
         
         
@@ -90,6 +97,8 @@ jobsContainer.addEventListener("click", (event) => {
         // On retire les hide de touts les élem d'édition
         jobActuel.querySelector('.btnConfirm').classList.remove('hide');
         jobActuel.querySelector('.btnModif').classList.add('hide');
+        jobActuel.querySelector('.btnCancel').classList.remove('hide');
+        jobActuel.querySelector('.btnSupprimer').classList.add('hide');
         
         const labels = jobActuel.querySelectorAll('label');
         selectMineraiCont.classList.remove('hide');
@@ -101,21 +110,21 @@ jobsContainer.addEventListener("click", (event) => {
                 const input = label.previousElementSibling;
                 input.value = delUnit(label.innerHTML, 5);
                 input.classList.remove("hide");
-                label.remove();
+                label.classList.add("hide");
 
             } else if (findParent("emplacementContainer", label, 2) !== 0) {
                 // La localisation
                 const select = label.previousElementSibling;
                 select.value = label.innerHTML;
                 select.classList.remove("hide");
-                label.remove();
+                label.classList.add("hide");
                 
             } else if (findParent("tempsContainer", label, 2) !== 0) {
                 // Le temps
                 const input = label.previousElementSibling;
                 input.value = label.innerHTML;
                 input.classList.remove("hide");
-                label.remove();
+                label.classList.add("hide");
                 
             } else if(findParent("checkBoxDiv", label) !== 0) {
                 // La checkbox
@@ -132,7 +141,6 @@ jobsContainer.addEventListener("click", (event) => {
            * ça cache le bouton confirmer et re affiche le bouton modifier
            */
         const inputs = jobActuel.querySelectorAll('input');
-        const raffinerySelect = jobActuel.querySelector('.Raffinery');
         
         let tabInsert = {};
         let iVide = false;
@@ -172,47 +180,46 @@ jobsContainer.addEventListener("click", (event) => {
         }
 
         if (iVide === false && tVide === false) {
+            // Réaffichage de la checkbox
             jobActuel.querySelector('.checkBoxDiv').classList.remove('hide');
             inputs.forEach(input => {
-                const label = document.createElement('label');    
-                label.classList.add(input.classList[0]);
-
-                let nomMinerai = input.classList.value;
-                // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
-                if(nomMinerai !== "temprestant" && nomMinerai !== 'jobTransportCheckbox'){
-                    // appelle des minerais avec la fonction push
-                    compactecSCU[nomMinerai] = input.value;
-                }   
-    
-                // Insertion dans le tab pour la bdd
                 if (!input.classList.contains("jobTransportCheckbox")) {
-                    tabInsert[input.className] = input.value;
-                }
-    
-                // Extraction des valeurs des inputs pour les mettre dans les labels
-                if(input.parentNode.classList.contains('listeQuantites')){
-                    label.classList.add('MineralQuantityLabel');
-    
-                    label.innerHTML=`${input.value} cSCU`;
-                    input.classList.add("hide");
-                    input.parentNode.appendChild(label);
+                    console.log(input);
+                    const label = input.parentNode.querySelector("label." + input.classList[0]);
 
-                } else if (input.parentNode.classList.contains("checkBoxDiv")) {
-                    input.parentNode.classList.remove("hide");
-
-                } else {
-                    label.innerHTML = input.value;
-                    input.classList.add("hide");
-                    input.parentNode.appendChild(label);
-                }
-                
-                
-                
-            });
-
+                    let nomMinerai = input.classList.value;
+                    // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
+                    if(nomMinerai !== "temprestant" && nomMinerai !== 'jobTransportCheckbox'){
+                        // appelle des minerais avec la fonction push
+                        compactecSCU[nomMinerai] = input.value;
+                    }   
         
+                    // Insertion dans le tab pour la bdd
+                    tabInsert[input.className] = input.value;
+                    
+        
+                    // Extraction des valeurs des inputs pour les mettre dans les labels
+                    if(input.parentNode.classList.contains('listeQuantites')){
+                        label.classList.add('MineralQuantityLabel');
+        
+                        label.innerHTML=`${input.value} cSCU`;
+                        input.classList.add("hide");
+                        label.classList.remove("hide");
+
+                    } else {
+                        label.innerHTML = input.value;
+                        console.log(label);
+                        input.classList.add("hide");
+                        label.classList.remove("hide");
+                    }
+                }
+            });
+            
+            //On cache et fait rapparaitre les btns du bas qu'il faut
+            jobActuel.querySelector(".btnCancel").classList.add('hide');
             jobActuel.querySelector('.btnConfirm').classList.add('hide');
             jobActuel.querySelector('.btnModif').classList.remove('hide');
+            jobActuel.querySelector('.btnSupprimer').classList.remove('hide');
 
 
             // Calculs Okaaa
@@ -234,17 +241,19 @@ jobsContainer.addEventListener("click", (event) => {
             tabInsert["idJob"] = idJob[1];
 
 
-            // Création des labels pour remplacer les inputs
-            const label = document.createElement('label');
-            label.classList.add(`${raffinerySelect.className}`);
+            // Remplacement du select par son label
+            const label = jobActuel.querySelector('label.' + raffinerySelect.classList[0]);
             label.innerHTML = raffinerySelect.value;
-            raffinerySelect.parentNode.appendChild(label);
+            label.classList.remove("hide");
 
             // On cache les selects et autres btns de modif
             raffinerySelect.classList.add('hide');
             selectMineraiCont.classList.add('hide');
-            
 
+            if (jobActuel.classList.contains("newJob")) {
+                jobActuel.classList.remove("newJob");
+            }
+            
             // Calcul des totaux
             // Par Job
             jobActuel.querySelector('.totalJobDiv').innerHTML=`Total: ${calculTotalUnitJob(jobActuel)}`
@@ -255,6 +264,77 @@ jobsContainer.addEventListener("click", (event) => {
             // Insertion dans la bdd
             insertNewJob(tabInsert);
         }
+    } else if(event.target.classList.contains("btnSupprimer")) {
+        const title = jobActuel.querySelector(".titleJob");
+        let numJ = title.innerHTML;
+
+
+        let msg = `Etes-vous sûr de vouloir supprimer le raffinage n°${numJ} ? Cette action est irréversible.`;
+
+        if(window.confirm(msg)) {
+            let idJob = jobActuel.id.split("_");
+            idJob = idJob[1];
+
+            $.ajax({
+                url:"./src/connect.php",
+                method: "POST",
+                data: {"delLine" : idJob},
+                success: function(res) {
+                    console.log(res);
+                    jobActuel.remove();
+                    
+                    //reset du numéro de chaque job mais pas de l'id !!
+                    const jobs = jobsContainer.querySelectorAll(".job");
+                    let i = jobs.length;
+                    jobs.forEach(job => {
+                        const titleJob = job.querySelector(".titleJob");
+                        titleJob.innerHTML = i;
+                        i--;
+                    })
+                }
+            });
+        }
+
+    } else if(event.target.classList.contains("btnCancel")) {
+        /**
+         * Tracking du bouton Annuler, si c'est un job qui vient d'être créé, je job est supprimé, sinon il est remis à l'état où il était avant la modif.
+         */
+
+        if (jobActuel.classList.contains("newJob")) {
+            jobActuel.remove();
+
+        } else {
+            const inputs = jobActuel.querySelectorAll("input");
+            
+            //On boucle pour cacher tout les inputs et afficher leurs labels
+            inputs.forEach(input => {
+                if (!input.classList.contains("jobTransportCheckbox")) {
+                    const label = input.parentNode.querySelector("label." + input.classList[0]);
+
+                    input.value = delUnit(label.innerHTML, 5);
+
+                    input.classList.add("hide");
+                    label.classList.remove("hide");
+                }
+            });
+
+            // Remplacement du select par son label
+            const label = jobActuel.querySelector('label.' + raffinerySelect.classList[0]);
+            label.innerHTML = raffinerySelect.value;
+            label.classList.remove("hide");
+
+            // On cache les selects et autres btns de modif
+            raffinerySelect.classList.add('hide');
+            selectMineraiCont.classList.add('hide');
+
+            //On cache et fait rapparaitre les btns du bas qu'il faut
+            jobActuel.querySelector(".btnCancel").classList.add('hide');
+            jobActuel.querySelector('.btnConfirm').classList.add('hide');
+            jobActuel.querySelector('.btnModif').classList.remove('hide');
+            jobActuel.querySelector('.btnSupprimer').classList.remove('hide');
+
+        }
+
     }
 });
 
@@ -270,7 +350,7 @@ addJobButton.addEventListener("click", (event) => {
     getNextId();
 
     let jobHtml = /*html*/ `
-    <div class="job job${numJob}" id="jobId_${nextId}">
+    <div class="job job${numJob} newJob" id="jobId_${nextId}">
         <div class="checkBoxDiv hide"> 
             <label>Transporter ? </label>
             <input class="jobTransportCheckbox"type="checkbox">
@@ -330,18 +410,21 @@ addJobButton.addEventListener("click", (event) => {
                     <option>HUR-L2</option>
                     <option>MIC-L1</option>          
                 </select>
+                <label class="Raffinery"></label>
             </div>
         </div>
 
         <div class="tempsContainer">
             <label class="titreCat">Temps Restant : </label>
             <div class="tabCat">
-                <input class="heurePlace" type="text">
+                <input class="heurePlace" type="number">
+                <label class="heurePlace"></label>
             </div>
         </div>
 
         <div class="btnsContainer">
-            <button class="btnSupprimer">Supprimer</button>
+            <button class="btnCancel">Annuler</button>
+            <button class="btnSupprimer hide">Supprimer</button>
             <button class="btnModif hide">Modifier</button>
             <button class="btnConfirm">Confirmer</button>
         </div>
@@ -366,6 +449,7 @@ function insertNewJob(tabInsert) {
         }
     });
 }
+
 
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
@@ -491,7 +575,7 @@ transportButton.addEventListener('click',event=>{
     transportContainer.classList.remove('hide');
 })
 
-//Fermeture de la fenètre de transport
+//Fermeture de la fenêtre de transport
 transportContainer.addEventListener("click", e => {
     //console.log(e.target);
     if (e.target.classList.contains("transportContainer") || e.target.classList.contains("bntCancelTransport")) {

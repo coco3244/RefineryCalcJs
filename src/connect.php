@@ -64,7 +64,7 @@
         // Récupération des jobs ----------------------------------------------
 
         if (isset($_POST["firstLoad"])) {
-            $sql = "SELECT DISTINCT U.lastFilter, J.* FROM jobs J INNER JOIN user U ON J.Raffinery LIKE concat('%', U.lastFilter ,'%') WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."')";
+            $sql = "SELECT DISTINCT U.lastFilter, J.* FROM jobs J INNER JOIN user U ON J.Raffinery LIKE concat('%', U.lastFilter ,'%') AND J.fk_idUser = U.idUser WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."')";
 
         } elseif(isset($_POST["raffinery"])) {
             $sql2 = "UPDATE user SET lastFilter='".$_POST["raffinery"]."' WHERE login = '".$_POST["fetch"]."'";
@@ -73,7 +73,7 @@
             $sql = "SELECT * FROM jobs WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."') AND Raffinery LIKE concat('%', '".$_POST["raffinery"]."','%');";
 
         } else {
-            $sql = "SELECT *, (SELECT lastFilter  FROM user WHERE fk_idUser='".$_POST["fetch"]."') AS lastFilter FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
+            $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
         }
         // print($sql);
 
@@ -83,6 +83,19 @@
         while($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $jobs[] = $data;
         }
+
+        if (isset($_POST["firstLoad"])) {
+            if (!isset($jobs[0])) {
+                $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
+                $req = $BDD->query($sql);
+
+                $jobs = [];
+                while($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                    $jobs[] = $data;
+                }
+            }
+        }
+
         $jobs = json_encode($jobs);
         print($jobs);
 
@@ -170,6 +183,11 @@
             $sql = $BDD->prepare($prep);
             $sql->execute($datas);
         }
+    } elseif (isset($_POST["delLine"])) {
+        $id = $_POST["delLine"];
+        $sql = "DELETE FROM jobs WHERE idJob=$id";
+        $req = $BDD->query($sql);
+
     }
 
 ?>

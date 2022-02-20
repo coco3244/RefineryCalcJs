@@ -22,9 +22,7 @@ function init() {
         data: "autoConnect",
         // async: false,
         success: function(res) {
-            console.log(res);
             let searchAuto = res.search("autoConnect");
-            console.log(searchAuto);
             if (searchAuto !== -1) {
                 connexionContainer.classList.add("connect-hidden");
                 connectioooooooon(res, true);
@@ -39,6 +37,7 @@ function init() {
 deco.addEventListener("click", e => {
     pseudo.innerHTML = "Pseudo";
     jobsContainer.innerHTML = "";
+    selectFiltre.value = "";
     connected = false;
     // connexionContainer.style.display = "flex";
     connexionContainer.classList.remove("connect-hidden");
@@ -171,8 +170,8 @@ function fetchDB(pseudo, raffinery, load) {
                             default:
                                 if(res[i][val] !== null) {
                                     labelMinerais += `<label class="${val}">${val}</label>`;
-                                    labelVal += `<input class="${val} hide" type="number">
-                                    <label>${res[i][val]} cSCU</label>`;
+                                    labelVal += `<input class="${val} hide" type="number" placeholder="1357 cSCU">
+                                    <label class="${val}">${res[i][val]} cSCU</label>`;
                                 }
                         }
                     }
@@ -234,24 +233,24 @@ function fetchDB(pseudo, raffinery, load) {
                                 <select class="Raffinery hide"> 
                                     <option>CRU-L1</option>
                                     <option>ARC-L1</option>
-                                    <option>ARC-L2</option>
                                     <option>HUR-L1</option>
                                     <option>HUR-L2</option>
-                                    <option>MIC-L2</option>                             
+                                    <option>MIC-L1</option>
                                 </select>
-                                <label>${raffinery}</label>
+                                <label class="Raffinery">${raffinery}</label>
                             </div>
                         </div>
         
                         <div class="tempsContainer">
                             <label class="titreCat">Temps Restant : </label>
                             <div class="tabCat">
-                                <input class="heurePlace hide" type="text">
-                                <label>${time}</label>
+                                <input class="heurePlace hide" type="number">
+                                <label class="heurePlace">${time}</label>
                             </div>
                         </div>
         
                         <div class="btnsContainer">
+                            <button class="btnCancel hide">Annuler</button>
                             <button class="btnSupprimer">Supprimer</button>
                             <button class="btnModif">Modifier</button>
                             <button class="btnConfirm hide">Confirmer</button>
