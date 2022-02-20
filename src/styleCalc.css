@@ -285,6 +285,8 @@ label {
 	
 }
 
+
+
 .checkBoxDiv{
 	left: 0;
 }
@@ -367,7 +369,10 @@ label {
 .btnsContainer {
 	height: 50px;
 }
-
+.listeQuantites input{
+	width: 90%;
+	margin-bottom: 17px;
+}
 .btnsContainer button{
 	position: absolute;
 	bottom: 0;
