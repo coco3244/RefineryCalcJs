@@ -82,7 +82,8 @@ jobsContainer.addEventListener("click", (event) => {
                      
         if(listeQuantitesDiv.querySelector(`.${selectMinerai.value}`) && listeMineraisDiv.querySelector(`.${selectMinerai.value}`)){
             listeQuantitesDiv.querySelector(`.${selectMinerai.value}`).remove();
-            listeMineraisDiv.querySelector(`.${selectMinerai.value}`).remove();   
+            listeMineraisDiv.querySelector(`input.${selectMinerai.value}`).remove();   
+            listeMineraisDiv.querySelector(`label.${selectMinerai.value}`).remove();   
         }
         
         
