@@ -73,6 +73,7 @@ jobsContainer.addEventListener("click", (event) => {
             
             listeMineraisDiv.appendChild(label);
             listeQuantitesDiv.appendChild(input);
+            listeQuantitesDiv.appendChild(labelVal);
         }     
         
         
@@ -182,6 +183,8 @@ jobsContainer.addEventListener("click", (event) => {
         if (iVide === false && tVide === false) {
             // Réaffichage de la checkbox
             jobActuel.querySelector('.checkBoxDiv').classList.remove('hide');
+
+            // Boucle pour switcher l'affichage des inputs aux labels
             inputs.forEach(input => {
                 if (!input.classList.contains("jobTransportCheckbox")) {
                     console.log(input);
