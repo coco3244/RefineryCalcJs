@@ -170,7 +170,7 @@ function fetchDB(pseudo, raffinery, load) {
                             default:
                                 if(res[i][val] !== null) {
                                     labelMinerais += `<label class="${val}">${val}</label>`;
-                                    labelVal += `<input class="${val} hide" type="number" placeholder="1357 cSCU">
+                                    labelVal += `<input class="${val} hide" type="number" placeholder="en cSCU">
                                     <label class="${val}">${res[i][val]} cSCU</label>`;
                                 }
                         }
@@ -180,7 +180,6 @@ function fetchDB(pseudo, raffinery, load) {
                     let jobHtml = `
                     <div class="job" id="jobId_${jobId}">
                         <div class="checkBoxDiv"> 
-                            <label>Transporter ? </label>
                             <input class="jobTransportCheckbox"type="checkbox">
                         </div>
 

@@ -67,10 +67,12 @@ jobsContainer.addEventListener("click", (event) => {
             const input = document.createElement('input');
             input.setAttribute('type','number');
             input.classList.add(selectMinerai.value);
-            input.setAttribute("placeholder", "1357 cSCU");
+            input.setAttribute("placeholder", "en cSCU");
 
             const labelVal = document.createElement("label");
             labelVal.classList.add(selectMinerai.value);
+            labelVal.classList.add("hide");
+
             
             
             listeMineraisDiv.appendChild(label);
@@ -83,8 +85,8 @@ jobsContainer.addEventListener("click", (event) => {
         // Supprime les minerai des 2 div correspondante
                      
         if(listeQuantitesDiv.querySelector(`.${selectMinerai.value}`) && listeMineraisDiv.querySelector(`.${selectMinerai.value}`)){
-            listeQuantitesDiv.querySelector(`.${selectMinerai.value}`).remove();
-            listeMineraisDiv.querySelector(`input.${selectMinerai.value}`).remove();   
+            listeQuantitesDiv.querySelector(`label.${selectMinerai.value}`).remove();
+            listeQuantitesDiv.querySelector(`input.${selectMinerai.value}`).remove();   
             listeMineraisDiv.querySelector(`label.${selectMinerai.value}`).remove();   
         }
         
@@ -358,7 +360,6 @@ addJobButton.addEventListener("click", (event) => {
     let jobHtml = /*html*/ `
     <div class="job job${numJob} newJob" id="jobId_${nextId}">
         <div class="checkBoxDiv hide"> 
-            <label>Transporter ? </label>
             <input class="jobTransportCheckbox"type="checkbox">
         </div>
 
