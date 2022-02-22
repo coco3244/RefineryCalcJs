@@ -243,7 +243,7 @@ function fetchDB(pseudo, raffinery, load) {
                         <div class="tempsContainer">
                             <label class="titreCat">Temps Restant : </label>
                             <div class="tabCat">
-                                <input class="heurePlace hide" type="number">
+                                <input class="heurePlace hide" placeholder="heures" type="number"> <input class="minsPlace hide" placeholder="minutes" type="number">
                                 <label class="heurePlace">${time}</label>
                             </div>
                         </div>

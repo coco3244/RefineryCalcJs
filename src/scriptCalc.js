@@ -10,7 +10,13 @@ const xSelect = document.querySelector(".xSelect");
 const volumeCheckbox = document.querySelector('.volumeCheckbox');
 let nextId = -1;
 
-
+let loadMoment;
+/**
+ * insére "l'heure" du chargement de la page
+ */
+window.onload = function(){
+    loadMoment=new Date();
+}
 // prout
 
 
@@ -100,6 +106,13 @@ jobsContainer.addEventListener("click", (event) => {
         * ça cache le bouton modifier et re affiche le bouton confirmer
         */
 
+        let clickedTime = new Date();
+        if(loadMoment.getHours()!= clickedTime.getHours || loadMoment.getMinutes()!= clickedTime.getMinutes()){
+            let diffMiliseconds = loadMoment-clickedTime;
+            xMinutesLessJob(jobActuel,Math.round(((diffMiliseconds % 86400000) % 3600000) / 60000)); //différence en minutes entre le moment du chargement de la page et le moment du clique sur modifier
+            loadMoment=clickedTime;
+        }
+
         // On retire les hide de touts les élem d'édition
         jobActuel.querySelector('.btnConfirm').classList.remove('hide');
         jobActuel.querySelector('.btnModif').classList.add('hide');
@@ -127,10 +140,26 @@ jobsContainer.addEventListener("click", (event) => {
                 
             } else if (findParent("tempsContainer", label, 2) !== 0) {
                 // Le temps
-                const input = label.previousElementSibling;
-                input.value = label.innerHTML;
-                input.classList.remove("hide");
-                label.classList.add("hide");
+                if(label.classList.contains('heurePlace')){
+
+                    const heure = jobActuel.querySelector('.heurePlace');
+                    const minute = jobActuel.querySelector('.minsPlace');   
+                    const time = label.innerHTML.split(' : ');  
+
+                    heure.value = time[0];
+                    minute.value=time[1];
+
+
+                    heure.classList.remove("hide");
+                    minute.classList.remove("hide");
+                    label.classList.add("hide");
+                }else{
+                    const input = label.previousElementSibling;
+                    input.value = label.innerHTML;
+                    input.classList.remove("hide");
+                    label.classList.add("hide");
+                }
+               
                 
             } else if(findParent("checkBoxDiv", label) !== 0) {
                 // La checkbox
@@ -188,11 +217,14 @@ jobsContainer.addEventListener("click", (event) => {
         if (iVide === false && tVide === false) {
             // Réaffichage de la checkbox
             jobActuel.querySelector('.checkBoxDiv').classList.remove('hide');
-
+            if(jobActuel.querySelector('.minsPlace').value>59){
+                alert("t'as déja vu des minutes au dessus de 59 toi ?");
+                return;
+            }
             // Boucle pour switcher l'affichage des inputs aux labels
             inputs.forEach(input => {
                 if (!input.classList.contains("jobTransportCheckbox")) {
-                    console.log(input);
+                   // console.log(input);
                     const label = input.parentNode.querySelector("label." + input.classList[0]);
 
                     let nomMinerai = input.classList.value;
@@ -215,10 +247,17 @@ jobsContainer.addEventListener("click", (event) => {
                         label.classList.remove("hide");
 
                     } else {
-                        label.innerHTML = input.value;
-                        console.log(label);
+                       // console.log(label);
+                        if(label){
+                            
+                            label.innerHTML = input.value;
+                            //console.log(label);                       
+                            label.classList.remove("hide");
+                            if(label.classList.contains('heurePlace')){
+                                label.innerHTML +=` : ${jobActuel.querySelector('.minsPlace').value}`;
+                            }
+                        }
                         input.classList.add("hide");
-                        label.classList.remove("hide");
                     }
                 }
             });
@@ -288,7 +327,7 @@ jobsContainer.addEventListener("click", (event) => {
                 method: "POST",
                 data: {"delLine" : idJob},
                 success: function(res) {
-                    console.log(res);
+                    //console.log(res);
                     jobActuel.remove();
                     
                     //reset du numéro de chaque job mais pas de l'id !!
@@ -424,8 +463,10 @@ addJobButton.addEventListener("click", (event) => {
         <div class="tempsContainer">
             <label class="titreCat">Temps Restant : </label>
             <div class="tabCat">
-                <input class="heurePlace" type="number">
+                <input class="heurePlace" placeholder="heures"  type="number">  <input class="minsPlace" placeholder="minutes" max="59"type="number">
+                            
                 <label class="heurePlace"></label>
+               
             </div>
         </div>
 
@@ -642,6 +683,61 @@ statLabel.addEventListener('click',event=>{
         }
     });
 })
+
+/**
+ * Fonctions qui décrémente de X minute le temps d'une liste de job
+ * @param {*} jobs la liste des jobs
+ * @param {*} nbmin nombre de minute a décrémenté
+ */
+function xMinutesLessJobsList(jobs,nbmin){
+    nbmin=Math.abs(nbmin);
+    jobs.forEach(job=>{     
+        xMinutesLessJob(job,nbmin);
+    })
+}
+/**
+ * Fonction qui décrémente de 1 minute le temps de un job 
+ * @param {*} job un job
+ * @param {*} nbmin nombre de minute a décrémenté
+ */
+function xMinutesLessJob(job,nbmin){
+    console.log(nbmin);
+
+    nbmin=Math.abs(nbmin);
+    console.log(nbmin);
+
+    
+    const heurePlace = job.querySelector('label[class=heurePlace]');
+        const time = heurePlace.innerHTML.split(' : '); 
+        console.warn(time[1]); 
+        if(nbmin<=time[1]){ //si les minutes a enlevé sont inférieur au minutes actuellement écrite
+            time[1]-=nbmin;
+
+        }else if (nbmin>59){
+            let heureMoin = Math.round(nbmin/60);
+            let minRest = nbmin%60;
+            if(heureMoin<=time[0]){
+                time[0]-=heureMoin;
+            }else{
+                time[0]=0;
+            }
+
+            if(minRest<time[1]){
+                time[1]-=minRest;
+            }else{
+                time[1]=0;
+            }
+            
+        }else{
+            nbmin-=time[1];
+
+        }
+        console.warn(time[1]); 
+        heurePlace.innerHTML=`${time[0]} : ${time[1]}`;
+}
+
+
+
 
 /** ---------------------------------------------------------------------------
  * Fonction qui calcule le total d'unités (cSCU) dans le job donné
