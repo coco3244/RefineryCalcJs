@@ -461,12 +461,7 @@ function insertNewJob(tabInsert) {
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
     const jobsResumeCont = transportContainer.querySelector('.jobsResumeCont');
-    //console.log(volumeCheckbox);
-    if(volumeCheckbox.checked==true){
-        var audio = new Audio('./audio/Boing.mp3');   
-        audio.volume=0.1;   
-        audio.play();
-    }
+    
 
     let mineraisList = []; 
 
@@ -501,7 +496,8 @@ transportButton.addEventListener('click',event=>{
     for (const minerai in mineraisList) {
         const br = document.createElement('br');
         const label = document.createElement('label');
-        totalcSCU+=mineraisList[minerai];
+        
+        totalcSCU+= Number(mineraisList[minerai]);
         totalaUEC+=Number(mineraisList[minerai]) * prixMineraiRefined[minerai];
         label.innerHTML=`${minerai}: ${mineraisList[minerai]} cSCU | ${Number(mineraisList[minerai]) * prixMineraiRefined[minerai]}  aUEC`;
 
@@ -509,6 +505,7 @@ transportButton.addEventListener('click',event=>{
         jobsResumeCont.appendChild(br);
 
     };
+    
     
    
     /**
@@ -578,18 +575,40 @@ transportButton.addEventListener('click',event=>{
         }
     })
     
-
+    const vaisseauxTr = vaisseauxListTable.querySelectorAll('.vaisseau');
+    console.log(vaisseauxTr);
+    if(vaisseauxTr.length==0){
+        alert('Ta cargaison est trop volumineuse même pour le plus gros de tes ship !');
+        return;
+    }
+    if(volumeCheckbox.checked==true){
+        var audio = new Audio('./audio/Boing.mp3');   
+        audio.volume=0.1;   
+        audio.play();
+    }
     transportContainer.classList.remove('hide');
 })
 
 //Fermeture de la fenêtre de transport
 transportContainer.addEventListener("click", e => {
-    //console.log(e.target);
-    if (e.target.classList.contains("transportContainer") || e.target.classList.contains("bntCancelTransport")) {
+    const target = e.target;
+    if (target.classList.contains("transportContainer") || target.classList.contains("bntCancelTransport")) {
         transportContainer.querySelectorAll('.job').forEach(job=>{
             job.remove();
         }); 
         transportContainer.classList.add('hide');
+    }
+    if(target.classList.contains('btnValidateTransport') && window.confirm("Es tu sur de vouloir valider le transport ?")){
+
+        const jobs = jobsContainer.querySelectorAll('.job');
+
+        jobs.forEach(job=>{
+            if(job.querySelector('.jobTransportCheckbox').checked){ 
+                job.remove();
+            }
+        })
+        transportContainer.classList.add('hide');
+
     }
 }); 
 
