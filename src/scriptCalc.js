@@ -524,9 +524,9 @@ transportButton.addEventListener('click',event=>{
                 const labels = mineral.querySelectorAll('label');
                 labels.forEach(label=>{                     
                     if(mineraisList[label.classList[0]]=== undefined ){
-                        mineraisList[label.classList[0]]=delUnit(label.innerHTML,5);
+                        mineraisList[label.classList[0]]=Number(delUnit(label.innerHTML,5));
                     }else{
-                        mineraisList[label.classList[0]]+=delUnit(label.innerHTML,5);
+                        mineraisList[label.classList[0]]+=Number(delUnit(label.innerHTML,5));
                     }         
                    
                 })                          
@@ -541,10 +541,9 @@ transportButton.addEventListener('click',event=>{
     for (const minerai in mineraisList) {
         const br = document.createElement('br');
         const label = document.createElement('label');
-        
         totalcSCU+= Number(mineraisList[minerai]);
-        totalaUEC+=Number(mineraisList[minerai]) * prixMineraiRefined[minerai];
-        label.innerHTML=`${minerai}: ${mineraisList[minerai]} cSCU | ${Number(mineraisList[minerai]) * prixMineraiRefined[minerai]}  aUEC`;
+        totalaUEC+= Number(mineraisList[minerai]) * Number(prixMineraiRefined[minerai]);
+        label.innerHTML=`${minerai}: ${mineraisList[minerai]} cSCU | ${mineraisList[minerai] * prixMineraiRefined[minerai]}  aUEC`;
 
         jobsResumeCont.appendChild(label);
         jobsResumeCont.appendChild(br);
