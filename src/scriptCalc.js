@@ -319,27 +319,7 @@ jobsContainer.addEventListener("click", (event) => {
         let msg = `Etes-vous sûr de vouloir supprimer le raffinage n°${numJ} ? Cette action est irréversible.`;
 
         if(window.confirm(msg)) {
-            let idJob = jobActuel.id.split("_");
-            idJob = idJob[1];
-
-            $.ajax({
-                url:"./src/connect.php",
-                method: "POST",
-                data: {"delLine" : idJob},
-                success: function(res) {
-                    //console.log(res);
-                    jobActuel.remove();
-                    
-                    //reset du numéro de chaque job mais pas de l'id !!
-                    const jobs = jobsContainer.querySelectorAll(".job");
-                    let i = jobs.length;
-                    jobs.forEach(job => {
-                        const titleJob = job.querySelector(".titleJob");
-                        titleJob.innerHTML = i;
-                        i--;
-                    })
-                }
-            });
+            delJob(jobActuel);
         }
 
     } else if(event.target.classList.contains("btnCancel")) {
@@ -498,6 +478,30 @@ function insertNewJob(tabInsert) {
     });
 }
 
+function delJob(jobActuel) {
+    let idJob = jobActuel.id.split("_");
+    idJob = idJob[1];
+    
+    $.ajax({
+        url:"./src/connect.php",
+        method: "POST",
+        data: {"delLine" : idJob},
+        success: function(res) {
+            console.log(res);
+            jobActuel.remove();
+            
+        }
+    });
+   
+    //reset du numéro de chaque job mais pas de l'id !!
+    const jobs = jobsContainer.querySelectorAll(".job");
+    let i = jobs.length;
+    jobs.forEach(job => {
+        const titleJob = job.querySelector(".titleJob");
+        titleJob.innerHTML = i;
+        i--;
+    });
+}
 
 transportButton.addEventListener('click',event=>{
     const jobs = jobsContainer.querySelectorAll('.job');
@@ -645,9 +649,9 @@ transportContainer.addEventListener("click", e => {
 
         jobs.forEach(job=>{
             if(job.querySelector('.jobTransportCheckbox').checked){ 
-                job.remove();
+                delJob(job);
             }
-        })
+        });
         transportContainer.classList.add('hide');
 
     }
