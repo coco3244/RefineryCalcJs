@@ -337,7 +337,7 @@ jobsContainer.addEventListener("click", (event) => {
             tabMineraisTable.innerHTML=`<tr>
                                         <th>Minerais</th>
                                         <th>% de la cargaison +/-</th>
-                                        <th>aUEC</th>
+                                        <th>aUEC +/-</th>
                                         </tr>`;
             for(const minerai in TotalcSCUByMineral){
                 const tr = document.createElement('tr');
