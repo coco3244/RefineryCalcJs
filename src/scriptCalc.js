@@ -106,12 +106,12 @@ jobsContainer.addEventListener("click", (event) => {
         * ça cache le bouton modifier et re affiche le bouton confirmer
         */
 
-        let clickedTime = new Date();
+      /*  let clickedTime = new Date();
         if(loadMoment.getHours()!= clickedTime.getHours || loadMoment.getMinutes()!= clickedTime.getMinutes()){
             let diffMiliseconds = loadMoment-clickedTime;
             xMinutesLessJob(jobActuel,Math.round(((diffMiliseconds % 86400000) % 3600000) / 60000)); //différence en minutes entre le moment du chargement de la page et le moment du clique sur modifier
             loadMoment=clickedTime;
-        }
+        }*/
 
         // On retire les hide de touts les élem d'édition
         jobActuel.querySelector('.btnConfirm').classList.remove('hide');
@@ -223,13 +223,12 @@ jobsContainer.addEventListener("click", (event) => {
             }
             // Boucle pour switcher l'affichage des inputs aux labels
             inputs.forEach(input => {
-                if (!input.classList.contains("jobTransportCheckbox")) {
+                if (!input.classList.contains("jobTransportCheckbox") && !input.classList.contains('heurePlace') && !input.classList.contains('minsPlace')) {
                    // console.log(input);
                     const label = input.parentNode.querySelector("label." + input.classList[0]);
-
                     let nomMinerai = input.classList.value;
                     // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
-                    if(nomMinerai !== "temprestant" && nomMinerai !== 'jobTransportCheckbox'){
+                    if(nomMinerai !== "heurePlace" && nomMinerai !== "minsPlace" && nomMinerai !== 'jobTransportCheckbox'){
                         // appelle des minerais avec la fonction push
                         compactecSCU[nomMinerai] = input.value;
                     }   
@@ -273,12 +272,13 @@ jobsContainer.addEventListener("click", (event) => {
             let multipliMineraiParPrix = {};  //j'apprends que multipliMineraiParPrix et un tableau
             let totaljob = 0; //j'apprends que totalJob et à 0
 
+           
             //je demande de dissocier la quantité de minerai du nom du minerai
             for (const minerai in compactecSCU) {
                 // je demande de multiplier la quantité de minerai par le prix
-                multipliMineraiParPrix[minerai] = Number(compactecSCU[minerai]) * prixMineraiRefined[minerai];
-            
-                totaljob += multipliMineraiParPrix[minerai];
+                multipliMineraiParPrix[minerai] = Number(compactecSCU[minerai]) * Number(prixMineraiRefined[minerai]);
+               
+                totaljob += Number(multipliMineraiParPrix[minerai]);
                 multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
             };
             
@@ -303,13 +303,59 @@ jobsContainer.addEventListener("click", (event) => {
             
             // Calcul des totaux
             // Par Job
-            jobActuel.querySelector('.totalJobDiv').innerHTML=`Total: ${calculTotalUnitJob(jobActuel)}`
+            jobActuel.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(jobActuel)} cSCU | ${totaljob} aUEC`
             
             // Et total
-            tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`;      
+            tabTotal.innerHTML=`${calculTotalUnitGlobal(document.querySelectorAll('.job'))} cSCU <br>${calculTotalPriceGlobal(document.querySelectorAll('.job'))} aUEC`;      
             
             // Insertion dans la bdd
             insertNewJob(tabInsert);
+
+            /**
+             * Partie de calcul des pourcentages
+             */
+
+            const tabMineraisTable = document.querySelector('.tabMineraisTable');
+            const totalcSCU = calculTotalUnitGlobal(document.querySelectorAll('.job'));
+            //const totalaUEC = calculTotalPriceGlobal(document.querySelectorAll('.job'));
+            let TotalcSCUByMineral = [];
+            const listeQuantiteAll = document.querySelectorAll('.listeQuantites');
+
+            listeQuantiteAll.forEach(listeMinerai=>{
+                const labels = listeMinerai.querySelectorAll('label');
+
+                labels.forEach(label=>{
+                    if(TotalcSCUByMineral[label.classList[0]]==undefined){
+                        TotalcSCUByMineral[label.classList[0]]=Number(delUnit(label.innerHTML, 5));
+                    }else{
+                        TotalcSCUByMineral[label.classList[0]]+=Number(delUnit(label.innerHTML, 5)); 
+                    }
+                })
+
+            })
+
+            tabMineraisTable.innerHTML=`<tr>
+                                        <th>Minerais</th>
+                                        <th>% de la cargaison +/-</th>
+                                        <th>aUEC</th>
+                                        </tr>`;
+            for(const minerai in TotalcSCUByMineral){
+                const tr = document.createElement('tr');
+                const tdMinerai = document.createElement('td');
+                const tdPourcentage = document.createElement('td');
+                const tdValeur = document.createElement('td');
+
+                tdMinerai.innerHTML=minerai;
+                tdPourcentage.innerHTML = `${Math.round((100*TotalcSCUByMineral[minerai])/totalcSCU)} %`;
+                tdValeur.innerHTML = `${Math.round(TotalcSCUByMineral[minerai]*prixMineraiRefined[minerai])}`;
+                tr.appendChild(tdMinerai);
+                tr.appendChild(tdPourcentage);
+                tr.appendChild(tdValeur);
+                tabMineraisTable.appendChild(tr);
+
+            }
+            
+            
         }
     } else if(event.target.classList.contains("btnSupprimer")) {
         const title = jobActuel.querySelector(".titleJob");
@@ -473,7 +519,7 @@ function insertNewJob(tabInsert) {
         async: false,
         data: {newInsert : tabInsert},
         success: function(res) {
-            console.log(res);
+            //console.log(res);
         }
     });
 }
@@ -704,15 +750,11 @@ function xMinutesLessJobsList(jobs,nbmin){
  * @param {*} nbmin nombre de minute a décrémenté
  */
 function xMinutesLessJob(job,nbmin){
-    console.log(nbmin);
-
     nbmin=Math.abs(nbmin);
-    console.log(nbmin);
-
-    
+   
     const heurePlace = job.querySelector('label[class=heurePlace]');
         const time = heurePlace.innerHTML.split(' : '); 
-        console.warn(time[1]); 
+        
         if(nbmin<=time[1]){ //si les minutes a enlevé sont inférieur au minutes actuellement écrite
             time[1]-=nbmin;
 
@@ -735,7 +777,7 @@ function xMinutesLessJob(job,nbmin){
             nbmin-=time[1];
 
         }
-        console.warn(time[1]); 
+       
         heurePlace.innerHTML=`${time[0]} : ${time[1]}`;
 }
 
@@ -749,12 +791,13 @@ function xMinutesLessJob(job,nbmin){
  */
 function calculTotalUnitJob(job){
     let result = 0;
-    const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
-    quantityLabels.forEach(value=>{
-        
-        result+=Number(delUnit(value.innerHTML,5));
-    })
-    return result;
+         const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
+        quantityLabels.forEach(value=>{
+            
+            result+=Number(delUnit(value.innerHTML,5));
+        })
+        return result;
+    
 }
 
 /**
@@ -770,6 +813,30 @@ function calculTotalUnitGlobal(jobs){
     return result;
 }
 
+function calculTotalPriceJob(job){
+    
+    const confButton = job.querySelector('.btnConfirm');
+    if(confButton.classList.contains('hide')){
+        const totalLabels = job.querySelector('.totalJobDiv'); 
+        const totalLabelsTab = totalLabels.innerHTML.split(' | ');
+       
+        return Number(delUnit(totalLabelsTab[1],5));;
+    }else{
+        return 0;
+    }
+    
+}
+
+function calculTotalPriceGlobal(jobs){
+    let result=0
+
+    jobs.forEach(job=>{
+        result+=calculTotalPriceJob(job);
+    })
+
+    return result;
+
+}
 
 // Fonctions d'automatisation -------------------------------------------------
 /**

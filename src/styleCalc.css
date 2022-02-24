@@ -28,6 +28,14 @@ body {
 label {
 	user-select: none;
 }
+.tabMineraisTable th{
+	font-size: medium;
+	text-align: center;
+}
+.tabMineraisTable td{
+	margin-left: 5px;
+	border-top: 2px solid black;
+}
 
 /*------------------------------ ToolBar ------------------------------ */
 .toolBar {
@@ -217,6 +225,7 @@ label {
 }
 
 .tabMinerais {
+	overflow: auto;
 	display: flex;
 	flex-direction: column;
 	height: 200px;
