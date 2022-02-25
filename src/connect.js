@@ -290,8 +290,8 @@ function fetchDB(pseudo, raffinery, load) {
   
 }
 
-tabTotals.innerHTML=`${calculTotalUnitGlobal(jobList)} cSCU <br>${calculTotalPriceGlobal(jobList)} aUEC`;
 function initiateCalculateValue(){
+    tabTotals.innerHTML=`${calculTotalUnitGlobal(jobList)} cSCU <br>${calculTotalPriceGlobal(jobList)} aUEC`;
     jobList.forEach(job=>{
         let totaljob = 0; 
         const labels = job.querySelectorAll('label')
