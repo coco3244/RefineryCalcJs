@@ -229,6 +229,9 @@ label {
 .tabMineraisTable th{
 	font-size: medium;
 	text-align: center;
+	border-left: solid black 1px;
+	border-right: solid black 1px;
+
 }
 .tabMineraisTable td{
 	margin-left: 5px;

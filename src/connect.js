@@ -14,8 +14,6 @@ const deco = document.getElementById("labelDeco");
 const tabTotals = document.querySelector('.tabTotal');
 
 let multipliMineraiParPrix = {};  
-
-let compactecSCU = []; 
 let jobList;
 
 let tabInsert = {};
@@ -104,6 +102,7 @@ yesAdd.addEventListener("click", (e) => {
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
+        async:false,
         data: tabInsert,
         success: function(res) {
             console.log(res);
@@ -138,6 +137,7 @@ function fetchDB(pseudo, raffinery, load) {
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
+        async:false,
         data: {
             fetch : pseudo,
             raffinery : raffinery,
@@ -177,8 +177,8 @@ function fetchDB(pseudo, raffinery, load) {
                             default:
                                 if(res[i][val] !== null) {
                                     labelMinerais += `<label class="${val}">${val}</label>`;
-                                    labelVal += `<input class="${val} hide" type="number" placeholder="en cSCU">
-                                    <label class="${val}">${res[i][val]} cSCU</label>`;
+                                    labelVal += `<input class="${val}   hide" type="number" placeholder="en cSCU">
+                                    <label class="${val} MineralQuantityLabel">${res[i][val]} cSCU</label>`;
                                 }
                         }
                     }
@@ -280,102 +280,43 @@ function fetchDB(pseudo, raffinery, load) {
 
                 // // Et total
                 // tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`; 
+                jobList = document.querySelectorAll(".job");
 
+                initiateCalculateValue();
             }
         }
     });
-    jobList = document.querySelectorAll(".job");
-
-    initiateCalculateValue();
+    
   
 }
 
 function initiateCalculateValue(){
-    tabTotals.innerHTML=`${calculTotalUnitGlobal(jobList)} cSCU <br>${calculTotalPriceGlobal(jobList)} aUEC`;
+   
     jobList.forEach(job=>{
         let totaljob = 0; 
-        const labels = job.querySelectorAll('label')
-
+        const labels = job.querySelector('.listeQuantites').querySelectorAll('label')
+        multipliMineraiParPrix = {};
         labels.forEach(label=>{
-            let nomMinerai = label.classList.value;
+            let nomMinerai = label.classList[0];
             
              if(nomMinerai !== "heurePlace" && nomMinerai !== "minsPlace" && nomMinerai !== 'jobTransportCheckbox'){
                 
-                compactecSCU[nomMinerai] = label.value;
+                compactecSCU[nomMinerai] = label.innerHTML;
+                
             } 
             
         })
-        
         for (const minerai in compactecSCU) {
-    
-            multipliMineraiParPrix[minerai] = Number(compactecSCU[minerai]) * Number(prixMineraiRefined[minerai]);
-            
+            //console.log(minerai);
+            console.log(prixMineraiRefined[minerai]);
+            console.log(minerai);
+            multipliMineraiParPrix[minerai] = Number(delUnit(compactecSCU[minerai],5)) * Number(prixMineraiRefined[minerai]);
             totaljob += Number(multipliMineraiParPrix[minerai]);
             multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
         };       
         job.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(job)} cSCU | ${totaljob} aUEC`
     })
-}
 
-/** ---------------------------------------------------------------------------
- * Fonction qui calcule le total d'unités (cSCU) dans le job donné
- * @param {*} job La div du job
- * @returns Le total d'unité
- */
- function calculTotalUnitJob(job){
-    let result = 0;
-         const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
-        quantityLabels.forEach(value=>{
-            
-            result+=Number(delUnit(value.innerHTML,5));
-        })
-        return result;
-    
-}
-
-/**
- * Fonction qui prend une liste de jobs et qui calcul les cSCU globaux
- * @param {*} jobs La liste des jobs
- * @returns le compte de tout les cSCU de tout les jobs
- */
-function calculTotalUnitGlobal(jobs){
-    let result =0;
-    jobs.forEach(job=>{
-        result+=Number(calculTotalUnitJob(job));
-    })
-    return result;
-}
-
-/**
- * calcul la valeur en aUEC du job en parametre
- * @param {*} job un job
- * @returns le total du job
- */
-function calculTotalPriceJob(job){
-    
-    const confButton = job.querySelector('.btnConfirm');
-    if(confButton.classList.contains('hide')){
-        const totalLabels = job.querySelector('.totalJobDiv'); 
-        const totalLabelsTab = totalLabels.innerHTML.split(' | ');
-       
-        return Number(delUnit(totalLabelsTab[1],5));;
-    }else{
-        return 0;
-    }
-    
-}
-/**
- * calcul le total en aUEC du job
- * @param {*} jobs liste de job
- * @returns le total du prix
- */
-function calculTotalPriceGlobal(jobs){
-    let result=0
-
-    jobs.forEach(job=>{
-        result+=calculTotalPriceJob(job);
-    })
-
-    return result;
-
+    tabTotals.innerHTML=`${calculTotalUnitGlobal(jobList)} cSCU <br>${calculTotalPriceGlobal(jobList)} aUEC`;
+    calcPercentage()
 }

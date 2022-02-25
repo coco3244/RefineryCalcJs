@@ -8,23 +8,8 @@ const totalPanierCont = document.querySelector('.totalPanierCont');
 const tabTotal = document.querySelector('.tabTotal');
 const xSelect = document.querySelector(".xSelect");
 const volumeCheckbox = document.querySelector('.volumeCheckbox');
+let compactecSCU = []; 
 let nextId = -1;
-
-let loadMoment;
-/**
- * insére "l'heure" du chargement de la page
- */
-window.onload = function(){
-    loadMoment=new Date();
-}
-// prout
-
-
-scrollContainer.addEventListener('wheel',event=>{
-    event.preventDefault();
-    scrollContainer.scrollLeft += event.deltaY;
-});
-// on crée le tableau (prixmineraisrefined) et on y rajoute les prix par rapport ah un nom de minerai
 let prixMineraiRefined = {
     "Quantainium" : 88.00,
     "Bexalite" : 40.65,
@@ -44,6 +29,23 @@ let prixMineraiRefined = {
     "Aluminum" : 1.33,
     "Inert-Material" : 0.02,
 };
+
+let loadMoment;
+/**
+ * insére "l'heure" du chargement de la page
+ */
+window.onload = function(){
+    loadMoment=new Date();
+}
+// prout
+
+
+scrollContainer.addEventListener('wheel',event=>{
+    event.preventDefault();
+    scrollContainer.scrollLeft += event.deltaY;
+});
+// on crée le tableau (prixmineraisrefined) et on y rajoute les prix par rapport ah un nom de minerai
+
 
 
 // Tracking des boutons dans les Jobs -----------------------------------------
@@ -180,7 +182,6 @@ jobsContainer.addEventListener("click", (event) => {
         let tabInsert = {};
         let iVide = false;
         let tVide = false;
-        let compactecSCU = []; 
         
         // On vérifie qu'il n'y a pas d'input vide
         inputs.forEach(input => {
@@ -306,67 +307,27 @@ jobsContainer.addEventListener("click", (event) => {
             jobActuel.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(jobActuel)} cSCU | ${totaljob} aUEC`
             
             // Et total
-            tabTotal.innerHTML=`${calculTotalUnitGlobal(document.querySelectorAll('.job'))} cSCU <br>${calculTotalPriceGlobal(document.querySelectorAll('.job'))} aUEC`;      
+           
+            tabTotal.innerHTML=`${calculTotalUnitGlobal()} cSCU <br>${calculTotalPriceGlobal()} aUEC`;      
             
             // Insertion dans la bdd
             insertNewJob(tabInsert);
 
-            /**
-             * Partie de calcul des pourcentages
-             */
-
-            const tabMineraisTable = document.querySelector('.tabMineraisTable');
-            const totalcSCU = calculTotalUnitGlobal(document.querySelectorAll('.job'));
-            //const totalaUEC = calculTotalPriceGlobal(document.querySelectorAll('.job'));
-            let TotalcSCUByMineral = [];
-            const listeQuantiteAll = document.querySelectorAll('.listeQuantites');
-
-            listeQuantiteAll.forEach(listeMinerai=>{
-                const labels = listeMinerai.querySelectorAll('label');
-
-                labels.forEach(label=>{
-                    if(TotalcSCUByMineral[label.classList[0]]==undefined){
-                        TotalcSCUByMineral[label.classList[0]]=Number(delUnit(label.innerHTML, 5));
-                    }else{
-                        TotalcSCUByMineral[label.classList[0]]+=Number(delUnit(label.innerHTML, 5)); 
-                    }
-                })
-
-            })
-
-            tabMineraisTable.innerHTML=`<tr>
-                                        <th>Minerais</th>
-                                        <th>% de la cargaison +/-</th>
-                                        <th>aUEC +/-</th>
-                                        </tr>`;
-            for(const minerai in TotalcSCUByMineral){
-                const tr = document.createElement('tr');
-                const tdMinerai = document.createElement('td');
-                const tdPourcentage = document.createElement('td');
-                const tdValeur = document.createElement('td');
-
-                tdMinerai.innerHTML=minerai;
-                tdPourcentage.innerHTML = `${Math.round((100*TotalcSCUByMineral[minerai])/totalcSCU)} %`;
-                tdValeur.innerHTML = `${Math.round(TotalcSCUByMineral[minerai]*prixMineraiRefined[minerai])}`;
-                tr.appendChild(tdMinerai);
-                tr.appendChild(tdPourcentage);
-                tr.appendChild(tdValeur);
-                tabMineraisTable.appendChild(tr);
-
-            }
+            calcPercentage();
             
             
         }
     } else if(event.target.classList.contains("btnSupprimer")) {
         const title = jobActuel.querySelector(".titleJob");
         let numJ = title.innerHTML;
-
+       
 
         let msg = `Etes-vous sûr de vouloir supprimer le raffinage n°${numJ} ? Cette action est irréversible.`;
 
         if(window.confirm(msg)) {
-            delJob(jobActuel);
+            delJob(jobActuel);                   
         }
+        
 
     } else if(event.target.classList.contains("btnCancel")) {
         /**
@@ -531,11 +492,12 @@ function delJob(jobActuel) {
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
+        async:false,
         data: {"delLine" : idJob},
         success: function(res) {
-            console.log(res);
-            jobActuel.remove();
-            
+            //console.log(res);
+            jobActuel.remove(); 
+               
         }
     });
    
@@ -547,6 +509,9 @@ function delJob(jobActuel) {
         titleJob.innerHTML = i;
         i--;
     });
+
+    tabTotal.innerHTML=`${calculTotalUnitGlobal()} cSCU <br>${calculTotalPriceGlobal()} aUEC`;     
+    calcPercentage(); 
 }
 
 transportButton.addEventListener('click',event=>{
@@ -666,7 +631,7 @@ transportButton.addEventListener('click',event=>{
     })
     
     const vaisseauxTr = vaisseauxListTable.querySelectorAll('.vaisseau');
-    console.log(vaisseauxTr);
+    //console.log(vaisseauxTr);
     if(vaisseauxTr.length==0){
         alert('Ta cargaison est trop volumineuse même pour le plus gros de tes ship !');
         return;
@@ -707,7 +672,7 @@ selectFiltre.addEventListener("input", inputSelect);
 function inputSelect() {
     //console.log(selectFiltre.value);
     const pseudo = getPseudo();
-    console.log("here");
+    //console.log("here");
     if (connected === true) {
         fetchDB(pseudo, selectFiltre.value);
     }
@@ -791,9 +756,10 @@ function xMinutesLessJob(job,nbmin){
  */
 function calculTotalUnitJob(job){
     let result = 0;
-         const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
-        quantityLabels.forEach(value=>{
-            
+        const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
+        
+        quantityLabels.forEach(value=>{    
+           // console.log(value);     
             result+=Number(delUnit(value.innerHTML,5));
         })
         return result;
@@ -805,7 +771,9 @@ function calculTotalUnitJob(job){
  * @param {*} jobs La liste des jobs
  * @returns le compte de tout les cSCU de tout les jobs
  */
-function calculTotalUnitGlobal(jobs){
+function calculTotalUnitGlobal(){
+    const jobs=document.querySelectorAll('.job');
+    
     let result =0;
     jobs.forEach(job=>{
         result+=Number(calculTotalUnitJob(job));
@@ -819,24 +787,26 @@ function calculTotalUnitGlobal(jobs){
  * @returns le total du job
  */
 function calculTotalPriceJob(job){
-    
+   
     const confButton = job.querySelector('.btnConfirm');
-    if(confButton.classList.contains('hide')){
+    if(confButton.classList.contains('hide')){     
         const totalLabels = job.querySelector('.totalJobDiv'); 
         const totalLabelsTab = totalLabels.innerHTML.split(' | ');
-       
+        
         return Number(delUnit(totalLabelsTab[1],5));;
     }else{
         return 0;
     }
     
 }
+
 /**
  * calcul le total en aUEC du job
  * @param {*} jobs liste de job
  * @returns le total du prix de tout les jobs
  */
-function calculTotalPriceGlobal(jobs){
+function calculTotalPriceGlobal(){
+    const jobs=document.querySelectorAll('.job')
     let result=0
 
     jobs.forEach(job=>{
@@ -937,6 +907,54 @@ function getNextId() {
             }
         }
     });
+}
+
+function calcPercentage(){
+    /**
+             * Partie de calcul des pourcentages
+             */
+     
+     const tabMineraisTable = document.querySelector('.tabMineraisTable');
+     tabMineraisTable.innerHTML=`<tr>
+     <th>Minerais</th>
+     <th>% de la cargaison +/-</th>
+     <th>aUEC +/-</th>
+     </tr>`;
+     const totalcSCU = calculTotalUnitGlobal(document.querySelectorAll('.job'));
+     //const totalaUEC = calculTotalPriceGlobal(document.querySelectorAll('.job'));
+     let TotalcSCUByMineral = [];
+     const listeQuantiteAll = document.querySelectorAll('.listeQuantites');
+
+     listeQuantiteAll.forEach(listeMinerai=>{
+         const labels = listeMinerai.querySelectorAll('label');
+
+         labels.forEach(label=>{
+             if(TotalcSCUByMineral[label.classList[0]]==undefined){
+                 TotalcSCUByMineral[label.classList[0]]=Number(delUnit(label.innerHTML, 5));
+             }else{
+                 TotalcSCUByMineral[label.classList[0]]+=Number(delUnit(label.innerHTML, 5)); 
+             }
+         })
+
+     })
+
+     
+
+     for(const minerai in TotalcSCUByMineral){
+         const tr = document.createElement('tr');
+         const tdMinerai = document.createElement('td');
+         const tdPourcentage = document.createElement('td');
+         const tdValeur = document.createElement('td');
+
+         tdMinerai.innerHTML=minerai;
+         tdPourcentage.innerHTML = `${Math.round((100*TotalcSCUByMineral[minerai])/totalcSCU)} %`;
+         tdValeur.innerHTML = `${Math.round(TotalcSCUByMineral[minerai]*prixMineraiRefined[minerai])}`;
+         tr.appendChild(tdMinerai);
+         tr.appendChild(tdPourcentage);
+         tr.appendChild(tdValeur);
+         tabMineraisTable.appendChild(tr);
+
+     }
 }
 
 /**
