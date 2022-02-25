@@ -147,7 +147,7 @@ jobsContainer.addEventListener("click", (event) => {
                     const time = label.innerHTML.split(' : ');  
 
                     heure.value = time[0];
-                    minute.value=time[1];
+                    minute.value= time[1];
 
 
                     heure.classList.remove("hide");
@@ -813,6 +813,11 @@ function calculTotalUnitGlobal(jobs){
     return result;
 }
 
+/**
+ * calcul la valeur en aUEC du job en parametre
+ * @param {*} job un job
+ * @returns le total du job
+ */
 function calculTotalPriceJob(job){
     
     const confButton = job.querySelector('.btnConfirm');
@@ -826,7 +831,11 @@ function calculTotalPriceJob(job){
     }
     
 }
-
+/**
+ * calcul le total en aUEC du job
+ * @param {*} jobs liste de job
+ * @returns le total du prix de tout les jobs
+ */
 function calculTotalPriceGlobal(jobs){
     let result=0
 
