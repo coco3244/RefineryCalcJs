@@ -698,6 +698,36 @@ statLabel.addEventListener('click',event=>{
     });
 })
 
+const labelFlotte = document.querySelector('.labelFlotte');
+
+labelFlotte.addEventListener('click',event=>{
+    const flotteContainer = document.querySelector('.flotteContainer');
+    flotteContainer.classList.remove('hide');
+
+    flotteContainer.addEventListener("click", e => {
+        //console.log(e.target);
+        if (e.target.classList.contains("flotteContainer") || e.target.classList.contains("btnCloseFlotte")) {
+
+            flotteContainer.classList.add('hide');
+        }
+    });
+})
+
+const labelAide = document.querySelector('.labelAide');
+
+labelAide.addEventListener('click',event=>{
+    const aideContainer = document.querySelector('.aideContainer');
+    aideContainer.classList.remove('hide');
+
+    aideContainer.addEventListener("click", e => {
+        //console.log(e.target);
+        if (e.target.classList.contains("aideContainer") || e.target.classList.contains("btnCloseAide")) {
+
+            aideContainer.classList.add('hide');
+        }
+    });
+})
+
 /**
  * Fonctions qui décrémente de X minute le temps d'une liste de job
  * @param {*} jobs la liste des jobs
