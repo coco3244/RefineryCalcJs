@@ -279,7 +279,7 @@ function fetchDB(pseudo, raffinery, load) {
 
                 // // Et total
                 // tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`; 
-                
+               
 
                 initiateCalculateValue();
             }
@@ -290,8 +290,9 @@ function fetchDB(pseudo, raffinery, load) {
 }
 
 function initiateCalculateValue(){
+
     jobList = document.querySelectorAll(".job");
-    
+   
     jobList.forEach(job=>{
         let compactecSCU = []; 
         let multipliMineraiParPrix = {};
@@ -309,14 +310,12 @@ function initiateCalculateValue(){
             
         })
         for (const minerai in compactecSCU) {
-            //console.log(minerai);
-            // console.log(prixMineraiRefined[minerai]);
-            // console.log(minerai);
             multipliMineraiParPrix[minerai] = Number(delUnit(compactecSCU[minerai],5)) * Number(prixMineraiRefined[minerai][0]);
             totaljob += Number(multipliMineraiParPrix[minerai]);
             multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
-        };       
-        job.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(job)} cSCU | ${totaljob} aUEC`      
+        };          
+        totaljob = Math.round(totaljob);
+        job.querySelector('.totalJobDiv').innerHTML=`${separateur_nombre(calculTotalUnitJob(job))} cSCU | ${separateur_nombre(totaljob)} aUEC`
     })
 
     tabTotals.innerHTML=`${calculTotalUnitGlobal(jobList)} cSCU <br>${calculTotalPriceGlobal(jobList)} aUEC`;

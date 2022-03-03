@@ -290,7 +290,6 @@ jobsContainer.addEventListener("click", (event) => {
             
             // Calcul des totaux
             initiateCalculateValue();
-            
             // Insertion dans la bdd
             insertNewJob(tabInsert);
 
@@ -860,7 +859,7 @@ function calculTotalPriceJob(job){
         
         return Number(delUnit(totalLabelsTab[1],5));;
     }else{
-        return 0;
+        return 12;
     }
     
 }
@@ -1035,3 +1034,27 @@ function getPseudo() {
     return pseudo;
 }
 
+function separateur_nombre (nbr) {
+    let string;
+    let caractere = [];
+
+    string = String(nbr);
+
+    compteurSecondaire=0
+
+    caractere = string.split('');
+
+    for (let i = caractere.length; i > 0 ; i--) {
+
+        if (compteurSecondaire == 3){
+
+            compteurSecondaire = 0;
+            caractere.splice (i, 0, ' ');
+        }
+        compteurSecondaire++;
+    }
+
+    caractere = caractere.join('');
+
+    return caractere;
+}
