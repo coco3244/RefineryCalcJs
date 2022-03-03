@@ -822,21 +822,6 @@ function calculTotalUnitJob(job){
  * @param {*} jobs La liste des jobs
  * @returns le compte de tout les cSCU de tout les jobs
  */
-function calculTotalUnitGlobal(){
-    const jobs=document.querySelectorAll('.job');
-    
-    let result =0;
-    jobs.forEach(job=>{
-        result+=Number(calculTotalUnitJob(job));
-    })
-    return result;
-}
-
-/**
- * Fonction qui prend une liste de jobs et qui calcul les cSCU globaux
- * @param {*} jobs La liste des jobs
- * @returns le compte de tout les cSCU de tout les jobs
- */
  function calculTotalUnitGlobal(jobs){   
     let result =0;
     jobs.forEach(job=>{

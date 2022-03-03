@@ -319,7 +319,7 @@ function initiateCalculateValue(){
         job.querySelector('.totalJobDiv').innerHTML=`${separateur_nombre(calculTotalUnitJob(job))} cSCU | ${separateur_nombre(totaljob)} aUEC`
     })
 
-    tabTotals.innerHTML=`${separateur_nombre(calculTotalUnitGlobal())} cSCU <br>${separateur_nombre(calculTotalPriceGlobal())} aUEC`;
+    tabTotals.innerHTML=`${separateur_nombre(calculTotalUnitGlobal(jobList))} cSCU <br>${separateur_nombre(calculTotalPriceGlobal())} aUEC`;
 
     const TotalcSCUByMineral = calcPercentage(document.querySelector('.tabMineraisTable'),document.querySelectorAll('.job'));
     refreshPercentageColorBar(document.querySelector('.tabMineraisTable'),document.querySelector('.pourcentageTotalMainCont'),document.querySelectorAll('.job'),TotalcSCUByMineral);
