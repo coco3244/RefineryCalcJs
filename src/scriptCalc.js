@@ -8,7 +8,7 @@ const totalPanierCont = document.querySelector('.totalPanierCont');
 const tabTotal = document.querySelector('.tabTotal');
 const xSelect = document.querySelector(".xSelect");
 const volumeCheckbox = document.querySelector('.volumeCheckbox');
-let compactecSCU = []; 
+
 let nextId = -1;
 let prixMineraiRefined = {
     "Quantainium" : 88.00,
@@ -225,15 +225,10 @@ jobsContainer.addEventListener("click", (event) => {
             // Boucle pour switcher l'affichage des inputs aux labels
             inputs.forEach(input => {
                 if (!input.classList.contains("jobTransportCheckbox") && !input.classList.contains('heurePlace') && !input.classList.contains('minsPlace')) {
-                   // console.log(input);
+                    // console.log(input);
                     const label = input.parentNode.querySelector("label." + input.classList[0]);
                     let nomMinerai = input.classList.value;
-                    // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
-                    if(nomMinerai !== "heurePlace" && nomMinerai !== "minsPlace" && nomMinerai !== 'jobTransportCheckbox'){
-                        // appelle des minerais avec la fonction push
-                        compactecSCU[nomMinerai] = input.value;
-                    }   
-        
+                            
                     // Insertion dans le tab pour la bdd
                     tabInsert[input.className] = input.value;
                     
@@ -272,16 +267,6 @@ jobsContainer.addEventListener("click", (event) => {
             // Calculs Okaaa
             let multipliMineraiParPrix = {};  //j'apprends que multipliMineraiParPrix et un tableau
             let totaljob = 0; //j'apprends que totalJob et à 0
-
-           
-            //je demande de dissocier la quantité de minerai du nom du minerai
-            for (const minerai in compactecSCU) {
-                // je demande de multiplier la quantité de minerai par le prix
-                multipliMineraiParPrix[minerai] = Number(compactecSCU[minerai]) * Number(prixMineraiRefined[minerai]);
-               
-                totaljob += Number(multipliMineraiParPrix[minerai]);
-                multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
-            };
             
             // Insertion dans le tab pour la bdd
             tabInsert[raffinerySelect.className] = raffinerySelect.value;
@@ -303,12 +288,7 @@ jobsContainer.addEventListener("click", (event) => {
             }
             
             // Calcul des totaux
-            // Par Job
-            jobActuel.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(jobActuel)} cSCU | ${totaljob} aUEC`
-            
-            // Et total
-           
-            tabTotal.innerHTML=`${calculTotalUnitGlobal()} cSCU <br>${calculTotalPriceGlobal()} aUEC`;      
+            initiateCalculateValue();
             
             // Insertion dans la bdd
             insertNewJob(tabInsert);
@@ -510,8 +490,8 @@ function delJob(jobActuel) {
         i--;
     });
 
-    tabTotal.innerHTML=`${calculTotalUnitGlobal()} cSCU <br>${calculTotalPriceGlobal()} aUEC`;     
-    calcPercentage(); 
+    // Calcul des totaux
+    initiateCalculateValue();
 }
 
 transportButton.addEventListener('click',event=>{
