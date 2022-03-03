@@ -144,7 +144,7 @@ function fetchDB(pseudo, raffinery, load) {
         },
         success: function(res) {
             res = JSON.parse(res)
-            console.log(res);
+            //console.log(res);
 
             jobsContainer.innerHTML = ""; 
             
@@ -312,14 +312,14 @@ function initiateCalculateValue(){
             //console.log(minerai);
             // console.log(prixMineraiRefined[minerai]);
             // console.log(minerai);
-            multipliMineraiParPrix[minerai] = Number(delUnit(compactecSCU[minerai],5)) * Number(prixMineraiRefined[minerai]);
+            multipliMineraiParPrix[minerai] = Number(delUnit(compactecSCU[minerai],5)) * Number(prixMineraiRefined[minerai][0]);
             totaljob += Number(multipliMineraiParPrix[minerai]);
             multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
         };       
-        job.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(job)} cSCU | ${totaljob} aUEC`
-        console.warn(multipliMineraiParPrix);
+        job.querySelector('.totalJobDiv').innerHTML=`${calculTotalUnitJob(job)} cSCU | ${totaljob} aUEC`      
     })
 
     tabTotals.innerHTML=`${calculTotalUnitGlobal(jobList)} cSCU <br>${calculTotalPriceGlobal(jobList)} aUEC`;
-    calcPercentage()
+    const TotalcSCUByMineral = calcPercentage(document.querySelector('.tabMineraisTable'),document.querySelectorAll('.job'));
+    refreshPercentageColorBar(document.querySelector('.tabMineraisTable'),document.querySelector('.pourcentageTotalMainCont'),document.querySelectorAll('.job'),TotalcSCUByMineral);
 }

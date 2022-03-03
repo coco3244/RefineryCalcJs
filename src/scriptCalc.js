@@ -1,3 +1,4 @@
+
 const scrollContainer = document.querySelector('.jobsContainer');
 const addJobButton = document.querySelector('.addJobCont');
 const transportButton = document.querySelector('.transportJobsCont');
@@ -11,23 +12,23 @@ const volumeCheckbox = document.querySelector('.volumeCheckbox');
 
 let nextId = -1;
 let prixMineraiRefined = {
-    "Quantainium" : 88.00,
-    "Bexalite" : 40.65,
-    "Taranite" : 32.58,
-    "Borase" : 32.58,
-    "Laranite" : 31.01,
-    "Agricium" : 27.50,
-    "Hephaestanite" : 14.76,
-    "Titanium" : 8.93,
-    "Diamond" : 7.36,
-    "Gold" : 6.40,
-    "Copper" : 5.73,
-    "Beryl" : 4.41,
-    "Tungsten" : 4.10,
-    "Corundum" : 2.70,
-    "Quartz" : 1.56,
-    "Aluminum" : 1.33,
-    "Inert-Material" : 0.02,
+    "Quantainium" : [88.00,"#FF2D00"],
+    "Bexalite" : [40.65,"#007EFF"],
+    "Taranite" : [32.58,"#11FF00"],
+    "Borase" : [32.58,"#F4FF00"],
+    "Laranite" : [31.01,"#4300FF"],
+    "Agricium" : [27.50,"#D9FF00"],
+    "Hephaestanite" : [14.76,"#FF007B"],
+    "Titanium" : [8.93,"#CAA800"],
+    "Diamond" : [7.36,"#58B603"],
+    "Gold" : [6.40,"#8ED2AD"],
+    "Copper" : [5.73,"#184474"],
+    "Beryl" : [4.41,"#421874"],
+    "Tungsten" : [4.10,"#C391FF"],
+    "Corundum" : [2.70,"#8D4760"],
+    "Quartz" : [1.56,"#507248"],
+    "Aluminum" : [1.33,"#00ABA4"],
+    "Inert-Material" : [0.02,"#000000"],
 };
 
 let loadMoment;
@@ -293,7 +294,9 @@ jobsContainer.addEventListener("click", (event) => {
             // Insertion dans la bdd
             insertNewJob(tabInsert);
 
-            calcPercentage();
+            const TotalcSCUByMineral = calcPercentage(document.querySelector('.tabMineraisTable'),document.querySelectorAll('.job'));
+
+            refreshPercentageColorBar(document.querySelector('.tabMineraisTable'),document.querySelector('.pourcentageTotalMainCont'),document.querySelectorAll('.job'),TotalcSCUByMineral);
             
             
         }
@@ -349,8 +352,47 @@ jobsContainer.addEventListener("click", (event) => {
 
         }
 
+    }else if(event.target.classList.contains("jobTransportCheckbox")){
+        let checkedJob=[];
+        const pourcentagecont = document.querySelector('.pourcentageMainCont');
+        const tabSelectedMineraisTable = document.querySelector('.tabSelectedMineraisTable')
+        document.querySelectorAll('.job').forEach(job=>{
+            if(job.querySelector('.jobTransportCheckbox').checked){
+                checkedJob.push(job);
+            }
+        })
+        const TotalcSCUByMineral = calcPercentage(tabSelectedMineraisTable,checkedJob);
+        refreshPercentageColorBar(tabSelectedMineraisTable,pourcentagecont,checkedJob,TotalcSCUByMineral);
+        
+
+
+
     }
 });
+
+function refreshPercentageColorBar(meneraiTab,pourcentagecont,jobs,TotalcSCUByMineral){
+
+    const tbody = meneraiTab.querySelector('tbody');
+    const trs = tbody.querySelectorAll('tr');
+    pourcentagecont.innerHTML=""
+        trs.forEach(tr=>{
+           if(tr.classList.length!=0){                   
+                const percentageDiv = document.createElement('div');     
+                percentageDiv.classList.add('pourcentagecont');
+                percentageDiv.style.backgroundColor=`${prixMineraiRefined[tr.classList[0]][1]}`;
+                percentageDiv.setAttribute('title',`${tr.classList[0]}: ${TotalcSCUByMineral[tr.classList[0]]} cSCU`)
+                const td = document.createElement('td');
+
+                td.style.backgroundColor=`${prixMineraiRefined[tr.classList[0]][1]}`;
+                td.style.paddingLeft='5px';
+                tr.appendChild(td);
+                percentageDiv.style.width = `${delUnit(tr.querySelector(`.${tr.classList[0]}tdPercentageValue`).innerHTML,2)-0.1}%`;
+                pourcentagecont.appendChild(percentageDiv);
+            }
+            
+        })
+
+}
 
 /**
  * Ajout de l'écoute sur le bouton d'ajout de job
@@ -533,8 +575,8 @@ transportButton.addEventListener('click',event=>{
         const br = document.createElement('br');
         const label = document.createElement('label');
         totalcSCU+= Number(mineraisList[minerai]);
-        totalaUEC+= Number(mineraisList[minerai]) * Number(prixMineraiRefined[minerai]);
-        label.innerHTML=`${minerai}: ${mineraisList[minerai]} cSCU | ${mineraisList[minerai] * prixMineraiRefined[minerai]}  aUEC`;
+        totalaUEC+= Number(mineraisList[minerai]) * Number(prixMineraiRefined[minerai][0]);
+        label.innerHTML=`${minerai}: ${mineraisList[minerai]} cSCU | ${mineraisList[minerai] * prixMineraiRefined[minerai][0]}  aUEC`;
 
         jobsResumeCont.appendChild(label);
         jobsResumeCont.appendChild(br);
@@ -792,6 +834,19 @@ function calculTotalUnitGlobal(){
 }
 
 /**
+ * Fonction qui prend une liste de jobs et qui calcul les cSCU globaux
+ * @param {*} jobs La liste des jobs
+ * @returns le compte de tout les cSCU de tout les jobs
+ */
+ function calculTotalUnitGlobal(jobs){   
+    let result =0;
+    jobs.forEach(job=>{
+        result+=Number(calculTotalUnitJob(job));
+    })
+    return result;
+}
+
+/**
  * calcul la valeur en aUEC du job en parametre
  * @param {*} job un job
  * @returns le total du job
@@ -919,52 +974,56 @@ function getNextId() {
     });
 }
 
-function calcPercentage(){
-    /**
+function calcPercentage(tabMineraisTable, jobs){
+             /**
              * Partie de calcul des pourcentages
              */
-     
-     const tabMineraisTable = document.querySelector('.tabMineraisTable');
+         
      tabMineraisTable.innerHTML=`<tr>
      <th>Minerais</th>
      <th>% de la cargaison +/-</th>
      <th>aUEC +/-</th>
      </tr>`;
-     const totalcSCU = calculTotalUnitGlobal(document.querySelectorAll('.job'));
+     const totalcSCU = calculTotalUnitGlobal(jobs);
      //const totalaUEC = calculTotalPriceGlobal(document.querySelectorAll('.job'));
      let TotalcSCUByMineral = [];
-     const listeQuantiteAll = document.querySelectorAll('.listeQuantites');
-
-     listeQuantiteAll.forEach(listeMinerai=>{
-         const labels = listeMinerai.querySelectorAll('label');
-
-         labels.forEach(label=>{
-             if(TotalcSCUByMineral[label.classList[0]]==undefined){
-                 TotalcSCUByMineral[label.classList[0]]=Number(delUnit(label.innerHTML, 5));
-             }else{
-                 TotalcSCUByMineral[label.classList[0]]+=Number(delUnit(label.innerHTML, 5)); 
-             }
-         })
-
-     })
-
      
-
+    jobs.forEach(job=>{
+        const listeQuantiteAll = job.querySelectorAll('.listeQuantites');
+        listeQuantiteAll.forEach(listeMinerai=>{
+            const labels = listeMinerai.querySelectorAll('label');
+   
+            labels.forEach(label=>{
+                if(TotalcSCUByMineral[label.classList[0]]==undefined){
+                    TotalcSCUByMineral[label.classList[0]]=Number(delUnit(label.innerHTML, 5));
+                }else{
+                    TotalcSCUByMineral[label.classList[0]]+=Number(delUnit(label.innerHTML, 5)); 
+                }
+            })
+   
+        })
+    })
      for(const minerai in TotalcSCUByMineral){
          const tr = document.createElement('tr');
+         tr.classList.add(`${minerai}`);
+         tr.classList.add(`TrPercentage`);
          const tdMinerai = document.createElement('td');
+         tdMinerai.classList.add(`${minerai}tdPercentageName`)
          const tdPourcentage = document.createElement('td');
+         tdPourcentage.classList.add(`${minerai}tdPercentageValue`)
          const tdValeur = document.createElement('td');
+         tdValeur.classList.add(`${minerai}tdPercentageAUEC`)
 
          tdMinerai.innerHTML=minerai;
-         tdPourcentage.innerHTML = `${Math.round((100*TotalcSCUByMineral[minerai])/totalcSCU)} %`;
-         tdValeur.innerHTML = `${Math.round(TotalcSCUByMineral[minerai]*prixMineraiRefined[minerai])}`;
+         tdPourcentage.innerHTML = `${parseFloat(((100*TotalcSCUByMineral[minerai])/totalcSCU)).toFixed(2)} %`;
+         tdValeur.innerHTML = `${Math.round(TotalcSCUByMineral[minerai]*prixMineraiRefined[minerai][0])}`;
          tr.appendChild(tdMinerai);
          tr.appendChild(tdPourcentage);
          tr.appendChild(tdValeur);
-         tabMineraisTable.appendChild(tr);
+         tabMineraisTable.querySelector('tbody').appendChild(tr);
 
      }
+     return TotalcSCUByMineral;
 }
 
 /**

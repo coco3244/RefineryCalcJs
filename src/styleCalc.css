@@ -211,6 +211,45 @@ label {
 }
 
 /* Tableau des minerais */
+.tabSelectedMineraisCont {
+	
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2em;
+}
+
+.tabSelectedMinerais {
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid black;
+}
+.tabSelectedMineraisTable th{
+	font-size: medium;
+	text-align: center;
+	border-left: solid black 1px;
+	border-right: solid black 1px;
+
+}
+.tabSelectedMineraisTable td{
+	margin-left: 5px;
+	border-top: 2px solid black;
+}
+.pourcentageMainCont ,.pourcentageTotalMainCont{
+	height: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	
+}
+.pourcentagecont {
+	height: 100%;
+	float: left;
+}
+/*--------*/
+/* Tableau des minerais */
 .tabMineraisCont {
 	display: flex;
 	flex-direction: column;
@@ -258,16 +297,7 @@ label {
 	margin: 10px;
 }
 
-.chargeBarCont {
-	height: 10px;
-	border: 1px solid black;
-	border-radius: 5px;
-}
-.chargeBar {
-	height: 100%;
-	width: 60%;
-	background-color: royalblue;
-}
+
 
 /* Bouton d'ajout de Job */
 .addJobCont , .transportJobsCont{
