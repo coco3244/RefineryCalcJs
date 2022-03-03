@@ -315,10 +315,12 @@ function initiateCalculateValue(){
             multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
         };          
         totaljob = Math.round(totaljob);
+        
         job.querySelector('.totalJobDiv').innerHTML=`${separateur_nombre(calculTotalUnitJob(job))} cSCU | ${separateur_nombre(totaljob)} aUEC`
     })
 
-    tabTotals.innerHTML=`${calculTotalUnitGlobal(jobList)} cSCU <br>${calculTotalPriceGlobal(jobList)} aUEC`;
+    tabTotals.innerHTML=`${separateur_nombre(calculTotalUnitGlobal())} cSCU <br>${separateur_nombre(calculTotalPriceGlobal())} aUEC`;
+
     const TotalcSCUByMineral = calcPercentage(document.querySelector('.tabMineraisTable'),document.querySelectorAll('.job'));
     refreshPercentageColorBar(document.querySelector('.tabMineraisTable'),document.querySelector('.pourcentageTotalMainCont'),document.querySelectorAll('.job'),TotalcSCUByMineral);
 }

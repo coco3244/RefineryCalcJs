@@ -856,10 +856,9 @@ function calculTotalPriceJob(job){
     if(confButton.classList.contains('hide')){     
         const totalLabels = job.querySelector('.totalJobDiv'); 
         const totalLabelsTab = totalLabels.innerHTML.split(' | ');
-        
-        return Number(delUnit(totalLabelsTab[1],5));;
+        return Number(delUnit(totalLabelsTab[1],5).replace(/\s/g, ''));;
     }else{
-        return 12;
+        return 0;
     }
     
 }
@@ -875,8 +874,9 @@ function calculTotalPriceGlobal(){
 
     jobs.forEach(job=>{
         result+=calculTotalPriceJob(job);
+       
     })
-
+    
     return result;
 
 }
