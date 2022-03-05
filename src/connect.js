@@ -150,6 +150,11 @@ function fetchDB(pseudo, raffinery, load) {
                     let time;
                     let labelMinerais = "";
                     let labelVal = "";
+                    let hStart;
+                    let hEnd;
+                    let hNow = new Date();
+                    hNow = Date.parse(hNow);
+                    let sTime;
                     for (const val in res[i]) {
                         switch(val) {
                             case "idJob": 
@@ -162,7 +167,10 @@ function fetchDB(pseudo, raffinery, load) {
                                 raffinery = res[i][val];
                             break;
                             case "heurePlace":
-                                time = res[i][val];
+                                hStart = Number(res[i][val]);
+                            break;
+                            case "tRestant": 
+                                hEnd = Number(res[i][val]);
                             break;
                             case "lastFilter":
                                 selectFiltre.value = res[i][val];
@@ -174,6 +182,32 @@ function fetchDB(pseudo, raffinery, load) {
                                     <label class="${val}">${res[i][val]} cSCU</label>`;
                                 }
                         }
+                    }
+
+                    if (hNow > hEnd) {
+                        time = "Terminé !";
+
+                        sTime = "width:100%; background-color:#05c14ea3";
+
+                    } else {
+                        let tRemaining = Math.abs(hEnd - hNow);
+                        let day = Number(new Date(tRemaining).toISOString().substring(8, 10));
+                        time = new Date(tRemaining).toISOString().substring(11, 19);
+                        time = time.split(":");
+
+                        // Vérif de si l'heure est tellement grande qu'il y a des jours dans la date, et ajout des heures en conséquence
+                        // /!\ Ne gère que des temps de moins d'un mois, (780h)
+                        if (day > 1) {
+                            time[0] = Number(time[0]);
+                            time[0] += 24 * (day - 1);
+                        }
+
+                        time = time.join(":");
+
+                        let tTotal = Math.abs(hEnd - hStart);
+                        let tPercent = tRemaining * 100 / tTotal;
+                        tPercent = Math.abs(tPercent - 100);
+                        sTime = `width:${tPercent}%`;
                     }
 
                     // Setup de l'html avec les variables
@@ -243,7 +277,9 @@ function fetchDB(pseudo, raffinery, load) {
                         <div class="tempsContainer">
                             <label class="titreCat">Temps Restant : </label>
                             <div class="tabCat">
-                                <input class="heurePlace hide" placeholder="heures" type="number"> <input class="minsPlace hide" placeholder="minutes" type="number">
+                                <span class="tProgress" style="${sTime}"></span>
+                                <input class="heurePlace hide" placeholder="heures" max=999 type="number"> 
+                                <input class="minsPlace hide" placeholder="minutes" max=59 type="number">
                                 <label class="heurePlace">${time}</label>
                             </div>
                         </div>
@@ -260,19 +296,6 @@ function fetchDB(pseudo, raffinery, load) {
                     jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
         
                 }
-
-                // const jobs = document.querySelectorAll('.job');
-                // jobs.forEach(jobActuel => {
-                //     // console.log(jobActuel);
-                //     // Calcul des totaux
-                //     // Par Job
-                //     jobActuel.querySelector('.totalJobDiv').innerHTML = `Total: ${calculTotalUnitJob(jobActuel)}`;
-                //     // console.log(jobActuel.querySelector('.totalJobDiv').innerHTML);
-                    
-                // });
-
-                // // Et total
-                // tabTotal.innerHTML=`Total global cSCU: ${calculTotalUnitGlobal(document.querySelectorAll('.job'))}`; 
 
             }
         }
