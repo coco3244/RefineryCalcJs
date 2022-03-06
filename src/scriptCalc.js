@@ -55,6 +55,7 @@ jobsContainer.addEventListener("click", (event) => {
     const listeMineraisDiv = jobActuel.querySelector('.listeMinerais');
     const listeQuantitesDiv = jobActuel.querySelector('.listeQuantites');
     const raffinerySelect = jobActuel.querySelector('.Raffinery');
+    const bar = jobActuel.querySelector('.tProgress');
 
     if(event.target.classList.contains("btnAddMineral")) {
         /**
@@ -108,18 +109,18 @@ jobsContainer.addEventListener("click", (event) => {
 
         const labels = jobActuel.querySelectorAll('label');
         
-        let clickedTime = new Date();
-        if(loadMoment.getHours()!= clickedTime.getHours || loadMoment.getMinutes()!= clickedTime.getMinutes()){
-            let diffMiliseconds = loadMoment-clickedTime;
-            xMinutesLessJob(jobActuel,Math.round(((diffMiliseconds % 86400000) % 3600000) / 60000)); //différence en minutes entre le moment du chargement de la page et le moment du clique sur modifier
-            loadMoment=clickedTime;
-        }
+        // let clickedTime = new Date();
+        // if(loadMoment.getHours()!= clickedTime.getHours || loadMoment.getMinutes()!= clickedTime.getMinutes()){
+        //     let diffMiliseconds = loadMoment-clickedTime;
+        //     xMinutesLessJob(jobActuel,Math.round(((diffMiliseconds % 86400000) % 3600000) / 60000)); //différence en minutes entre le moment du chargement de la page et le moment du clique sur modifier
+        //     loadMoment=clickedTime;
+        // }
 
         // On retire les hide de touts les élem d'édition
-        jobActuel.querySelector('.btnConfirm').classList.remove('hide');
         jobActuel.querySelector('.btnModif').classList.add('hide');
-        jobActuel.querySelector('.btnCancel').classList.remove('hide');
         jobActuel.querySelector('.btnSupprimer').classList.add('hide');
+        jobActuel.querySelector('.btnConfirm').classList.remove('hide');
+        jobActuel.querySelector('.btnCancel').classList.remove('hide');
         selectMineraiCont.classList.remove('hide');
         
         // Transformation des labels de valeur en inputs
@@ -141,14 +142,12 @@ jobsContainer.addEventListener("click", (event) => {
             } else if (findParent("tempsContainer", label, 2) !== 0) {
                 // Le temps
                 if(label.classList.contains('heurePlace')){
-
                     const heure = jobActuel.querySelector('.heurePlace');
                     const minute = jobActuel.querySelector('.minsPlace');   
-                    const time = label.innerHTML.split(':');  
 
-                    heure.value = time[0];
-                    minute.value=time[1];
-
+                    heure.value = 0;
+                    minute.value = 0;
+                    bar.style.backgroundColor = "transparent";
 
                     heure.classList.remove("hide");
                     minute.classList.remove("hide");
@@ -250,21 +249,32 @@ jobsContainer.addEventListener("click", (event) => {
                         tabInsert[input.classList[0]] = input.value;
 
                     } else if(input.classList.contains("heurePlace")) {
-                        let hours = timeRemain.getHours();
-                        hours += Number(input.value);
-                        timeRemain.setHours(hours);
+                        // Pour la bdd
+                        let hoursRest = timeRemain.getHours();
+                        hoursRest += Number(input.value);
+                        timeRemain.setHours(hoursRest);
+
+                        // Pour l'affichage
+                        hours = input.value;
+                        if(hours.length < 2) {hours = `0${hours}`;}
+
+                        input.classList.add("hide");
+                        labelT.innerHTML = hours; // temporaire
+                        
+                    } else if(input.classList.contains("minsPlace")) {
+                        // Pour la bdd
+                        let minRest = timeRemain.getMinutes();
+                        minRest += Number(input.value);
+                        timeRemain.setMinutes(minRest);
+
+                        // Pour l'affichage
+                        let min = input.value;
+                        if(min.length < 2) {min = `0${min}`;}
+                        bar.style.width = "0%";
 
                         input.classList.add("hide");
                         labelT.classList.remove("hide");
-                        labelT.innerHTML = hours; // temporaire
-
-                    } else if(input.classList.contains("minsPlace")) {
-                        let min = timeRemain.getMinutes();
-                        min += Number(input.value);
-                        timeRemain.setMinutes(min);
-
-                        input.classList.add("hide");
-                        labelT.innerHTML += `:${min}`; // temporaire
+                        labelT.innerHTML += `:${min}:00`; // temporaire
 
                     } 
                 }
@@ -342,15 +352,24 @@ jobsContainer.addEventListener("click", (event) => {
         } else {
             const inputs = jobActuel.querySelectorAll("input");
             
-            //On boucle pour cacher tout les inputs et afficher leurs labels
+            // On boucle pour cacher tout les inputs et afficher leurs labels
             inputs.forEach(input => {
-                if (!input.classList.contains("jobTransportCheckbox")) {
+                if (input.parentNode.classList.contains("listeQuantites")) {
                     const label = input.parentNode.querySelector("label." + input.classList[0]);
 
                     input.value = delUnit(label.innerHTML, 5);
 
                     input.classList.add("hide");
                     label.classList.remove("hide");
+
+                } else if(input.classList.contains("heurePlace")) {
+                    const label = input.parentNode.querySelector("label.heurePlace");
+                    const iMin = input.parentNode.querySelector("input.minsPlace");
+
+                    bar.style.backgroundColor = "";
+                    label.classList.remove("hide");
+                    input.classList.add("hide");
+                    iMin.classList.add("hide");
                 }
             });
 
@@ -363,7 +382,7 @@ jobsContainer.addEventListener("click", (event) => {
             raffinerySelect.classList.add('hide');
             selectMineraiCont.classList.add('hide');
 
-            //On cache et fait rapparaitre les btns du bas qu'il faut
+            // On cache et fait rapparaitre les btns du bas qu'il faut
             jobActuel.querySelector(".btnCancel").classList.add('hide');
             jobActuel.querySelector('.btnConfirm').classList.add('hide');
             jobActuel.querySelector('.btnModif').classList.remove('hide');

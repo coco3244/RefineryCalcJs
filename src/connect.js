@@ -154,7 +154,8 @@ function fetchDB(pseudo, raffinery, load) {
                     let hEnd;
                     let hNow = new Date();
                     hNow = Date.parse(hNow);
-                    let sTime;
+                    let cTime = "";
+                    let sTime = "";
                     for (const val in res[i]) {
                         switch(val) {
                             case "idJob": 
@@ -184,18 +185,20 @@ function fetchDB(pseudo, raffinery, load) {
                         }
                     }
 
+                    // Vérifie si le job est terminé ou pas
                     if (hNow > hEnd) {
+                        // Affichage de Terminé !
                         time = "Terminé !";
-
-                        sTime = "width:100%; background-color:#05c14ea3";
+                        cTime = "tFinish";
 
                     } else {
+                        // Affichage du décompte
                         let tRemaining = Math.abs(hEnd - hNow);
-                        let day = Number(new Date(tRemaining).toISOString().substring(8, 10));
+                        let day = new Date(tRemaining).toISOString().substring(8, 10);
                         time = new Date(tRemaining).toISOString().substring(11, 19);
                         time = time.split(":");
 
-                        // Vérif de si l'heure est tellement grande qu'il y a des jours dans la date, et ajout des heures en conséquence
+                        // Vérif de si l'heure est tellement grande qu'il y a des jours dans la date, et ajoute des heures en conséquence
                         // /!\ Ne gère que des temps de moins d'un mois, (780h)
                         if (day > 1) {
                             time[0] = Number(time[0]);
@@ -206,6 +209,7 @@ function fetchDB(pseudo, raffinery, load) {
 
                         let tTotal = Math.abs(hEnd - hStart);
                         let tPercent = tRemaining * 100 / tTotal;
+
                         tPercent = Math.abs(tPercent - 100);
                         sTime = `width:${tPercent}%`;
                     }
@@ -277,7 +281,7 @@ function fetchDB(pseudo, raffinery, load) {
                         <div class="tempsContainer">
                             <label class="titreCat">Temps Restant : </label>
                             <div class="tabCat">
-                                <span class="tProgress" style="${sTime}"></span>
+                                <span class="tProgress ${cTime}" style="${sTime}"></span>
                                 <input class="heurePlace hide" placeholder="heures" max=999 type="number"> 
                                 <input class="minsPlace hide" placeholder="minutes" max=59 type="number">
                                 <label class="heurePlace">${time}</label>
