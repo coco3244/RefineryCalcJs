@@ -413,6 +413,7 @@ label {
 	border: 1px solid black;
 	text-align: center;
 	font-size: 1.2em;
+	position: relative;
 }
 
 .btnsContainer {
@@ -460,6 +461,25 @@ label {
 .tempsContainer input {
 	font-size: 18px;
 	width: 100px;
+}
+
+label.heurePlace {
+	position: relative;
+	z-index: 2;
+}
+
+.tProgress {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: none;
+	background-color: rgba(212, 212, 0, 0.5);
+}
+
+.tFinish{
+	width:100%; 
+	background-color:#05c14ea3
 }
 
 /*------------------------------ Transport ------------------------------ */
