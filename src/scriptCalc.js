@@ -215,26 +215,17 @@ jobsContainer.addEventListener("click", (event) => {
 
             // Réaffichage de la checkbox
             jobActuel.querySelector('.checkBoxDiv').classList.remove('hide');
-            if(jobActuel.querySelector('.minsPlace').value>59){
+            if(jobActuel.querySelector('.minsPlace').value > 59){
                 alert("t'as déja vu des minutes au dessus de 59 toi ?");
                 return;
             }
+
             // Boucle pour switcher l'affichage des inputs aux labels
             inputs.forEach(input => {
-                if (!input.classList.contains("jobTransportCheckbox") && !input.classList.contains('heurePlace') && !input.classList.contains('minsPlace')) {
+                if (!input.classList.contains("jobTransportCheckbox")) {
                     // console.log(input);
                     const label = input.parentNode.querySelector("label." + input.classList[0]);
-                    let nomMinerai = input.classList.value;
-                            
-                    // Insertion dans le tab pour la bdd
-                    tabInsert[input.className] = input.value;
                     
-                    // on demande "si (if)" découvre Temprestant il ne le prends pas en compte
-                    if(nomMinerai !== "temprestant" && nomMinerai !== 'jobTransportCheckbox'){
-                        // appelle des minerais avec la fonction push
-                        compactecSCU[nomMinerai] = input.value;
-                    }   
-        
                     // Extraction des valeurs des inputs pour les mettre dans les labels
                     if(input.parentNode.classList.contains('listeQuantites')){
                         label.classList.add('MineralQuantityLabel');
@@ -245,12 +236,14 @@ jobsContainer.addEventListener("click", (event) => {
 
                         // Insertion dans le tab pour la bdd
                         tabInsert[input.classList[0]] = input.value;
+                        console.log(input);
 
                     } else if(input.classList.contains("heurePlace")) {
                         // Pour la bdd
                         let hoursRest = timeRemain.getHours();
                         hoursRest += Number(input.value);
                         timeRemain.setHours(hoursRest);
+                        console.log(timeRemain);
 
                         // Pour l'affichage
                         hours = input.value;
@@ -273,7 +266,6 @@ jobsContainer.addEventListener("click", (event) => {
                         input.classList.add("hide");
                         labelT.classList.remove("hide");
                         labelT.innerHTML += `:${min}:00`; // temporaire
-
                     } 
                 }
             });
@@ -284,11 +276,6 @@ jobsContainer.addEventListener("click", (event) => {
             jobActuel.querySelector('.btnModif').classList.remove('hide');
             jobActuel.querySelector('.btnSupprimer').classList.remove('hide');
 
-
-            // Calculs Okaaa
-            let multipliMineraiParPrix = {};  //j'apprends que multipliMineraiParPrix et un tableau
-            let totaljob = 0; //j'apprends que totalJob et à 0
-            
             // Insertion dans le tab pour la bdd
             tabInsert[raffinerySelect.className] = raffinerySelect.value;
             let idJob = jobActuel.id.split("_");
@@ -311,7 +298,7 @@ jobsContainer.addEventListener("click", (event) => {
             
             // Calcul des totaux
             initiateCalculateValue();
-            
+            console.log(tabInsert);
             // Insertion dans la bdd
             insertNewJob(tabInsert);
 
