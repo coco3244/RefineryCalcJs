@@ -540,14 +540,21 @@ function delJob(jobActuel) {
     //reset du numéro de chaque job mais pas de l'id !!
     const jobs = jobsContainer.querySelectorAll(".job");
     let i = jobs.length;
+    let checkJobs=[];
     jobs.forEach(job => {
         const titleJob = job.querySelector(".titleJob");
         titleJob.innerHTML = i;
         i--;
+        if(job.querySelector('.jobTransportCheckbox').checked){
+            checkJobs.push(job);
+        }
     });
 
     // Calcul des totaux
     initiateCalculateValue();
+    const TotalcSCUByMineral = calcPercentage(document.querySelector('.tabSelectedMineraisTable'),checkJobs);
+    refreshPercentageColorBar(document.querySelector('.tabSelectedMineraisTable'),document.querySelector('.pourcentageMainCont'),checkJobs,TotalcSCUByMineral);
+
 }
 
 transportButton.addEventListener('click',event=>{
