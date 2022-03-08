@@ -105,6 +105,7 @@ yesAdd.addEventListener("click", (e) => {
         data: tabInsert,
         success: function(res) {
             console.log(res);
+            addLog.classList.add("hide");
             connectioooooooon(res);
         }
     });
