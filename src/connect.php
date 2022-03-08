@@ -14,7 +14,7 @@
         // Connexion ----------------------------------------------------------
         $pseudo = $_POST["login"];
         $psw = $_POST["psw"];
-        $sql = "SELECT login, password FROM User";
+        $sql = "SELECT login, password FROM user";
         $req = $BDD->query($sql);
         
         $exist = false;
@@ -47,7 +47,7 @@
         // Inscription --------------------------------------------------------
         $pseudo = $_POST["insert"]["login"];
         $psw = $_POST["insert"]["password"];
-        $sql = $BDD->prepare("INSERT INTO User(login, password) VALUES (?, ?)");
+        $sql = $BDD->prepare("INSERT INTO user(login, password) VALUES (?, ?)");
         $sql->execute(array($pseudo, $psw));
 
         if (isset($_POST["insert"]["rememberMe"])) {

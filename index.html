@@ -23,6 +23,28 @@
     <script src="./src/scriptCalc.js" defer></script>
 </head>
 <body>
+
+    <div class="aideContainer hide">
+        <div class="aideSecondCont">
+
+        </div>
+
+        <div class="aideButton">
+            <button class="btnCloseAide">Fermer</button>
+        </div>
+    </div>
+
+
+    <div class="flotteContainer hide">
+        <div class="flotteSecondCont">
+            
+        </div>
+
+        <div class="flotteButton">
+            <button class="btnCloseFlotte">Fermer</button>
+        </div>
+    </div>
+    
     <div class="statistiqueContainer hide">
         <div class="statSecondCont">
             <div class="titleStatCont">
@@ -264,7 +286,9 @@
                         <input class="volumeCheckbox" id="VolumeSwitch" type="checkbox" checked>
                         <div class="volumeContRemplissage"></div>
                     </label> 
-                    <label class="labelStat" >Statistiques</label>         
+                    <label class="labelStat" >Statistiques</label>
+                    <label class="labelFlotte" >Ma Flotte</label>   
+                    <label class="labelAide" >Aide</label>                         
                     <label id="labelDeco">Déconnexion</label>
                   
                 </div>
@@ -275,25 +299,44 @@
 
     <div class="page">
         <div class="sideBar">
-            <div class="tabMineraisCont">
-                <label>Minerais : </label>
-                <div class="tabMinerais">
+            <div class="tabSelectedMineraisCont">
+                <label>Total job selectionné : </label>
+                <div class="tabSelectedMinerais">
+                    <table class="tabSelectedMineraisTable">
 
+                        <tr>
+                            <th>Minerais</th>
+                            <th>% de la cargaison +/-</th>
+                            <th>aUEC +/-</th>
+                        </tr>
+
+                    </table>
+                    
+                </div>
+                <div class="pourcentageMainCont">
+                   
                 </div>
             </div>
+           
             <div class="tabTotalCont">
                 <label>Total : </label>
+                
+                <div class="tabMinerais">
+                    <table class="tabMineraisTable">
+
+                        <tr>
+                            <th>Minerais</th>
+                            <th>% de la cargaison +/-</th>
+                            <th>aUEC +/-</th>
+                        </tr>
+
+                    </table>
+                    
+                </div>    
+                <div class="pourcentageTotalMainCont">
+                  
+                </div>         
                 <div class="tabTotal">
-
-
-                </div>
-                <select>
-                    <option>Caterpillar</option>
-                    <option>Hercules StarLifter C2</option>
-                    <option>Mercury StarRunner</option>
-                </select>
-                <div class="chargeBarCont">
-                    <div class="chargeBar"></div>
                 </div>
 
             </div>

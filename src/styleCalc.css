@@ -29,6 +29,7 @@ label {
 	user-select: none;
 }
 
+
 /*------------------------------ ToolBar ------------------------------ */
 .toolBar {
 	height: 60px;
@@ -210,6 +211,45 @@ label {
 }
 
 /* Tableau des minerais */
+.tabSelectedMineraisCont {
+	
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2em;
+}
+
+.tabSelectedMinerais {
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid black;
+}
+.tabSelectedMineraisTable th{
+	font-size: medium;
+	text-align: center;
+	border-left: solid black 1px;
+	border-right: solid black 1px;
+
+}
+.tabSelectedMineraisTable td{
+	margin-left: 5px;
+	border-top: 2px solid black;
+}
+.pourcentageMainCont ,.pourcentageTotalMainCont{
+	height: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	
+}
+.pourcentagecont {
+	height: 100%;
+	float: left;
+}
+/*--------*/
+/* Tableau des minerais */
 .tabMineraisCont {
 	display: flex;
 	flex-direction: column;
@@ -217,12 +257,24 @@ label {
 }
 
 .tabMinerais {
+	overflow: auto;
 	display: flex;
 	flex-direction: column;
 	height: 200px;
 	margin: 5px;
 	padding: 5px;
 	border: 1px solid black;
+}
+.tabMineraisTable th{
+	font-size: medium;
+	text-align: center;
+	border-left: solid black 1px;
+	border-right: solid black 1px;
+
+}
+.tabMineraisTable td{
+	margin-left: 5px;
+	border-top: 2px solid black;
 }
 
 /* Tableau de total  */
@@ -245,16 +297,7 @@ label {
 	margin: 10px;
 }
 
-.chargeBarCont {
-	height: 10px;
-	border: 1px solid black;
-	border-radius: 5px;
-}
-.chargeBar {
-	height: 100%;
-	width: 60%;
-	background-color: royalblue;
-}
+
 
 /* Bouton d'ajout de Job */
 .addJobCont , .transportJobsCont{
@@ -676,4 +719,96 @@ label.heurePlace {
 .mineralStatTable1 td,.mineralStatTable2 td{
 	margin-left: 5px;
 	border-top: 2px solid black;
+}
+
+
+
+/*---------------------Aide--------------------*/
+.aideContainer{
+	display: flex;
+	justify-content: center;
+	
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: rgba(0, 0, 0, 0.6);
+}
+.aideButton{
+	position: absolute;
+	right: 10%;
+	bottom: 10%;
+	
+}
+.btnCloseAide{
+	width: 100%;
+	height: 35px;
+	
+	background-color: var(--orange);
+	border: 0;
+	font-size: 16px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: white;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.aideSecondCont{
+	background-color: white;
+	width: 80%;
+	height: 80%;
+	border-radius: 10px;
+}
+
+
+
+/*---------------------Flotte--------------------*/
+.flotteContainer{
+	display: flex;
+	justify-content: center;
+	
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: rgba(0, 0, 0, 0.6);
+}
+.flotteButton{
+	position: absolute;
+	right: 10%;
+	bottom: 10%;
+	
+}
+.btnCloseFlotte{
+	width: 100%;
+	height: 35px;
+	
+	background-color: var(--orange);
+	border: 0;
+	font-size: 16px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: white;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.flotteSecondCont{
+	background-color: white;
+	width: 80%;
+	height: 80%;
+	border-radius: 10px;
 }

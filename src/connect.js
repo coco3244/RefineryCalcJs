@@ -11,6 +11,10 @@ const pseudo = document.getElementById("pseudoAct");
 const iRemember = document.getElementById("rememberMe");
 const deco = document.getElementById("labelDeco");
 
+const tabTotals = document.querySelector('.tabTotal');
+
+let jobList;
+
 let tabInsert = {};
 let connected = false;
 
@@ -97,9 +101,11 @@ yesAdd.addEventListener("click", (e) => {
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
+        async:false,
         data: tabInsert,
         success: function(res) {
             console.log(res);
+            addLog.classList.add("hide");
             connectioooooooon(res);
         }
     });
@@ -131,6 +137,7 @@ function fetchDB(pseudo, raffinery, load) {
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
+        async:false,
         data: {
             fetch : pseudo,
             raffinery : raffinery,
@@ -138,7 +145,7 @@ function fetchDB(pseudo, raffinery, load) {
         },
         success: function(res) {
             res = JSON.parse(res)
-            console.log(res);
+            //console.log(res);
 
             jobsContainer.innerHTML = ""; 
             
@@ -179,8 +186,8 @@ function fetchDB(pseudo, raffinery, load) {
                             default:
                                 if(res[i][val] !== null) {
                                     labelMinerais += `<label class="${val}">${val}</label>`;
-                                    labelVal += `<input class="${val} hide" type="number" placeholder="en cSCU">
-                                    <label class="${val}">${res[i][val]} cSCU</label>`;
+                                    labelVal += `<input class="${val}   hide" type="number" placeholder="en cSCU">
+                                    <label class="${val} MineralQuantityLabel">${res[i][val]} cSCU</label>`;
                                 }
                         }
                     }
@@ -301,8 +308,46 @@ function fetchDB(pseudo, raffinery, load) {
         
                 }
 
+                initiateCalculateValue();
             }
         }
     });
+    
+  
+}
+
+function initiateCalculateValue(){
+
     jobList = document.querySelectorAll(".job");
+   
+    jobList.forEach(job=>{
+        let compactecSCU = []; 
+        let multipliMineraiParPrix = {};
+        let totaljob = 0; 
+        const labels = job.querySelector('.listeQuantites').querySelectorAll('label')
+
+        labels.forEach(label=>{
+            let nomMinerai = label.classList[0];
+            
+            if(nomMinerai !== "heurePlace" && nomMinerai !== "minsPlace" && nomMinerai !== 'jobTransportCheckbox'){
+                
+                compactecSCU[nomMinerai] = label.innerHTML;
+                
+            } 
+            
+        })
+        for (const minerai in compactecSCU) {
+            multipliMineraiParPrix[minerai] = Number(delUnit(compactecSCU[minerai],5)) * Number(prixMineraiRefined[minerai][0]);
+            totaljob += Number(multipliMineraiParPrix[minerai]);
+            multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
+        };          
+        totaljob = Math.round(totaljob);
+        
+        job.querySelector('.totalJobDiv').innerHTML=`${separateur_nombre(calculTotalUnitJob(job))} cSCU | ${separateur_nombre(totaljob)} aUEC`
+    })
+
+    tabTotals.innerHTML=`${separateur_nombre(calculTotalUnitGlobal(jobList))} cSCU <br>${separateur_nombre(calculTotalPriceGlobal())} aUEC`;
+
+    const TotalcSCUByMineral = calcPercentage(document.querySelector('.tabMineraisTable'),document.querySelectorAll('.job'));
+    refreshPercentageColorBar(document.querySelector('.tabMineraisTable'),document.querySelector('.pourcentageTotalMainCont'),document.querySelectorAll('.job'),TotalcSCUByMineral);
 }
