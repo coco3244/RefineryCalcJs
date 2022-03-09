@@ -729,9 +729,8 @@ label.heurePlace {
 
 /*---------------------Aide--------------------*/
 .aideContainer{
-	display: flex;
 	justify-content: center;
-	
+
 	position: absolute;
 	z-index: 10;
 	top: 0;
@@ -745,6 +744,8 @@ label.heurePlace {
 	
 	background-color: rgba(0, 0, 0, 0.6);
 }
+
+
 .aideButton{
 	position: absolute;
 	right: 10%;
@@ -765,10 +766,29 @@ label.heurePlace {
 	cursor: pointer;
 }
 .aideSecondCont{
-	background-color: white;
+	display: flex;
+	flex-direction: row;
+	background-color: rgb(63, 53, 53);
 	width: 80%;
 	height: 80%;
 	border-radius: 10px;
+}
+.tableaudaide{	
+	display: flex;
+	padding: 2%;
+	height: 100%;
+	width: 25%;
+	border-right-width:50px;
+	border-right-color: #fc6b36;
+	color: #dddddd;
+}
+
+.explication {
+	display: flex;
+	padding: 2%;
+	height: 100%;
+	width: 75%;
+	color: #dddddd;
 }
 
 
