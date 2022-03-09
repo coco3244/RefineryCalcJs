@@ -596,14 +596,13 @@ transportButton.addEventListener('click',event=>{
         const br = document.createElement('br');
         const label = document.createElement('label');
         totalcSCU+= Number(mineraisList[minerai]);
-        totalaUEC+= Number(mineraisList[minerai]) * Number(prixMineraiRefined[minerai][0]);
-        label.innerHTML=`${minerai}: ${mineraisList[minerai]} cSCU | ${mineraisList[minerai] * prixMineraiRefined[minerai][0]}  aUEC`;
+        totalaUEC+= Math.round(Number(mineraisList[minerai]) * Number(prixMineraiRefined[minerai][0]));
+        label.innerHTML=`${minerai}: ${separateur_nombre(mineraisList[minerai])} cSCU | ${separateur_nombre(Math.round(mineraisList[minerai] * prixMineraiRefined[minerai][0]))}  aUEC`;
 
         jobsResumeCont.appendChild(label);
         jobsResumeCont.appendChild(br);
 
     };
-    
     
    
     /**
@@ -680,6 +679,9 @@ transportButton.addEventListener('click',event=>{
         ["Vulcan",1200,"https://robertsspaceindustries.com/pledge/ships/vulcan/Vulcan"],
         ["Vulture",1200,"https://robertsspaceindustries.com/pledge/ships/drake-vulture/Vulture"],
     ];
+
+    ships = ships.sort(ComparatorShips);
+
     let images={
         "100i":"https://robertsspaceindustries.com/rsi/static/images/store/shipdetail-space-mask.png",      
         "125a":"https://robertsspaceindustries.com/rsi/static/images/store/shipdetail-space-mask.png",
@@ -749,7 +751,7 @@ transportButton.addEventListener('click',event=>{
     
     const vaisseauxPhotoCont = transportContainer.querySelector('.vaisseauxPhotoCont');
     const totalLabel = totalPanierCont.querySelector('.totalLabel');
-    totalLabel.innerHTML=`${totalcSCU} cSCU | ${totalaUEC} aUEC`;
+    totalLabel.innerHTML=`${separateur_nombre(totalcSCU)} cSCU | ${separateur_nombre(totalaUEC)} aUEC`;
 
     vaisseauxListCont.innerHTML=`<table class="vaisseauxListTable">
                     <tr>
@@ -768,8 +770,8 @@ transportButton.addEventListener('click',event=>{
             const tdShipCargoLeft = document.createElement('td');
             tr.classList.add('vaisseau');
             tdShip.innerHTML=`<a target="_blank "href="${ship[2]}">${ship[0]}</a>`;
-            tdShipCargo.innerHTML=` ${ship[1]} cSCU`;
-            tdShipCargoLeft.innerHTML=`${ship[1]-totalcSCU} cSCU`;
+            tdShipCargo.innerHTML=` ${separateur_nombre(ship[1])} cSCU`;
+            tdShipCargoLeft.innerHTML=`${separateur_nombre(ship[1]-totalcSCU)} cSCU`;
 
             const link = tdShip.querySelector('a');
             link.addEventListener('mouseover',event=>{
@@ -1249,3 +1251,12 @@ function separateur_nombre (nbr) {
 
     return caractere;
 }
+
+function ComparatorShips(a, b) {
+
+    if (a[1] < b[1]) return -1;
+
+    if (a[1] > b[1]) return 1;
+    
+    return 0;
+  }
