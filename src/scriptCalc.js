@@ -618,11 +618,11 @@ transportButton.addEventListener('click',event=>{
     let ships = [ 
         ["100i",200,"https://robertsspaceindustries.com/pledge/ships/origin-100/100i"],
         ["125a",200,"https://robertsspaceindustries.com/pledge/ships/origin-100/125a"],
+        ["325a",400,"https://robertsspaceindustries.com/pledge/ships/origin-300/325a"],
+        ["350r",400,"https://robertsspaceindustries.com/pledge/ships/origin-300/350r"],
         ["135c",600,"https://robertsspaceindustries.com/pledge/ships/origin-100/135c"],
         ["300i",800,"https://robertsspaceindustries.com/pledge/ships/origin-300/300i"],
         ["315p",1200,"https://robertsspaceindustries.com/pledge/ships/origin-300/315p"],
-        ["325a",400,"https://robertsspaceindustries.com/pledge/ships/origin-300/325a"],
-        ["350r",400,"https://robertsspaceindustries.com/pledge/ships/origin-300/350r"],
         ["600i Touring",1600,"https://robertsspaceindustries.com/pledge/ships/600i/600i-Touring"],
         ["600i Explorer",4000,"https://robertsspaceindustries.com/pledge/ships/600i/600i-Explorer"],
         ["890 JUMP",95000,"https://robertsspaceindustries.com/pledge/ships/890-jump/890-Jump"],
