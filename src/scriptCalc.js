@@ -795,11 +795,11 @@ transportButton.addEventListener('click',event=>{
         alert('Ta cargaison est trop volumineuse même pour le plus gros de tes ship !');
         return;
     }
-    if(volumeCheckbox.checked==true){
+  /* if(volumeCheckbox.checked==true){
         var audio = new Audio('./audio/Boing.mp3');   
         audio.volume=0.1;   
         audio.play();
-    }
+    }*/
     transportContainer.classList.remove('hide');
 })
 
