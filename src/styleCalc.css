@@ -557,7 +557,11 @@ label.heurePlace {
 }
 .vaisseauxListCont{
 	/*border: 2px solid pink; TEMPORAIRE*/
+	overflow-y: scroll;
+	scrollbar-color: rgb(0, 0, 0) rgb(139, 139, 139);
+	scrollbar-width: thin;
 	width: 49%;
+	max-height: 100%;
 	font-size: larger;
 	float: left;
 }
