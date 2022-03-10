@@ -327,8 +327,6 @@ function initiateCalculateValue(){
    
     jobList.forEach(job=>{
         if (!job.classList.contains('hide')) {
-            
-            console.log(job);
             let compactecSCU = []; 
             let multipliMineraiParPrix = {};
             let totaljob = 0; 

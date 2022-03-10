@@ -374,19 +374,22 @@ jobsContainer.addEventListener("click", (event) => {
         }
 
     }else if(event.target.classList.contains("jobTransportCheckbox")){
-        let checkedJob=[];
-        const pourcentagecont = document.querySelector('.pourcentageMainCont');
-        const tabSelectedMineraisTable = document.querySelector('.tabSelectedMineraisTable')
-        document.querySelectorAll('.job').forEach(job=>{
-            if(job.querySelector('.jobTransportCheckbox').checked){
-                checkedJob.push(job);
-            }
-        })
-        const TotalcSCUByMineral = calcPercentage(tabSelectedMineraisTable,checkedJob);
-        refreshPercentageColorBar(tabSelectedMineraisTable,pourcentagecont,checkedJob,TotalcSCUByMineral);
-        
+        updateCheckboxs();
     }
 });
+
+function updateCheckboxs() {
+    let checkedJob=[];
+    const pourcentagecont = document.querySelector('.pourcentageMainCont');
+    const tabSelectedMineraisTable = document.querySelector('.tabSelectedMineraisTable')
+    document.querySelectorAll('.job').forEach(job=>{
+        if(job.querySelector('.jobTransportCheckbox').checked){
+            checkedJob.push(job);
+        }
+    })
+    const TotalcSCUByMineral = calcPercentage(tabSelectedMineraisTable,checkedJob);
+    refreshPercentageColorBar(tabSelectedMineraisTable,pourcentagecont,checkedJob,TotalcSCUByMineral);
+}
 
 function refreshPercentageColorBar(meneraiTab,pourcentagecont,jobs,TotalcSCUByMineral){
 
@@ -615,7 +618,7 @@ transportButton.addEventListener('click',event=>{
      * l'indice 1 la capacité de cargo
      * l'indice 2 le lien dudis vaisseau sur le site de RSI
      * /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ 
-     * C EST TEMPORAIRE, L'ORSQUE QUE LE TABLEAU SERA GéNéRé VIA BDD CA SERA LUI QUI PRENDRA LE RELAIS DANS L AFFICHAGE
+     * C'EST TEMPORAIRE, L'ORSQUE QUE LE TABLEAU SERA GéNéRé VIA BDD CA SERA LUI QUI PRENDRA LE RELAIS DANS L'AFFICHAGE
      * JE N AI VOLONTAIREMENT PAS MIS TOUT LES VAISSEAUX PRéSENT DANS L APPLI INITIAL PAR FLEMME CAR CA SERA CHANGé APRèS
      */
     let ships = [ 
@@ -835,13 +838,6 @@ transportContainer.addEventListener("click", e => {
 // Update du Filtre -----------------------------------------------------------
 selectFiltre.addEventListener("input", filtrage);
 function filtrage() {
-    // //console.log(selectFiltre.value);
-    // const pseudo = getPseudo();
-    // //console.log("here");
-    // if (connected === true) {
-    //     fetchDB(pseudo, selectFiltre.value);
-    // }
-
     const jobs = jobsContainer.querySelectorAll(".job");
     const filter = selectFiltre.value;
     jobs.forEach(job => {
@@ -849,18 +845,22 @@ function filtrage() {
         // Le regex pour que la recherche soit insensible à la casse
         const lieu = job.querySelector('label.Raffinery').innerText.match(new RegExp(`${filter}`, "gi"));
         const mineraiCont = job.querySelector('.listeMinerais').innerText.match(new RegExp(`${filter}`, "gi"));
-        console.log(lieu, mineraiCont);
+
+
         // Affichage ou non en fonction des constantes
         if (lieu || mineraiCont) {
             job.classList.remove("hide");
         } else {
             job.classList.add("hide");
+            const checkbox = job.querySelector("input.jobTransportCheckbox");
+            checkbox.checked = false;            
         }
     });
-    console.log(jobs);
 
     // Calculs
     initiateCalculateValue();
+
+    updateCheckboxs();
 
     // Setup du cookie
     $.ajax({
@@ -932,13 +932,13 @@ labelAide.addEventListener('click',event=>{
  */
 function calculTotalUnitJob(job){
     let result = 0;
-        const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
-        
-        quantityLabels.forEach(value=>{    
-           // console.log(value);     
-            result+=Number(delUnit(value.innerHTML,5));
-        })
-        return result;
+    const quantityLabels = job.querySelectorAll('.MineralQuantityLabel');
+    
+    quantityLabels.forEach(value=>{    
+        // console.log(value);     
+        result+=Number(delUnit(value.innerHTML,5));
+    })
+    return result;
     
 }
 
@@ -947,7 +947,7 @@ function calculTotalUnitJob(job){
  * @param {*} jobs La liste des jobs
  * @returns le compte de tout les cSCU de tout les jobs
  */
- function calculTotalUnitGlobal(jobs){   
+function calculTotalUnitGlobal(jobs){   
     let result =0;
     jobs.forEach(job=>{
         if (!job.classList.contains("hide")) {
