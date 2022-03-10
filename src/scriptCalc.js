@@ -385,6 +385,9 @@ function updateCheckboxs() {
     document.querySelectorAll('.job').forEach(job=>{
         if(job.querySelector('.jobTransportCheckbox').checked){
             checkedJob.push(job);
+            job.classList.add("shadowChecked");
+        } else {
+            job.classList.remove("shadowChecked");
         }
     })
     const TotalcSCUByMineral = calcPercentage(tabSelectedMineraisTable,checkedJob);
@@ -853,7 +856,8 @@ function filtrage() {
         } else {
             job.classList.add("hide");
             const checkbox = job.querySelector("input.jobTransportCheckbox");
-            checkbox.checked = false;            
+            checkbox.checked = false;
+            job.classList.remove("shadowChecked");
         }
     });
 

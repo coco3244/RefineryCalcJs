@@ -25,7 +25,7 @@ body {
 	font-family: var(--police);
 }
 
-label {
+label, table {
 	user-select: none;
 }
 
@@ -482,6 +482,10 @@ label.heurePlace {
 	background-color:#05c14ea3
 }
 
+.shadowChecked{
+	box-shadow: 0px 0px 5px 4px rgba(65, 105, 225, 1);
+}
+
 /*------------------------------ Transport ------------------------------ */
 
 .transportContainer {
@@ -788,7 +792,6 @@ label.heurePlace {
 	width: 75%;
 	color: #dddddd;
 }
-
 
 
 /*---------------------Flotte--------------------*/
