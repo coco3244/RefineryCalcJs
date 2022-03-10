@@ -144,6 +144,7 @@ jobsContainer.addEventListener("click", (event) => {
                     heure.value = 0;
                     minute.value = 0;
                     bar.style.backgroundColor = "transparent";
+                    bar.style.zIndex = "-1";
 
                     heure.classList.remove("hide");
                     minute.classList.remove("hide");
@@ -202,6 +203,7 @@ jobsContainer.addEventListener("click", (event) => {
                 });
             } 
         }
+        console.log(listeMineraisDiv);
 
         //Si le champ de temps est vide, on le signale
         if (tVide === true) {
@@ -262,6 +264,8 @@ jobsContainer.addEventListener("click", (event) => {
                         let min = input.value;
                         if(min.length < 2) {min = `0${min}`;}
                         bar.style.width = "0%";
+                        bar.style.backgroundColor = "";
+                        bar.style.zIndex = "0";
 
                         input.classList.add("hide");
                         labelT.classList.remove("hide");
@@ -298,7 +302,7 @@ jobsContainer.addEventListener("click", (event) => {
             
             // Calcul des totaux
             initiateCalculateValue();
-            console.log(tabInsert);
+            
             // Insertion dans la bdd
             insertNewJob(tabInsert);
 
@@ -711,19 +715,49 @@ transportContainer.addEventListener("click", e => {
 }); 
 
 // Update du Filtre -----------------------------------------------------------
-selectFiltre.addEventListener("input", inputSelect);
-function inputSelect() {
-    //console.log(selectFiltre.value);
-    const pseudo = getPseudo();
-    //console.log("here");
-    if (connected === true) {
-        fetchDB(pseudo, selectFiltre.value);
-    }
+selectFiltre.addEventListener("input", filtrage);
+function filtrage() {
+    // //console.log(selectFiltre.value);
+    // const pseudo = getPseudo();
+    // //console.log("here");
+    // if (connected === true) {
+    //     fetchDB(pseudo, selectFiltre.value);
+    // }
+
+    const jobs = jobsContainer.querySelectorAll(".job");
+    const filter = selectFiltre.value;
+    jobs.forEach(job => {
+        // Endroits (divs) où faire la recherche 
+        // Le regex pour que la recherche soit insensible à la casse
+        const lieu = job.querySelector('label.Raffinery').innerText.match(new RegExp(`${filter}`, "gi"));
+        const mineraiCont = job.querySelector('.listeMinerais').innerText.match(new RegExp(`${filter}`, "gi"));
+        console.log(lieu, mineraiCont);
+        // Affichage ou non en fonction des constantes
+        if (lieu || mineraiCont) {
+            job.classList.remove("hide");
+        } else {
+            job.classList.add("hide");
+        }
+    });
+    console.log(jobs);
+
+    // Calculs
+    initiateCalculateValue();
+
+    // Setup du cookie
+    $.ajax({
+        url:"./src/connect.php",
+        method: "POST",
+        async: true,
+        data: {filter: filter},
+        success: function(res) {
+        }
+    });
 }
 
 xSelect.addEventListener("click", () => {
     selectFiltre.value = "";
-    inputSelect();
+    filtrage();
 });
 
 const statLabel = document.querySelector('.labelStat');
@@ -771,57 +805,6 @@ labelAide.addEventListener('click',event=>{
     });
 })
 
-/**
- * Fonctions qui décrémente de X minute le temps d'une liste de job
- * @param {*} jobs la liste des jobs
- * @param {*} nbmin nombre de minute a décrémenté
- */
-function xMinutesLessJobsList(jobs,nbmin){
-    nbmin=Math.abs(nbmin);
-    jobs.forEach(job=>{     
-        xMinutesLessJob(job,nbmin);
-    })
-}
-/**
- * Fonction qui décrémente de 1 minute le temps de un job 
- * @param {*} job un job
- * @param {*} nbmin nombre de minute a décrémenté
- */
-function xMinutesLessJob(job,nbmin){
-    nbmin=Math.abs(nbmin);
-   
-    const heurePlace = job.querySelector('label[class=heurePlace]');
-        const time = heurePlace.innerHTML.split(' : '); 
-        
-        if(nbmin<=time[1]){ //si les minutes a enlevé sont inférieur au minutes actuellement écrite
-            time[1]-=nbmin;
-
-        }else if (nbmin>59){
-            let heureMoin = Math.round(nbmin/60);
-            let minRest = nbmin%60;
-            if(heureMoin<=time[0]){
-                time[0]-=heureMoin;
-            }else{
-                time[0]=0;
-            }
-
-            if(minRest<time[1]){
-                time[1]-=minRest;
-            }else{
-                time[1]=0;
-            }
-            
-        }else{
-            nbmin-=time[1];
-
-        }
-       
-        heurePlace.innerHTML=`${time[0]} : ${time[1]}`;
-}
-
-
-
-
 /** ---------------------------------------------------------------------------
  * Fonction qui calcule le total d'unités (cSCU) dans le job donné
  * @param {*} job La div du job
@@ -847,13 +830,15 @@ function calculTotalUnitJob(job){
  function calculTotalUnitGlobal(jobs){   
     let result =0;
     jobs.forEach(job=>{
-        result+=Number(calculTotalUnitJob(job));
+        if (!job.classList.contains("hide")) {
+            result+=Number(calculTotalUnitJob(job));
+        }
     })
     return result;
 }
 
 /**
- * calcul la valeur en aUEC du job en parametre
+ * Calcule la valeur en aUEC du job en paramètre
  * @param {*} job un job
  * @returns le total du job
  */
@@ -875,17 +860,16 @@ function calculTotalPriceJob(job){
  * @param {*} jobs liste de job
  * @returns le total du prix de tout les jobs
  */
-function calculTotalPriceGlobal(){
-    const jobs=document.querySelectorAll('.job')
-    let result=0
+function calculTotalPriceGlobal(jobs){
+    let result=0;
 
     jobs.forEach(job=>{
-        result+=calculTotalPriceJob(job);
-       
+        if (!job.classList.contains("hide")) {
+            result += calculTotalPriceJob(job);
+        }
     })
     
     return result;
-
 }
 
 /**
@@ -902,35 +886,6 @@ function updateTime() {
             const label = jobAct.querySelector("label.heurePlace");
             const bar = label.parentNode.querySelector(".tProgress");
             let time = label.innerHTML.split(":");
-            
-            // Calcul de pourcentage pour la barre de progression
-            let percentBase = Number(delUnit(bar.style.width, 1));
-            percentBase = 100 - percentBase;
-            let valPart = 0;
-            valPart += Number(time[2]);
-            valPart += Number(time[1]) * 60;
-            valPart += Number(time[0]) * 3600;
-            let pTotal = (valPart * 100) / percentBase;
-            
-            // Récup du texte du label et décrémentation du temps
-            time[2] = Number(time[2]) - 1;
-            if (time[2] < 0) {
-                time[1] = Number(time[1]) - 1;
-                time[2] = 59;
-
-                if (time[1] < 0) {
-                    time[0] = Number(time[0]) - 1;
-                    time[1] = 59;
-                }
-            }
-
-            // Vérif de s'il y a un nombre sans son 0 (9 et pas 09)
-            for (let i = 0; i < time.length; i++) {
-                time[i] = String(time[i]);
-                if (time[i].length < 2) {
-                    time[i] = "0" + String(time[i])
-                }
-            }
 
             // Vérif si c'est fini ou pas
             if (time[0] === '00' && time[1] === '00' && time[2] === '00') {
@@ -939,6 +894,35 @@ function updateTime() {
                 bar.style.backgroundColor = "#05c14ea3";
 
             } else {
+                // Calcul de pourcentage pour la barre de progression
+                let percentBase = Number(delUnit(bar.style.width, 1));
+                percentBase = 100 - percentBase;
+                let valPart = 0;
+                valPart += Number(time[2]);
+                valPart += Number(time[1]) * 60;
+                valPart += Number(time[0]) * 3600;
+                let pTotal = (valPart * 100) / percentBase;
+
+                // Récup du texte du label et décrémentation du temps
+                time[2] = Number(time[2]) - 1;
+                if (time[2] < 0) {
+                    time[1] = Number(time[1]) - 1;
+                    time[2] = 59;
+
+                    if (time[1] < 0) {
+                        time[0] = Number(time[0]) - 1;
+                        time[1] = 59;
+                    }
+                }
+
+                // Vérif de s'il y a un nombre sans son 0 (9 et pas 09)
+                for (let i = 0; i < time.length; i++) {
+                    time[i] = String(time[i]);
+                    if (time[i].length < 2) {
+                        time[i] = "0" + String(time[i])
+                    }
+                }
+
                 // Progression de la barre via calcul de pourcentage
                 let valPart2 = 0;
                 valPart2 += Number(time[2]);
@@ -1049,9 +1033,9 @@ function getNextId() {
 }
 
 function calcPercentage(tabMineraisTable, jobs){
-             /**
-             * Partie de calcul des pourcentages
-             */
+    /**
+     * Partie de calcul des pourcentages
+     */
          
      tabMineraisTable.innerHTML=`<tr>
      <th>Minerais</th>
@@ -1063,19 +1047,21 @@ function calcPercentage(tabMineraisTable, jobs){
      let TotalcSCUByMineral = [];
      
     jobs.forEach(job=>{
-        const listeQuantiteAll = job.querySelectorAll('.listeQuantites');
-        listeQuantiteAll.forEach(listeMinerai=>{
-            const labels = listeMinerai.querySelectorAll('label');
-   
-            labels.forEach(label=>{
-                if(TotalcSCUByMineral[label.classList[0]]==undefined){
-                    TotalcSCUByMineral[label.classList[0]]=Number(delUnit(label.innerHTML, 5));
-                }else{
-                    TotalcSCUByMineral[label.classList[0]]+=Number(delUnit(label.innerHTML, 5)); 
-                }
+        if (!job.classList.contains('hide')) {
+            const listeQuantiteAll = job.querySelectorAll('.listeQuantites');
+            listeQuantiteAll.forEach(listeMinerai=>{
+                const labels = listeMinerai.querySelectorAll('label');
+    
+                labels.forEach(label=>{
+                    if(TotalcSCUByMineral[label.classList[0]]==undefined){
+                        TotalcSCUByMineral[label.classList[0]]=Number(delUnit(label.innerHTML, 5));
+                    }else{
+                        TotalcSCUByMineral[label.classList[0]]+=Number(delUnit(label.innerHTML, 5)); 
+                    }
+                })
+    
             })
-   
-        })
+        }
     })
      for(const minerai in TotalcSCUByMineral){
          const tr = document.createElement('tr');

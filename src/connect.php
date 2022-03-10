@@ -4,11 +4,7 @@
 
     if (isset($_POST["autoConnect"])) {
         // print("auto");
-        print_r($_COOKIE);
-        if (isset($_COOKIE["login"])) {
-            print("autoConnect");
-            print("Pseudo=".$_COOKIE["login"]);
-        }
+        print_r(json_encode($_COOKIE));
 
     } elseif(isset($_POST["login"])) {
         // Connexion ----------------------------------------------------------
@@ -63,18 +59,8 @@
     } elseif(isset($_POST["fetch"])) {
         // Récupération des jobs ----------------------------------------------
 
-        if (isset($_POST["firstLoad"])) {
-            $sql = "SELECT DISTINCT U.lastFilter, J.* FROM jobs J INNER JOIN user U ON J.Raffinery LIKE concat('%', U.lastFilter ,'%') AND J.fk_idUser = U.idUser WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."')";
-
-        } elseif(isset($_POST["raffinery"])) {
-            $sql2 = "UPDATE user SET lastFilter='".$_POST["raffinery"]."' WHERE login = '".$_POST["fetch"]."'";
-            $req2 = $BDD->query($sql2);
-
-            $sql = "SELECT * FROM jobs WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."') AND Raffinery LIKE concat('%', '".$_POST["raffinery"]."','%');";
-
-        } else {
-            $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
-        }
+        $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
+        
         // print($sql);
 
         $req = $BDD->query($sql);
@@ -84,17 +70,17 @@
             $jobs[] = $data;
         }
 
-        if (isset($_POST["firstLoad"])) {
-            if (!isset($jobs[0])) {
-                $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
-                $req = $BDD->query($sql);
+        // if (isset($_POST["firstLoad"])) {
+        //     if (!isset($jobs[0])) {
+        //         $sql = "SELECT * FROM `jobs` WHERE fk_idUser = (SELECT idUser FROM user WHERE login = '".$_POST["fetch"]."');";
+        //         $req = $BDD->query($sql);
 
-                $jobs = [];
-                while($data = $req->fetch(PDO::FETCH_ASSOC)) {
-                    $jobs[] = $data;
-                }
-            }
-        }
+        //         $jobs = [];
+        //         while($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        //             $jobs[] = $data;
+        //         }
+        //     }
+        // }
 
         $jobs = json_encode($jobs);
         print($jobs);
@@ -188,6 +174,10 @@
         $sql = "DELETE FROM jobs WHERE idJob=$id";
         $req = $BDD->query($sql);
 
+    } elseif (isset($_POST["filter"])) {
+        $filter = $_POST["filter"];
+        $time = 60 * 60 * 24 * 30;
+        setcookie("filter", $filter, time() + $time);
     }
 
 ?>
