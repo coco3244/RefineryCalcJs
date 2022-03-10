@@ -285,14 +285,39 @@
         <div class="right">
             <div class="customSelectContainer">
                 <label> Raffinerie / Minerais : </label>
-                <input type="text" class="customSelect" id="selectFiltre" list="selectFilterData">
-                <datalist id="selectFilterData">
-                    <option>CRU-L1</option>
-                    <option>ARC-L1</option>
-                    <option>HUR-L1</option>
-                    <option>HUR-L2</option>
-                    <option>MIC-L1</option>
-                </datalist>
+                <input type="text" class="customSelect" autocomplete="off" id="selectFiltre" list="selectFilterData">
+                <div class="customFilterData hide">
+                    <label>Stations</label>
+                    <ul class="filterDataStations">
+                        <li class="filterData">CRU-L1</li>
+                        <li class="filterData">ARC-L1</li>
+                        <li class="filterData">HUR-L1</li>
+                        <li class="filterData">HUR-L2</li>
+                        <li class="filterData">MIC-L1</li>
+                    </ul>
+                    
+                    <label>Minerais</label>
+
+                    <ul class="filterDataMineral">
+                        <li class="filterData">Quantainium</li>
+                        <li class="filterData">Bexalite</li>
+                        <li class="filterData">Taranite</li>
+                        <li class="filterData">Borase</li>
+                        <li class="filterData">Laranite</li>
+                        <li class="filterData">Agricium</li>
+                        <li class="filterData">Hephaestanite</li>
+                        <li class="filterData">Titanium</li>
+                        <li class="filterData">Diamond</li>
+                        <li class="filterData">Gold</li>
+                        <li class="filterData">Copper</li>
+                        <li class="filterData">Beryl</li>
+                        <li class="filterData">Tungsten</li>
+                        <li class="filterData">Corundum</li>
+                        <li class="filterData">Quartz</li>
+                        <li class="filterData">Aluminum</li>
+                        <li class="filterData">Inert-Material</li>
+                    </ul>                                               
+                </div>
                 <i class="fa-solid fa-x xSelect"></i>
                 <!-- <i class="fa-solid fa-sort-down arrowSelect"></i> -->
             </div>

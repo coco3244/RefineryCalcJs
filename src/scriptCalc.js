@@ -9,6 +9,8 @@ const totalPanierCont = document.querySelector('.totalPanierCont');
 const tabTotal = document.querySelector('.tabTotal');
 const xSelect = document.querySelector(".xSelect");
 const volumeCheckbox = document.querySelector('.volumeCheckbox');
+const customSelect = document.querySelector('.customSelect');
+const customFilterData = document.querySelector('.customFilterData');
 
 let nextId = -1;
 let prixMineraiRefined = {
@@ -45,7 +47,32 @@ scrollContainer.addEventListener('wheel',event=>{
     event.preventDefault();
     scrollContainer.scrollLeft += event.deltaY;
 });
-// on crée le tableau (prixmineraisrefined) et on y rajoute les prix par rapport ah un nom de minerai
+
+/**
+* Ajoute l'écoute sur l'input de filtre, si il est focus ca affiche la div de choix
+*/
+customSelect.addEventListener('focus',event=>{
+    customFilterData.classList.remove('hide');
+})
+
+/**
+* Ajoute sur l'input de filtre, s'il n'est plus focus ca cache la div de choix
+*/
+document.querySelector('body').addEventListener('click',event=>{
+    const target = event.target;
+    if(!target.classList.contains('customFilterData')&& !target.classList.contains('customSelect')){
+        customFilterData.classList.add('hide');
+    }
+    
+})
+
+customFilterData.addEventListener('click',event=>{
+    const target= event.target;
+    if(target.classList.contains('filterData')){     
+        customSelect.value=target.innerHTML;
+        filtrage();
+    }
+})
 
 
 
