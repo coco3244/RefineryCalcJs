@@ -602,6 +602,37 @@ label.heurePlace {
 	border-top: 2px solid black;
 }
 
+/*---------------------Alerte Container--------------------*/
+
+.AlerteMainContainer {
+	display: flex;
+	justify-content: center;
+	
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.AlerteContainer{
+	overflow: hidden;
+	/*border: 2px solid blue; /*TEMPORAIRE*/
+	background-color: white;
+	height: 80%;
+	width: 70%;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+
 /*---------------------Slider checkbox--------------------*/
 
 .volumeLabel,.stayConnectedLabel{

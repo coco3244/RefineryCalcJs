@@ -175,6 +175,11 @@ jobsContainer.addEventListener("click", (event) => {
         let tabInsert = {};
         let iVide = false;
         let tVide = false;
+
+        if (listeMineraisDiv.children.length <= 0 ){
+            alerteCustom()
+            return;
+        }
         
         // On vérifie qu'il n'y a pas d'input vide
         inputs.forEach(input => {
@@ -182,8 +187,10 @@ jobsContainer.addEventListener("click", (event) => {
                 tVide = true;
             } else if (input.value === "") {
                 iVide = true;
-            }
+            }   
+
         });
+        // console.log(listeMineraisDiv.children.length);
 
         // Si il y a des champs vide, on les suppr, ou pas :)
         let confirmDel = false;
@@ -206,7 +213,8 @@ jobsContainer.addEventListener("click", (event) => {
         //Si le champ de temps est vide, on le signale
         if (tVide === true) {
             alert("Vous devez définir le temps restant !");
-        }
+
+        } 
 
         if (iVide === false && tVide === false) {
             let timeInit = new Date();
@@ -1260,3 +1268,11 @@ function ComparatorShips(a, b) {
     
     return 0;
   }
+
+function alerteCustom() {
+    const  Alerte = document.querySelector(".AlerteMainContainer");
+    Alerte.classList.remove("hide");
+
+    console.log("essais");
+    console.log(Alerte);
+}
