@@ -1,0 +1,45 @@
+/*---------------------Flotte--------------------*/
+.flotteContainer{
+	display: flex;
+	justify-content: center;
+	
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: rgba(0, 0, 0, 0.6);
+}
+.flotteButton{
+	position: absolute;
+	right: 10%;
+	bottom: 10%;
+	
+}
+.btnCloseFlotte{
+	width: 100%;
+	height: 35px;
+	
+	background-color: var(--orange);
+	border: 0;
+	font-size: 16px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: white;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.flotteSecondCont{
+	border: 1px solid var(--orange);
+	background-color: #455f78;
+	color: var(--orange);
+	width: 80%;
+	height: 80%;
+	border-radius: 10px;
+}

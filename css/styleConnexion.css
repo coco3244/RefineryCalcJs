@@ -4,10 +4,6 @@
     --police-connexion: 'Titillium Web', sans-serif;
 }
 
-.hide{
-	display: none;
-}
-
 .display {
     display: flex;
 }

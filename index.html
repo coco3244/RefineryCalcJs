@@ -15,8 +15,15 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="./src/styleCalc.css">
-    <link rel="stylesheet" href="./src/styleConnexion.css">
+    <link rel="stylesheet" href="./css/styleAide.css">
+    <link rel="stylesheet" href="./css/styleConnexion.css">
+    <link rel="stylesheet" href="./css/styleFlotte.css">
+    <link rel="stylesheet" href="./css/styleJobs.css">
+    <link rel="stylesheet" href="./css/styleSideBar.css">
+    <link rel="stylesheet" href="./css/styleStats.css">
+    <link rel="stylesheet" href="./css/styleToolBar.css">
+    <link rel="stylesheet" href="./css/styleTransport.css">
+    <link rel="stylesheet" href="./css/styleCalc.css">
 
     <!-- Scripts -->
     <script src="./src/connect.js" defer></script>
@@ -284,7 +291,7 @@
         </div>
         <div class="right">
             <div class="customSelectContainer">
-                <label> Raffinerie / Minerais : </label>
+                <label> Filtre : </label>
                 <input type="text" class="customSelect" autocomplete="off" id="selectFiltre" list="selectFilterData">
                 <div class="customFilterData hide">
                     <label>Stations</label>
@@ -344,10 +351,10 @@
 
     <div class="page">
         <div class="sideBar">
-            <div class="tabSelectedMineraisCont">
-                <label>Total job selectionné : </label>
-                <div class="tabSelectedMinerais">
-                    <table class="tabSelectedMineraisTable">
+            <div class="tabMineraisCont ">
+                <label>Sélection </label>
+                <div class="tabMinerais tabStyle">
+                    <table class="tabMineraisTable">
 
                         <tr>
                             <th>Minerais</th>
@@ -363,10 +370,10 @@
                 </div>
             </div>
            
-            <div class="tabTotalCont">
-                <label>Total : </label>
+            <div class="tabMineraisCont">
+                <label>Total </label>
                 
-                <div class="tabMinerais">
+                <div class="tabMinerais tabStyle">
                     <table class="tabMineraisTable">
 
                         <tr>

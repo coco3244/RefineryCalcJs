@@ -20,6 +20,7 @@ let connected = false;
 
 window.onload = init();
 function init() {
+    console.log(document.cookie);
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
@@ -27,7 +28,7 @@ function init() {
         // async: false,
         success: function(res) {
             res = JSON.parse(res);
-            console.log(res);
+            // console.log(res);
 
             if (res.login !== undefined) {
                 connexionContainer.classList.add("connect-hidden");

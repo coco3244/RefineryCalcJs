@@ -870,23 +870,37 @@ selectFiltre.addEventListener("input", filtrage);
 function filtrage() {
     const jobs = jobsContainer.querySelectorAll(".job");
     const filter = selectFiltre.value;
+    let i = 0;
     jobs.forEach(job => {
         // Endroits (divs) où faire la recherche 
         // Le regex pour que la recherche soit insensible à la casse
         const lieu = job.querySelector('label.Raffinery').innerText.match(new RegExp(`${filter}`, "gi"));
         const mineraiCont = job.querySelector('.listeMinerais').innerText.match(new RegExp(`${filter}`, "gi"));
-
+        const title = job.querySelector("label.titleJob");
 
         // Affichage ou non en fonction des constantes
         if (lieu || mineraiCont) {
+            // Trouvé !
             job.classList.remove("hide");
+            // console.log(job);
+
         } else {
+            // Pas trouvé 
             job.classList.add("hide");
             const checkbox = job.querySelector("input.jobTransportCheckbox");
             checkbox.checked = false;
             job.classList.remove("shadowChecked");
         }
     });
+
+    // jobs.forEach(job => {
+    //     if (!job.classList.contains("hide")) {
+    //         title.innerText = i--;
+            
+    //     }
+    // });
+
+
 
     // Calculs
     initiateCalculateValue();
