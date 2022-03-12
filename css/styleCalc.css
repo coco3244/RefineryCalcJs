@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400&display=swap');
+
+/*------------------------------ Général ------------------------------ */
+:root {
+	/* Rappel : les variables sont accessibles de toutes les pages css si elles sont déclarées ici  */
+
+	/* C'est temporaire, on en choisira une belle ensemble, mais je supporte pas celle par défaut  */
+	--police: 'Titillium Web', sans-serif;
+	--orange: #fc6b36;
+}
+
+/* * {
+	 outline: red 1px solid; 
+}*/
+
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #121c27;
+
+
+	display: flex;
+	flex-direction: column;
+	font-family: var(--police);
+}
+
+label, table {
+	user-select: none;
+}
+
+.hide{
+	display: none;
+}
+
+
+/*------------------------------ Page ------------------------------ */
+.page {
+	height: 100%;
+	
+	display: flex;
+}
+
+/*--------------------- Classes globales --------------------*/
+
+
+/*---------------------Slider checkbox--------------------*/
+
+.volumeLabel,.stayConnectedLabel{
+	--width: 35px;
+	--height:calc(var(--width)/2);
+	--border-radius:calc(var(--height)/2);
+	
+	cursor: pointer;	
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.volumeCheckbox,.stayConnectedCheckbox{
+	display: none;
+}
+
+.volumeContRemplissage , .stayConnectedContRemplissage{	
+	float: right;
+	position: relative;
+	width: var(--width);
+	height: var(--height);
+	border-radius: var(--border-radius);
+	background: #dddddd;
+	transition: background 0.2s;
+	top: 1px;
+}
+.volumeContRemplissage{
+	margin-left: 5px;
+	
+}
+
+.volumeCheckbox:checked ~ .volumeContRemplissage , .stayConnectedCheckbox:checked ~ .stayConnectedContRemplissage{
+	background-color: var(--orange);
+}
+
+.volumeContRemplissage::after , .stayConnectedContRemplissage::after{
+	
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: var(--height);
+	width: var(--height);
+	background: white;
+	box-shadow: 0 0 10px rgba(0,0,0,0.25);
+	border-radius: var(--border-radius);
+	transition: transform 0.2s;
+}
+.volumeCheckbox:checked ~ .volumeContRemplissage::after , .stayConnectedCheckbox:checked ~  .stayConnectedContRemplissage::after{
+	transform: translateX(var(--height));
+}

@@ -20,16 +20,22 @@ let connected = false;
 
 window.onload = init();
 function init() {
+    console.log(document.cookie);
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
         data: "autoConnect",
         // async: false,
         success: function(res) {
-            let searchAuto = res.search("autoConnect");
-            if (searchAuto !== -1) {
+            res = JSON.parse(res);
+            // console.log(res);
+
+            if (res.login !== undefined) {
                 connexionContainer.classList.add("connect-hidden");
-                connectioooooooon(res, true);
+                if (res.filter !== undefined) {
+                    selectFiltre.value = res.filter;
+                }
+                connectioooooooon(res.login);
             } else {
                 // connexionContainer.style.display = "flex";
                 connexionContainer.classList.remove("connect-hidden");
@@ -85,7 +91,11 @@ $("form").submit(function(evt){
                 console.log(tabInsert.insert.login + " " + tabInsert.insert.password);
 
             } else if(response.search("Connect") !== -1) {
-                connectioooooooon(response, false);
+                connexionContainer.classList.add("connect-hidden");
+                let ps = response.search("Pseudo=");
+                let result = response.substr(ps + 7, response.length);
+                
+                connectioooooooon(result);
 
             } else if(response.search("pswNo") !== -1) {
                 mdpErreur.classList.remove("hide");
@@ -118,20 +128,18 @@ noAdd.addEventListener("click", (e) => {
     iPsw.value = "";
 })
 
-function connectioooooooon(res, auto) {
-    if (auto !== true) {
-        connexionContainer.classList.add("connect-hidden");
-    }
+function connectioooooooon(tPseudo) {
+    // if (auto !== true) {
+    //     connexionContainer.classList.add("connect-hidden");
+    // }
     connected = true;
-    let ps = res.search("Pseudo=");
-    let result = res.substr(ps + 7, res.length)
     
-    pseudo.innerHTML = result;
-    fetchDB(result, undefined, 1);
-    
+        
+    pseudo.innerHTML = tPseudo;
+    fetchDB(tPseudo, 1);
 }
 
-function fetchDB(pseudo, raffinery, load) {
+function fetchDB(pseudo, load) {
     nextId = -1;
     // Requète ajax pour requérir la BDD
     $.ajax({
@@ -140,7 +148,6 @@ function fetchDB(pseudo, raffinery, load) {
         async:false,
         data: {
             fetch : pseudo,
-            raffinery : raffinery,
             firstLoad : load
         },
         success: function(res) {
@@ -193,7 +200,7 @@ function fetchDB(pseudo, raffinery, load) {
                     }
 
                     // Vérifie si le job est terminé ou pas
-                    if (hNow > hEnd) {
+                    if (hNow >= hEnd) {
                         // Affichage de Terminé !
                         time = "Terminé !";
                         cTime = "tFinish";
@@ -308,7 +315,7 @@ function fetchDB(pseudo, raffinery, load) {
         
                 }
 
-                initiateCalculateValue();
+                filtrage();
             }
         }
     });
@@ -317,36 +324,41 @@ function fetchDB(pseudo, raffinery, load) {
 }
 
 function initiateCalculateValue(){
-
     jobList = document.querySelectorAll(".job");
    
     jobList.forEach(job=>{
-        let compactecSCU = []; 
-        let multipliMineraiParPrix = {};
-        let totaljob = 0; 
-        const labels = job.querySelector('.listeQuantites').querySelectorAll('label')
-
-        labels.forEach(label=>{
-            let nomMinerai = label.classList[0];
-            
-            if(nomMinerai !== "heurePlace" && nomMinerai !== "minsPlace" && nomMinerai !== 'jobTransportCheckbox'){
+        if (!job.classList.contains('hide')) {
+            let compactecSCU = []; 
+            let multipliMineraiParPrix = {};
+            let totaljob = 0; 
+            const labels = job.querySelector('.listeQuantites').querySelectorAll('label')
+    
+            labels.forEach(label=>{
+                let nomMinerai = label.classList[0];
                 
-                compactecSCU[nomMinerai] = label.innerHTML;
+                if(nomMinerai !== "heurePlace" && nomMinerai !== "minsPlace" && nomMinerai !== 'jobTransportCheckbox'){
+                    
+                    compactecSCU[nomMinerai] = label.innerHTML;
+                    
+                } 
                 
-            } 
+            })
+            for (const minerai in compactecSCU) {
+                multipliMineraiParPrix[minerai] = Number(delUnit(compactecSCU[minerai],5)) * Number(prixMineraiRefined[minerai][0]);
+                totaljob += Number(multipliMineraiParPrix[minerai]);
+                multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
+            };          
+            totaljob = Math.round(totaljob);
             
-        })
-        for (const minerai in compactecSCU) {
-            multipliMineraiParPrix[minerai] = Number(delUnit(compactecSCU[minerai],5)) * Number(prixMineraiRefined[minerai][0]);
-            totaljob += Number(multipliMineraiParPrix[minerai]);
-            multipliMineraiParPrix[minerai] = multipliMineraiParPrix[minerai] + " aUEC ";
-        };          
-        totaljob = Math.round(totaljob);
-        
-        job.querySelector('.totalJobDiv').innerHTML=`${separateur_nombre(calculTotalUnitJob(job))} cSCU | ${separateur_nombre(totaljob)} aUEC`
+            job.querySelector('.totalJobDiv').innerHTML=`
+            ${separateur_nombre(calculTotalUnitJob(job))} cSCU | 
+            ${separateur_nombre(totaljob)} aUEC`;
+        }
     })
 
-    tabTotals.innerHTML=`${separateur_nombre(calculTotalUnitGlobal(jobList))} cSCU <br>${separateur_nombre(calculTotalPriceGlobal())} aUEC`;
+    tabTotals.innerHTML = `
+    ${separateur_nombre(calculTotalUnitGlobal(jobList))} cSCU <br>
+    ${separateur_nombre(calculTotalPriceGlobal(jobList))} aUEC`;
 
     const TotalcSCUByMineral = calcPercentage(document.querySelector('.tabMineraisTable'),document.querySelectorAll('.job'));
     refreshPercentageColorBar(document.querySelector('.tabMineraisTable'),document.querySelector('.pourcentageTotalMainCont'),document.querySelectorAll('.job'),TotalcSCUByMineral);

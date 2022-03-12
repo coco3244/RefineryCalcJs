@@ -1,0 +1,195 @@
+/*------------------------------ ToolBar ------------------------------ */
+.toolBar {
+	height: 60px;
+	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.5);
+	background-color: #131b25;
+	display: flex;
+	color: var(--orange);
+	justify-content: space-around;
+	align-items: center;
+	border-bottom: 1px solid var(--orange);
+}
+
+.toolBar .left, .toolBar .right {
+	width: 40%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.toolBar .left {
+	font-size: 1.4em;
+}
+
+.toolBar .center img, .toolBar .center {
+	height: 98%;
+	border-radius: 50%;
+}
+
+.toolBar .center img {
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+	
+}
+
+.customSelectContainer {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+.customFilterData{
+	position: absolute;
+	height: 250px;
+	overflow-y: auto;
+    z-index: 1;
+	top: 93%;
+	right: -10px;
+	border-radius: 10px;
+	text-align: center;
+	border: 1px solid var(--orange);
+	background-color: #455f78;
+	color: var(--orange);
+	padding: 15px;
+	width: 130px;
+}
+.customFilterData > ul{
+	list-style-type: none;
+	padding: 0;
+	padding-bottom: 10px;
+	padding-top: 5px;
+	margin: 0;
+	width: 100%;
+}
+.customFilterData > ul > li:hover{
+	outline: solid 1px red;
+	cursor: default;
+}
+.customFilterData > label{
+	font-weight: bolder;
+	text-decoration: underline;
+	width: 100%;
+	
+}
+.customSelect {
+	background-color: rgba(128, 128, 128, 0.5);
+	margin: 5px;
+	width: 80px;
+	height: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	outline: 1px solid black;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+	margin-right: 0;
+	
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	border: 0;
+}
+
+
+.arrowSelect {
+	position: relative;
+	font-size: 20px;
+	left: -45px;
+	bottom: 3px;
+	
+}
+
+.xSelect {
+	position: relative;
+	color: var(--orange);
+	font-size: 0.9em;
+	outline: 1px solid black;
+	height: 26px;
+	width: 20px;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: rgba(128, 128, 128, 0.5);
+	text-shadow: 0px 0px 10px white;
+	cursor: pointer;
+
+
+}
+.xSelect:hover, .customSelect:focus-within {
+	border: 1px solid var(--orange);
+	background-color: rgba(128, 128, 128, 0.7);
+}
+
+.customSelect:focus ~ .customOptions {
+	display: initial;
+}
+
+.customOptions {
+	position: absolute;
+	top: 33px;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	width: 140px;
+	/* max-height: 170px; */
+	overflow: auto;
+	color: white;
+	border-radius: 10px;
+	padding: 5px;
+	z-index: 2;
+}
+
+.customOptions option {
+	padding: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.customOptions label:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.pseudoCont {
+	border: 1px solid black;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 10px;
+	cursor: pointer;
+	position: relative;
+}
+.pseudoCont:hover {
+	background-color: rgba(128, 128, 128, 0.7);
+}
+
+.pseudoCont:hover .pseudoMenu {
+	display: flex;
+}
+
+.pseudoMenu {
+	position: absolute;
+	right: 0px;
+	top: 100%;
+	display: none;
+	flex-direction: column;
+	background: rgba(128, 128, 128, 0.7);
+	padding: 10px;
+	border-radius: 10px;
+	z-index: 5;
+}
+
+.pseudoMenu label:hover {
+	color: white;
+}
+
+.pseudoCont label {
+	cursor: pointer;
+}
+
+.arrowPseudo {
+	position: relative;
+	font-size: 20px;
+	bottom: 3px;
+	margin-left: 5px;
+}
