@@ -303,14 +303,16 @@
 
     <div class="toolBar">
         <div class="left">
-            <label>RefineryCalc</label>
+            <label><span>Refinery</span>Calc</label>
+            <!-- <span class="spacer"></span> -->
         </div>
         <div class="center">
             <img src="./images/Logo3.png" alt="LogoOOS" draggable="false">
         </div>
         <div class="right">
+            <!-- <span class="spacer"></span> -->
             <div class="customSelectContainer">
-                <label> Filtre : </label>
+                <label> Filtre </label>
                 <input type="text" class="customSelect" autocomplete="off" id="selectFiltre" list="selectFilterData">
                 <div class="customFilterData hide">
                     <label>Stations</label>
@@ -344,7 +346,9 @@
                         <li class="filterData">Inert-Material</li>
                     </ul>                                               
                 </div>
-                <i class="fa-solid fa-x xSelect"></i>
+                <div class="xSelectCont">
+                    <i class="fa-solid fa-xmark xSelect"></i>
+                </div>
                 <!-- <i class="fa-solid fa-sort-down arrowSelect"></i> -->
             </div>
             <div class="pseudoCont">
@@ -370,10 +374,10 @@
 
     <div class="page">
         <div class="sideBar">
-            <div class="tabSelectedMineraisCont">
+            <div class="tabSelectedMineraisCont tabStyleCont">
                 <label>Sélection </label>
                 <div class="tabSelectedMinerais tabStyle">
-                    <table class="tabSelectedMineraisTable">
+                    <table class="tabSelectedMineraisTable tableMineraisStyle">
 
                         <tr>
                             <th>Minerais</th>
@@ -385,15 +389,15 @@
                     
                 </div>
                 <div class="pourcentageMainCont">
-                   
+                    
                 </div>
             </div>
            
-            <div class="tabTotalCont">
+            <div class="tabTotalCont tabStyleCont">
                 <label>Total </label>
                 
                 <div class="tabMinerais tabStyle">
-                    <table class="tabMineraisTable">
+                    <table class="tabMineraisTable tableMineraisStyle">
 
                         <tr>
                             <th>Minerais</th>
@@ -407,15 +411,15 @@
                 <div class="pourcentageTotalMainCont">
                   
                 </div>         
-                <div class="tabTotal">
+                <div class="tabStyle tabTotal ">
                 </div>
 
             </div>
-            <div class="addJobCont">
-                <button>Ajouter un Job</button>
+            <div >
             </div>
-            <div class="transportJobsCont">
-                <button>Transporter</button>
+            <div class="btnsSideCont">
+                <button class="addJobBtn">Ajouter un Job</button>
+                <button class="transportJobsBtn">Transporter</button>
             </div>
         </div>
 

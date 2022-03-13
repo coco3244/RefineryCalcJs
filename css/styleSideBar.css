@@ -5,58 +5,11 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	border-right: 1px solid var(--orange);
+	border-right: 1px solid var(--blue2);
 	padding: 9px;
 }
-.tabStyle {
-	padding: 6px;
-	border-radius: 6px;
-	border: 1px solid var(--orange);
-	background-color: #455f78;
-	box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
-}
 
-/* Tableau des Selections */
-/* .tabSelectedMineraisCont {
-	display: flex;
-	padding: 5px;
-	flex-direction: column;
-	font-size: 1.2em;
-	
-	color: var(--orange);
-}
-
-.tabSelectedMinerais {
-	overflow: auto;
-	display: flex;
-	flex-direction: column;
-	height: 200px;
-}
-
-.tabSelectedMineraisTable th{
-	font-size: medium;
-	text-align: center;
-	border-left: solid black 1px;
-	border-right: solid black 1px;
-
-}
-.tabSelectedMineraisTable td{
-	margin-left: 5px;
-	border-top: 2px solid black;
-}*/
-.pourcentageMainCont ,.pourcentageTotalMainCont{
-	height: 10px;
-	border: 1px solid black;
-	border-radius: 5px;
-	
-}
-.pourcentagecont {
-	height: 100%;
-	float: left;
-} 
-/* --------
-/* Tableau des minerais */
-.tabMineraisCont {
+.tabStyleCont {
 	display: flex;
 	padding: 10px;
 	flex-direction: column;
@@ -65,59 +18,50 @@
 	color: var(--orange);
 }
 
-.tabMinerais {
-	overflow: auto;
-	display: flex;
-	flex-direction: column;
-	height: 200px;
+.tabStyle {
+	padding: 6px;
+	border-radius: 6px;
+	border: 1px solid var(--orange);
+	background-color: #455f78;
+	box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
+
+	height: 160px;
 }
-.tabMineraisTable th{
+
+.tableMineraisStyle {
+	width: 100%;
+	text-align: center;
+}
+
+.tableMineraisStyle th{
 	font-size: medium;
 	text-align: center;
 	border-left: solid black 1px;
 	border-right: solid black 1px;
 
 }
-.tabMineraisTable td{
+.tableMineraisStyle td{
 	margin-left: 5px;
 	border-top: 2px solid black;
 } 
 
-/* Tableau de total  */
-.tabTotalCont {
-	border: 1px solid var(--orange);
-	border-radius: 20px;
-	text-align: center;
-	padding: 10px;
-	display: flex;
-	flex-direction: column;
-	font-size: 1.2em;
-	color: var(--orange);
-	background-color: #455f78;
-}
-
 .tabTotal {
-	
 	display: flex;
 	flex-direction: column;
-	min-height: 100px;
+	height: 70px;
 	margin: 5px;
 	padding: 5px;
 	border: 1px solid black;
 }
 
-.tabTotalCont select {
+/* Bouton d'ajout de Job */
+.btnsSideCont{
+	display: flex;
+	flex-direction: column;
 	margin: 10px;
 }
 
-
-
-/* Bouton d'ajout de Job */
-.addJobCont , .transportJobsCont{
-	display: flex;
-	
-}
-.addJobCont button , .transportJobsCont button{
+.addJobBtn , .transportJobsBtn {
 	width: 100%;
 	height: 35px;
 	
@@ -130,5 +74,5 @@
 	border-radius: 10px;
 	cursor: pointer;
 	outline: 1px solid white;
-	margin: 5px;
+	margin-bottom: 10px;
 }
