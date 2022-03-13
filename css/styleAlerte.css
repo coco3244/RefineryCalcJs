@@ -1,0 +1,98 @@
+.AlerteMainContainer{
+	
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.AlerteContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+	border: 1px solid var(--orange);
+	background-color: #455f78;
+	color: var(--orange);
+    min-width: 300px;
+	min-height: 140px;
+    max-width: 550px;
+	border-radius: 10px;
+}
+
+.corps{
+
+    display: flex;
+    justify-content: center;
+	align-items: center;
+    min-height: 100px;
+    
+}
+
+.corps img{
+
+    height: 50px;
+    margin: 3%
+
+}
+
+.text{
+    margin: 3%;
+    text-align: justify;
+    width: 80%;
+}
+
+.btn{
+	display: flex;
+    flex-direction: row;
+    height: 10%;
+	width: 100%;
+}
+
+.BtnConfirm{
+	display:flex ;
+	flex-direction: row;
+    justify-content: space-between;
+}
+
+.boutoncolor{
+    right: 0;
+    bottom: 0;
+    width: 140px;
+    height: 33px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border: none;
+    background-color: var(--orange);
+
+    font-family: var(--police-connexion);
+    font-size: 1em;
+    font-weight: 600;
+    color: hsla(0, 0%, 96%, 0.87);
+    letter-spacing: 1px;
+}
+
+.boutoncolor2{
+    right: 0;
+    bottom: 0;
+    width: 140px;
+    height: 33px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: none;
+    background-color: var(--orange);
+
+    font-family: var(--police-connexion);
+    font-size: 1em;
+    font-weight: 600;
+    color: hsla(0, 0%, 96%, 0.87);
+    letter-spacing: 1px;
+}
