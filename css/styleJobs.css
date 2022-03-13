@@ -2,7 +2,7 @@
 .jobsContainer {
 	display: flex;
 	flex: 1;
-	background-color: #18212e;
+	background: url(../images/fond.jpg);
 	overflow-x: auto;
 	
 	padding: 10px;

@@ -7,13 +7,15 @@
 	justify-content: space-around;
 	border-right: 1px solid var(--blue2);
 	padding: 9px;
+	font-family: var(--police-2);
+	overflow-y: auto;
 }
 
 .tabStyleCont {
 	display: flex;
 	padding: 10px;
 	flex-direction: column;
-	font-size: 1.4em;
+	font-size: 1.8em;
 	
 	color: var(--orange);
 }
@@ -38,7 +40,7 @@
 	text-align: center;
 	border-left: solid black 1px;
 	border-right: solid black 1px;
-
+	font-size: 20px;
 }
 .tableMineraisStyle td{
 	margin-left: 5px;

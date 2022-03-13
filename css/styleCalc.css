@@ -45,9 +45,8 @@ label, table, ul, img {
 
 /*------------------------------ Page ------------------------------ */
 .page {
-	height: 100%;
-	
 	display: flex;
+	flex: auto;
 }
 
 /*--------------------- Classes globales --------------------*/
