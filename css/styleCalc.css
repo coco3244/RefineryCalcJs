@@ -34,7 +34,7 @@ body {
 	font-family: var(--police);
 }
 
-label, table {
+label, table, ul, img {
 	user-select: none;
 }
 

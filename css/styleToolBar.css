@@ -104,9 +104,9 @@
 	height: 250px;
 	overflow-y: auto;
     z-index: 1;
-	top: 105%;
+	top: 104%;
 	right: 0px;
-	width: 129px;
+	width: 121px;
 	/* border-radius: 10px; */
 	text-align: center;
 	border: 1px solid var(--orange);
@@ -181,31 +181,39 @@
 }
 
 .arrowPseudo {
-	position: relative;
-	font-size: 20px;
-	bottom: 3px;
-	margin-left: 5px;
-	color: var(--blue2);
-	top: -4px;
+	height: 60%;
 }
 
 .pseudoCont:hover .pseudoMenu {
 	display: flex;
+	
+}
+
+.pseudoCont:hover {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 }
 
 .pseudoMenu {
 	position: absolute;
-	right: 0px;
+	right: -1px;
 	top: 100%;
 	display: none;
 	flex-direction: column;
-	background: rgba(128, 128, 128, 0.7);
+	background: var(--blue2);
 	padding: 10px;
-	border-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 	z-index: 5;
+	color: white;
+	width: calc(100% - 18px);
+	
+}
+
+.pseudoMenu label {
 	color: white;
 }
 
 .pseudoMenu label:hover {
-	color: white;
+	color: var(--orange);
 }
