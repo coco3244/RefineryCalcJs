@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400&display=swap');
-
-:root {
-    --police-connexion: 'Titillium Web', sans-serif;
-}
-
 .display {
     display: flex;
 }
@@ -32,8 +26,8 @@
 }
 
 .connexionContainer form {
-    background-color: rgba(255, 255, 255, 1);
-	border: 1px solid black;
+    background-color: var(--blue1);
+	border: 1px solid var(--orange);
 	border-radius: 10px;
 	padding: 20px;
 	width: 250px;
@@ -42,10 +36,10 @@
 
 	display: flex;
 	flex-direction: column;
-	font-family: var(--police-connexion);
+	font-family: var(--police);
     padding-bottom: 60px;
 
-    
+    color: white;
 }
 
 .titleConnexion {
@@ -54,12 +48,14 @@
 }
 
 .connexionContainer input[type="text"], .connexionContainer input[type="password"] {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--orange);
+    border-radius: 5px;
     width: 90%;
     height: 20px;
     padding: 10px;
     font-size: 0.9em;
-    font-family: var(--police-connexion);
+    font-family: var(--police);
     font-weight: 500;
     
 }
@@ -75,7 +71,7 @@
     border: none;
     background-color: var(--orange);
 
-    font-family: var(--police-connexion);
+    font-family: var(--police);
     font-size: 1em;
     font-weight: 600;
     color: hsla(0, 0%, 96%, 0.87);
