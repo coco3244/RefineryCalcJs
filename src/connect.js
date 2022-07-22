@@ -230,9 +230,9 @@ function fetchDB(pseudo, load) {
 
                     // Setup de l'html avec les variables
                     let jobHtml = `
-                    <div class="job" id="jobId_${jobId}">
+                    <label class="job" id="jobId_${jobId}">
                         <div class="checkBoxDiv"> 
-                            <input class="jobTransportCheckbox"type="checkbox">
+                            <input class="jobTransportCheckbox hide"type="checkbox">
                         </div>
 
                         <label class="titleJob">${i + 1}</label>
@@ -308,7 +308,7 @@ function fetchDB(pseudo, load) {
                             <button class="btnModif">Modifier</button>
                             <button class="btnConfirm hide">Confirmer</button>
                         </div>
-                    </div>`;
+                    </label>`;
         
                     //Affichage des cases remplies
                     jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;

@@ -6,8 +6,7 @@
 	overflow-x: auto;
 	
 	padding: 10px;
-	align-items: center;
-	
+	align-items: center;	
 }
 
 .checkBoxDiv{
@@ -72,6 +71,7 @@
 	justify-content: space-around;
 	align-items: center;
 	overflow: auto;
+	color: var(--color-acc);
 }
 
 .listeMinerais, .listeQuantites {
@@ -94,10 +94,14 @@
 }
 
 .tabCat {
-	border: 1px solid black;
+	border: 1px solid var(--color-acc);
+	border-radius: 5px;
 	text-align: center;
 	font-size: 1.2em;
 	position: relative;
+	box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+	color: var(--color-acc);
+	background-color: gray;
 }
 
 .btnsContainer {

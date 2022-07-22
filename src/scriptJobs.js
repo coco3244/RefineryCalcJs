@@ -366,9 +366,9 @@ function updateCheckboxs() {
     getNextId();
 
     let jobHtml = /*html*/ `
-    <div class="job job${numJob} newJob" id="jobId_${nextId}">
+    <label class="job job${numJob} newJob" id="jobId_${nextId}">
         <div class="checkBoxDiv hide"> 
-            <input class="jobTransportCheckbox"type="checkbox">
+            <input class="jobTransportCheckbox hide"type="checkbox">
         </div>
 
         <label class="titleJob">${numJob}</label>
@@ -445,7 +445,7 @@ function updateCheckboxs() {
             <button class="btnModif hide">Modifier</button>
             <button class="btnConfirm">Confirmer</button>
         </div>
-    </div>`;
+    </label>`;
     jobsContainer.innerHTML = jobHtml + jobsContainer.innerHTML;
 });
 
