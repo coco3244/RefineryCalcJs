@@ -27,7 +27,8 @@
 	background-color: #455f78;
 	box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
 
-	height: 160px;
+	max-height: 20vh;
+	overflow-y: auto;
 }
 
 .tableMineraisStyle {
