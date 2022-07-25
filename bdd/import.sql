@@ -18,6 +18,10 @@ DROP SCHEMA IF EXISTS `refinerycalc` ;
 CREATE SCHEMA IF NOT EXISTS `refinerycalc` DEFAULT CHARACTER SET utf8 ;
 USE `refinerycalc` ;
 
+
+-- Prendre à PArtir d'ici pour le serv -----------------------------------------------------------------------------------------------------
+
+
 -- -----------------------------------------------------
 -- Table `refinerycalc`.`user`
 -- -----------------------------------------------------
