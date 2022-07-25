@@ -74,7 +74,7 @@ function calcPercentage(tabMineraisTable, jobs){
          
      tabMineraisTable.innerHTML=`<tr>
      <th>Minerais</th>
-     <th>% de la cargaison +/-</th>
+     <th>% Cargaison</th>
      <th>aUEC +/-</th>
      </tr>`;
      const totalcSCU = calculTotalUnitGlobal(jobs);

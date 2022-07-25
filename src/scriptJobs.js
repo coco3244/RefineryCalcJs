@@ -114,6 +114,8 @@ jobsContainer.addEventListener("click", (event) => {
             }
         });
 
+        // disabled de la checkbox
+        jobActuel.querySelector('.checkBoxDiv input').disabled = true;
 
     } else if(event.target.classList.contains("btnConfirm")) {       
         /**
@@ -174,10 +176,8 @@ jobsContainer.addEventListener("click", (event) => {
             let timeRemain = new Date();
             const labelT = jobActuel.querySelector("label.heurePlace");
 
-            // Réaffichage de la checkbox
-            jobActuel.querySelector('.checkBoxDiv').classList.remove('hide');
             if(jobActuel.querySelector('.minsPlace').value > 59){
-                alert("t'as déja vu des minutes au dessus de 59 toi ?");
+                alert("T'as déja vu des minutes au dessus de 59 toi ?");
                 return;
             }
 
@@ -269,6 +269,8 @@ jobsContainer.addEventListener("click", (event) => {
 
             refreshPercentageColorBar(document.querySelector('.tabMineraisTable'),document.querySelector('.pourcentageTotalMainCont'),document.querySelectorAll('.job'),TotalcSCUByMineral);
             
+            // retire le disabled de la checkbox
+            jobActuel.querySelector('.checkBoxDiv input').disabled = false;
             
         }
     } else if(event.target.classList.contains("btnSupprimer")) {
