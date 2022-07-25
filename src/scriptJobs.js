@@ -411,14 +411,14 @@ function updateCheckboxs() {
                 </div>
             </div>
             
-            <label class="titreCat">Total de ce Raffinage : </label>
+            <label class="titreCat">Total de ce Raffinage</label>
             <div class="tabCat totalJobDiv">
                 0
             </div>
         </div>
         
         <div class="emplacementContainer">
-            <label class="titreCat">Emplacement : </label>
+            <label class="titreCat">Emplacement</label>
             <div class="tabCat">
                 <select class="Raffinery"> 
                     <option>CRU-L1</option>
@@ -432,7 +432,7 @@ function updateCheckboxs() {
         </div>
 
         <div class="tempsContainer">
-            <label class="titreCat">Temps Restant : </label>
+            <label class="titreCat">Temps Restant</label>
             <div class="tabCat">
                 <span class="tProgress"></span>
                 <input class="heurePlace" max=999 placeholder="heures"  type="number">  

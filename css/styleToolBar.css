@@ -51,11 +51,16 @@
 	font-size: 1.4em;
 }
 
+.customSelectContainer > div {
+	display: flex;
+	margin-left: 7px;
+	position: relative;
+}
 
 .customSelect {
 	background-color: var(--blue1);
-	border: 1px solid var(--blue3);
-	border-right: 0;
+	outline: 1px solid var(--blue3);
+	border: 0;
 	border-top-left-radius: 4px;
 	border-bottom-left-radius: 4px;
 	width: 120px;
@@ -67,14 +72,13 @@
 	font-weight: 500;
 
 	position: relative;
-	margin-left: 7px;
-	outline: 0;
 	display: flex;
 	align-items: center;
+	/* outline: 0; */
 }
 
 .xSelectCont {
-	border: 1px solid var(--blue3);
+	outline: 1px solid var(--blue3);
 	border-left: 0;
 	height: 25px;
 	font-size: 12px;
@@ -97,20 +101,28 @@
 	color: var(--orange);
 }
 
-.customSelect:focus ~ .customOptions {
-	display: initial;
+.customSelect:focus {
+	border-bottom-left-radius: 0px;
+}
+.customSelect:focus ~ .xSelectCont {
+	border-bottom-right-radius: 0px;
 }
 
+
+.customFilterData > div {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+}
 
 .customFilterData{
 	position: absolute;
 	height: 250px;
 	overflow-y: auto;
     z-index: 1;
-	top: 104%;
+	top: 100%;
 	right: 0px;
-	width: 121px;
-	padding: 15px;
+	width: 100%;
 
 	text-align: center;
 	background-color: var(--blue2);
@@ -119,9 +131,9 @@
 	text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);
 	font-family: var(--police);
 	font-size: 0.8em;
-	border: 1px solid var(--blue1);
+	outline: 1px solid var(--blue3);
 }
-.customFilterData > ul{
+.customFilterData  ul{
 	list-style-type: none;
 	padding: 0;
 	padding-bottom: 10px;
@@ -129,12 +141,11 @@
 	margin: 0;
 	width: 100%;
 }
-.customFilterData > ul > li:hover{
-	color: white;
+.customFilterData ul > li:hover{
 	color: var(--orange);
 	cursor: pointer;
 }
-.customFilterData > label{
+.customFilterData label{
 	font-weight: bolder;
 	text-decoration: underline;
 	width: 100%;
@@ -170,7 +181,7 @@
 .pseudoCont {
 	cursor: pointer;
 	position: relative;
-	border: 1px solid var(--blue3);
+	outline: 1px solid var(--blue3);
 	height: 15px;
 	padding: 5px;
 	display: flex;
@@ -204,18 +215,23 @@
 
 .pseudoMenu {
 	position: absolute;
-	right: -1px;
+	right: 0px;
 	top: 100%;
 	display: none;
-	flex-direction: column;
 	background: var(--blue2);
-	padding: 10px;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	z-index: 5;
 	color: whitesmoke;
-	width: calc(100% - 18px);
-	border: 1px solid var(--blue1);
+	width: 100%;
+	outline: 1px solid var(--blue3);
+	
+}
+
+.pseudoMenu > div {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
 	
 }
 

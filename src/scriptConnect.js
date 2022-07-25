@@ -275,14 +275,14 @@ function fetchDB(pseudo, load) {
                                     ${labelVal}
                                 </div>
                             </div>
-                            <label class="titreCat">Total de ce Raffinage : </label>
+                            <label class="titreCat">Total de ce Raffinage</label>
                             <div class="tabCat totalJobDiv">
                                 0
                             </div>
                         </div>
         
                         <div class="emplacementContainer">
-                            <label class="titreCat">Emplacement : </label>
+                            <label class="titreCat">Emplacement</label>
                             <div class="tabCat">
                                 <select class="Raffinery hide"> 
                                     <option>CRU-L1</option>
@@ -296,7 +296,7 @@ function fetchDB(pseudo, load) {
                         </div>
         
                         <div class="tempsContainer">
-                            <label class="titreCat">Temps Restant : </label>
+                            <label class="titreCat">Temps Restant</label>
                             <div class="tabCat">
                                 <span class="tProgress ${cTime}" style="${sTime}"></span>
                                 <input class="heurePlace hide" placeholder="heures" max=999 type="number"> 
