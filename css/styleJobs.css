@@ -59,6 +59,31 @@
 	flex-direction: column;
 }
 
+.selectContainer button {
+	background-color: var(--orange);
+	border: 1px solid white;
+	border-radius: 5px;
+	margin: 1px;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: white;
+	padding: 3px;
+	cursor: pointer;
+}
+
+.selectMinerai {
+	background-color: var(--color-acc2);
+	border: 1px solid var(--orange);
+	border-radius: 5px;
+	margin: 1px;
+
+	font-size: 13px;
+	letter-spacing: 1px;
+	color: white;
+	padding: 3px;
+}
+
 .mineraisContainer {
 	height: 50%;
 	display: flex;
@@ -113,7 +138,16 @@
 	font-family: var(--police);
 	font-size: 18px;
 	margin-top: -4px;
+	background-color: transparent;
+	color: white;
+	border: 0;
+	border-bottom: 2px solid var(--orange);
 }
+
+.listeQuantites input:focus {
+	outline: none;
+}
+
 .btnsContainer button{
 	position: absolute;
 	bottom: 0;
@@ -141,14 +175,36 @@
 	border-top-left-radius: 10px;
 }
 
-.emplacementContainer select {
-	font-size: 16px;
+.emplacementContainer .tabCat {
+	display: flex;
+	justify-content: center;
+}
 
+.emplacementContainer select {
+	background-color: var(--color-acc2);
+	border: none;
+	border-radius: 5px;
+	margin: 1px;
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	letter-spacing: 1px;
+	color: white;
+	padding: 3px;
+}
+
+.tempsContainer .tabCat {
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .tempsContainer input {
 	font-size: 18px;
 	width: 100px;
+	background-color: transparent;
+	color: white;
+	border: 0;
+	border-bottom: 2px solid var(--orange);
 }
 
 label.heurePlace {

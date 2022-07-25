@@ -126,7 +126,7 @@ jobsContainer.addEventListener("click", (event) => {
         
         let tabInsert = {};
         let iVide = false;
-        let tVide = false;
+        let tVide = true;
 
         if (listeMineraisDiv.children.length <= 0 ){
             alerteCustom()
@@ -135,9 +135,9 @@ jobsContainer.addEventListener("click", (event) => {
         
         // On vérifie qu'il n'y a pas d'input vide
         inputs.forEach(input => {
-            if (input.parentNode.classList.contains("tabCat") && input.value === "") {
-                tVide = true;
-            } else if (input.value === "") {
+            if (input.parentNode.classList.contains("tabCat") && input.value !== "") {
+                tVide = false;
+            } else if (input.value === "" && !input.parentNode.classList.contains("tabCat")) {
                 iVide = true;
             }   
 
@@ -151,7 +151,7 @@ jobsContainer.addEventListener("click", (event) => {
 
             if (confirmDel === true) {
                 inputs.forEach(input => {
-                    if (input.value === "") {
+                    if (input.value === "" && !input.parentNode.classList.contains("tabCat")) {
                         let classe = input.classList[0];
                         const toRem = jobActuel.querySelectorAll(`.${classe}`);
                         toRem.forEach(item => {
@@ -368,7 +368,7 @@ function updateCheckboxs() {
     let jobHtml = /*html*/ `
     <label class="job job${numJob} newJob" id="jobId_${nextId}">
         <div class="checkBoxDiv hide"> 
-            <input class="jobTransportCheckbox hide"type="checkbox">
+            <input class="jobTransportCheckbox hide"type="checkbox" disabled>
         </div>
 
         <label class="titleJob">${numJob}</label>
@@ -433,8 +433,8 @@ function updateCheckboxs() {
             <label class="titreCat">Temps Restant : </label>
             <div class="tabCat">
                 <span class="tProgress"></span>
-                <input class="heurePlace" max=999 placeholder="heures"  type="number" value=0>  
-                <input class="minsPlace" max=59 placeholder="minutes" type="number" value=0>
+                <input class="heurePlace" max=999 placeholder="heures"  type="number">  
+                <input class="minsPlace" max=59 placeholder="minutes" type="number">
                 <label class="heurePlace hide"></label>
             </div>
         </div>
