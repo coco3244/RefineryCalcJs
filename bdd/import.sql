@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `refinerycalc`.`user` ;
 CREATE TABLE IF NOT EXISTS `refinerycalc`.`user` (
   `idUser` INT(11) NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(70) NULL DEFAULT NULL,
-  `password` VARCHAR(70) NULL DEFAULT NULL,
+  `password` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idUser`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

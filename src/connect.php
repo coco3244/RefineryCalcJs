@@ -1,7 +1,7 @@
 <?php
     // print_r($_POST);
     require("./initBDD.php");
-
+    // print_r(json_encode($_COOKIE));
     if (isset($_POST["autoConnect"])) {
         // print("auto");
         print_r(json_encode($_COOKIE));
@@ -17,12 +17,13 @@
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             // print_r($data);
             if($pseudo == $data["login"]) {
-                if($psw == $data["password"]) {
+                if(password_verify($psw, $data["password"])) {
                     echo "Connect";
                     print(" Pseudo=".$pseudo);
                     if (isset($_POST["rememberMe"])) {
                         // On set les cookies à 3 mois si remember coché
                         setcookie("login", $pseudo, time()+7889400);
+                        
                     } else {
                         // On set les cookies à 1 sec si remember pas coché
                         setcookie("login", $pseudo, 1);
@@ -42,7 +43,7 @@
     } elseif(isset($_POST["insert"])) {
         // Inscription --------------------------------------------------------
         $pseudo = $_POST["insert"]["login"];
-        $psw = $_POST["insert"]["password"];
+        $psw = password_hash($_POST["insert"]["password"], PASSWORD_DEFAULT);
         $sql = $BDD->prepare("INSERT INTO user(login, password) VALUES (?, ?)");
         $sql->execute(array($pseudo, $psw));
 
@@ -50,6 +51,7 @@
             // On set les cookies à 3 mois si remember coché
             setcookie("login", $pseudo, time()+7889400);
         } else {
+            echo "test2";
             // On set les cookies à 1 sec si remember pas coché
             setcookie("login", $pseudo, 1);
         }

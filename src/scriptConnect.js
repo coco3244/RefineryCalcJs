@@ -28,7 +28,7 @@ function init() {
         // async: false,
         success: function(res) {
             res = JSON.parse(res);
-            // console.log(res);
+            console.log(res);
 
             if (res.login !== undefined) {
                 connexionContainer.classList.add("connect-hidden");
@@ -63,7 +63,7 @@ deco.addEventListener("click", e => {
 
 
 // traitement du form
-$("form").submit(function(evt){	 
+$(".formConnect").submit(function(evt){	 
     evt.preventDefault();
     let formData = new FormData($(this)[0]);
 
@@ -82,16 +82,10 @@ $("form").submit(function(evt){
             if(response.search("CRE4TI0N") !== -1) {
                 mdpErreur.classList.add("hide");
                 addLog.classList.remove("hide");
-
-                tabInsert.insert = {};
-                tabInsert.insert.login = iLogin.value;
-                tabInsert.insert.password = iPsw.value;
-                tabInsert.insert.rememberMe = iRemember.value;
-
-                console.log(tabInsert.insert.login + " " + tabInsert.insert.password);
-
+                console.log(formData);
+                
             } else if(response.search("Connect") !== -1) {
-                connexionContainer.classList.add("connect-hidden");
+                
                 let ps = response.search("Pseudo=");
                 let result = response.substr(ps + 7, response.length);
                 
@@ -108,6 +102,11 @@ $("form").submit(function(evt){
 //Traitement du btn oui
 yesAdd.addEventListener("click", (e) => {
     e.preventDefault();
+
+    tabInsert.insert = {};
+    tabInsert.insert.login = iLogin.value;
+    tabInsert.insert.password = iPsw.value;
+    
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
@@ -116,7 +115,11 @@ yesAdd.addEventListener("click", (e) => {
         success: function(res) {
             console.log(res);
             addLog.classList.add("hide");
-            connectioooooooon(res);
+            let ps = res.search("Pseudo=");
+            let result = res.substr(ps + 7, res.length);
+            console.log(result);
+
+            connectioooooooon(result);
         }
     });
 });
@@ -133,7 +136,7 @@ function connectioooooooon(tPseudo) {
     //     connexionContainer.classList.add("connect-hidden");
     // }
     connected = true;
-    
+    connexionContainer.classList.add("connect-hidden");
         
     pseudo.innerHTML = tPseudo;
     fetchDB(tPseudo, 1);

@@ -60,6 +60,10 @@
     
 }
 
+.inputCont {
+    margin-bottom: 10px;
+}
+
 #submit {
     position: absolute;
     right: 0;

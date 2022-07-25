@@ -12,7 +12,9 @@
 	--orange-old: #fc6b36;
 	--blue1: #131b25;
 	--blue2: #465f78;
+	--blue3: #97afc2;
 	--color-acc: rgb(250, 250, 250);
+	--color-acc2: #6985BC;
 }
 
 /* * {
@@ -81,7 +83,6 @@ label, table, ul, img {
 }
 .volumeContRemplissage{
 	margin-left: 5px;
-	
 }
 
 .volumeCheckbox:checked ~ .volumeContRemplissage , .stayConnectedCheckbox:checked ~ .stayConnectedContRemplissage{
