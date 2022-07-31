@@ -20,8 +20,8 @@
 
 
 
-.bntCancelTransport ,.btnValidateTransport {
-	width: 40%;
+.bntCancelTransport ,.btnValidateTransport ,.bntScTrade{
+	width: 30%;
 	height: 35px;
 	background-color: var(--orange);
 	border: 0;
@@ -39,6 +39,11 @@ float: left;
 }
 .btnValidateTransport{
 float: right;
+}
+.bntScTrade{
+	width: 35%;
+float: left;
+margin-left: 2%;
 }
 .transportButtons{
 	/*border: 2px solid lime; /*TEMPORAIRE*/

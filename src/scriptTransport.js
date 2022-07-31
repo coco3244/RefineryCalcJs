@@ -273,3 +273,7 @@ transportContainer.addEventListener("click", e => {
 
     }
 }); 
+
+document.querySelector('.bntScTrade').addEventListener('click',event=>{
+    window.open('https://sc-trade.tools/commodities', '_blank');
+});
