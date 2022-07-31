@@ -75,6 +75,7 @@ function calcPercentage(tabMineraisTable, jobs){
      tabMineraisTable.innerHTML=`<tr>
      <th>Minerais</th>
      <th>% Cargaison</th>
+     <th>cSCU</th>
      <th>aUEC +/-</th>
      </tr>`;
      const totalcSCU = calculTotalUnitGlobal(jobs);
@@ -104,16 +105,23 @@ function calcPercentage(tabMineraisTable, jobs){
          tr.classList.add(`TrPercentage`);
          const tdMinerai = document.createElement('td');
          tdMinerai.classList.add(`${minerai}tdPercentageName`)
+
          const tdPourcentage = document.createElement('td');
          tdPourcentage.classList.add(`${minerai}tdPercentageValue`)
+
+         const tdCargo = document.createElement('td');
+         tdPourcentage.classList.add(`${minerai}tdCargoValue`)
+
          const tdValeur = document.createElement('td');
          tdValeur.classList.add(`${minerai}tdPercentageAUEC`)
 
          tdMinerai.innerHTML=minerai;
          tdPourcentage.innerHTML = `${parseFloat(((100*TotalcSCUByMineral[minerai])/totalcSCU)).toFixed(2)} %`;
+         tdCargo.innerHTML=TotalcSCUByMineral[minerai];
          tdValeur.innerHTML = `${Math.round(TotalcSCUByMineral[minerai]*prixMineraiRefined[minerai][0])}`;
          tr.appendChild(tdMinerai);
          tr.appendChild(tdPourcentage);
+         tr.appendChild(tdCargo);
          tr.appendChild(tdValeur);
          tabMineraisTable.querySelector('tbody').appendChild(tr);
 

@@ -51,31 +51,37 @@
     <div class="aideContainer hide">
         <div class="aideSecondCont">
 
-            <div class="tableaudaide">
-
-                    connection
+            <div class="aidePage page1 aideAcceuil">
+                <h1>Acceuil Aide</h1>
+                <div class="pageListCont">
+                    <h2 class="pageListTitle">Liste des pages: </h2>
+                    <label class="statLabelPage">Statistiques</label>
                     <br>
-                    statistique
-                    <br>
-                    Ma Flotte
-                    <br>
-                    ajouter Un job
-                    <br>
-                    Transporter
-            </div>
-
-            <div class="explication">
-                <label>
-                    test
-                </label>
+                    <label class="transportLabelPage">Transport</label>
+                </div>
+                
 
             </div>
 
-        </div>
+            <div class="aidePage page2 aideStatistique hide">
+                <h1>Aide Statistique</h1>
 
-        <div class="aideButton">
-            <button class="btnCloseAide">Fermer</button>
-        </div>
+            </div>
+
+            <div class="aidePage page3 aideTransport hide">
+                <h1>Aide Transport</h1>
+
+            </div>
+                    
+            
+            <div class="aidePageNumbersCont">
+
+            </div>
+            <div class="aideButton">
+                <button class="btnCloseAide">Fermer</button>
+            </div>
+
+        </div>   
     </div>
 
 
@@ -217,14 +223,14 @@
 
     <div class="transportContainer hide">
         <div class="panierJob">
-            <label class="dontmod"> Panier De Job</label>
-
+            <label class="dontmod listingTitle"> Listing de raffinage</label>
+            <hr>
             <div class="jobsResumeCont">
 
             </div>
-
+            <hr>
             <div class="totalPanierCont">
-                <label class="dontmod "> Total:</label>
+                <label class="dontmod totalTitle"> Total:</label>
                 <br>
                 <label class="dontmod totalLabel"></label>
 
@@ -240,9 +246,9 @@
             <div class="vaisseauxListCont">
                 <table class="vaisseauxListTable">
                     <tr>
-                        <th>Vaisseau</th>
-                        <th>Capacité cargo</th>
-                        <th>Cargo restant</th>
+                        <th>Vaisseaux</th>
+                        <th>Capacités cargos</th>
+                        <th>Cargos restant(s)</th>
                     </tr>
 
                 </table>
@@ -252,12 +258,13 @@
             </div>
 
             <div class="transportButtons">
-                <div class="CancelButtonCont">
+               
                     <button class="bntCancelTransport">Annuler</button>
-                </div>
-                <div class="ValidateButtonCont">
+                
+                    <button class="bntScTrade">SC trade tools</button>
+                
                     <button class="btnValidateTransport">Valider</button>
-                </div>
+                
             </div>
            
         </div>
@@ -383,6 +390,7 @@
                         <tr>
                             <th>Minerais</th>
                             <th>% Cargaison</th>
+                            <th>cSCU</th>
                             <th>aUEC +/-</th>
                         </tr>
 
@@ -403,6 +411,7 @@
                         <tr>
                             <th>Minerais</th>
                             <th>% Cargaison</th>
+                            <th>cSCU</th>
                             <th>aUEC +/-</th>
                         </tr>
 
