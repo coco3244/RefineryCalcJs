@@ -39,7 +39,7 @@ transportButton.addEventListener('click',event=>{
         const label = document.createElement('label');
         totalcSCU+= Number(mineraisList[minerai]);
         totalaUEC+= Math.round(Number(mineraisList[minerai]) * Number(prixMineraiRefined[minerai][0]));
-        label.innerHTML=`${minerai}: ${separateur_nombre(mineraisList[minerai])} cSCU | ${separateur_nombre(Math.round(mineraisList[minerai] * prixMineraiRefined[minerai][0]))}  aUEC`;
+        label.innerHTML=`<span class="transportMineral">${minerai}</span>: ${separateur_nombre(mineraisList[minerai])} cSCU | ${separateur_nombre(Math.round(mineraisList[minerai] * prixMineraiRefined[minerai][0]))}  aUEC`;
 
         jobsResumeCont.appendChild(label);
         jobsResumeCont.appendChild(br);
@@ -220,7 +220,11 @@ transportButton.addEventListener('click',event=>{
                 const image = document.createElement('img');
                 image.setAttribute('src',images[event.target.innerHTML]);
                 vaisseauxPhotoCont.innerHTML="";
+                const label = document.createElement('label');
+                label.innerHTML=event.target.innerHTML;
                 vaisseauxPhotoCont.appendChild(image);
+                vaisseauxPhotoCont.appendChild(document.createElement('hr'));
+                vaisseauxPhotoCont.appendChild(label);
 
             })
             tr.appendChild(tdShip);
