@@ -1,7 +1,7 @@
 /*---------------------Aide--------------------*/
 .aideContainer{
 	justify-content: center;
-
+	color: white;
 	position: absolute;
 	z-index: 10;
 	top: 0;
@@ -34,8 +34,16 @@
 	color:red;
 }
 .aidePageNumbersCont label:hover{
-	color: white;
+	color:	cyan;
 	cursor: pointer;
+}
+.aideSommaireCont>h3:hover{
+	color:	cyan;
+	cursor: pointer;
+}
+.aideParagraph{
+	width: 80%;
+	margin-left: 10%;
 }
 .btnCloseAide{
 	width: 100%;
