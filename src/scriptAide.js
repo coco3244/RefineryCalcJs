@@ -12,6 +12,16 @@ const pages =[
     ["Transport",3]
 ]
 
+const labelPrevious = document.createElement("label");
+labelPrevious.innerHTML="Précédent";
+labelPrevious.addEventListener('click',event=>{
+    if(currentPage>1){
+        DisplayPage(currentPage-1);
+    }
+});
+aidePageNumbersCont.appendChild(labelPrevious)
+
+
 for(let i=1;i<=maxPage;i++){
     const label = document.createElement("label");
     label.innerHTML=i;
@@ -20,7 +30,18 @@ for(let i=1;i<=maxPage;i++){
     });
     aidePageNumbersCont.appendChild(label);
 }
+
+const labelNext = document.createElement("label");
+labelNext.innerHTML="Suivant";
+labelNext.addEventListener('click',event=>{
+    if(currentPage<maxPage){
+        DisplayPage(currentPage+1);
+    }
+});
+aidePageNumbersCont.appendChild(labelNext)
+
 UpdatePaginationNumber()
+
 labelAide.addEventListener('click',event=>{
     const aideContainer = document.querySelector('.aideContainer');
     aideContainer.classList.remove('hide');    
