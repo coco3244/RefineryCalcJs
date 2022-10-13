@@ -23,7 +23,8 @@
 }
 .aidePageNumbersCont{
 	position: absolute;
-	left: 45%;
+	left: 50%;
+	transform: translateX(-50%);
 	bottom: 10%;
 }
 .aidePageNumbersCont label{
@@ -65,9 +66,16 @@
 	width: 80%;
 	height: 80%;
 	border-radius: 10px;
+	font-size: larger;
 }
 
-.aideAcceuil,.aideStatistique,.aideTransport{
+.aideSecondCont p{
+	width: 90%;
+	margin-left: 5%;
+	text-align: center;
+}
+.aideAcceuil,.aideStatistiques,.aideTransport{
 	width: 100%;
 	text-align: center;
+	overflow-y: scroll;
 }
