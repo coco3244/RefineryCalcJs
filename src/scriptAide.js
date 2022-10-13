@@ -10,7 +10,7 @@ let currentPage = 1;
 const pages = {
     "Acceuil":1,
     "Raffinage":2,
-    "Statistique":3,
+    "Statistiques":3,
     "Transport":4
 }
 
