@@ -48,7 +48,8 @@
 }
 
 .flotteListeSection{
-	width: 50%;
+	width: 75%;
+	margin-left: 1%;
 	text-align: center;
 	background-color: aliceblue;
 	overflow-y: scroll;
@@ -56,7 +57,7 @@
 
 }
 .flotteAddShipSection{
-	width: 45%;
+	width: 20%;
 	text-align: center;
 	background-color: lightcoral;
 	float: right;
