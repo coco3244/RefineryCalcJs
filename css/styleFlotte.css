@@ -42,4 +42,23 @@
 	width: 80%;
 	height: 80%;
 	border-radius: 10px;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+
+.flotteListeSection{
+	width: 50%;
+	text-align: center;
+	background-color: aliceblue;
+	overflow-y: scroll;
+	float: left;
+
+}
+.flotteAddShipSection{
+	width: 45%;
+	text-align: center;
+	background-color: lightcoral;
+	float: right;
+	
 }
