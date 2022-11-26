@@ -3,8 +3,8 @@
     require("./initBDD.php");
     // print_r(json_encode($_COOKIE));
     if (isset($_POST["autoConnect"])) {
-        // print("auto");
-        print_r(json_encode($_COOKIE));
+        $sql = "SELECT login, password FROM user";
+        $req = $BDD->query($sql);
 
     } elseif(isset($_POST["login"])) {
         // Connexion ----------------------------------------------------------

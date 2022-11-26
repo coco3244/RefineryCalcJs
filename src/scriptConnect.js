@@ -29,19 +29,32 @@ function init() {
         success: function(res) {
             res = JSON.parse(res);
             console.log(res);
-
-            if (res.login !== undefined) {
-                connexionContainer.classList.add("connect-hidden");
-                if (res.filter !== undefined) {
-                    selectFiltre.value = res.filter;
-                }
-                connectioooooooon(res.login);
-            } else {
-                // connexionContainer.style.display = "flex";
-                connexionContainer.classList.remove("connect-hidden");
-            }
         }
     });
+
+    let user = getCookie("user");
+    if (user !== "") {
+        $.ajax({
+            url:"./src/connect.php",
+            method: "POST",
+            data: {autoConnect: user},
+            async: false,
+            success: function(res) {
+                res = JSON.parse(res);
+                console.log(res);
+    
+                
+            }
+        });
+
+        let filterData = getCookie("filter");
+        if (filterData !== "") {
+            selectFiltre.value = filterData;
+        } 
+        connexionContainer.classList.add("connect-hidden");
+        connectioooooooon(user);
+    }
+
 }
 
 deco.addEventListener("click", e => {

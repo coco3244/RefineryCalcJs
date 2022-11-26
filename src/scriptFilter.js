@@ -67,17 +67,20 @@ function filtrage() {
     updateCheckboxs();
 
     // Setup du cookie
-    $.ajax({
-        url:"./src/connect.php",
-        method: "POST",
-        async: true,
-        data: {filter: filter},
-        success: function(res) {
-        }
-    });
+    setCookie("filter", filter, 30);
+    // $.ajax({
+    //     url:"./src/connect.php",
+    //     method: "POST",
+    //     async: true,
+    //     data: {filter: filter},
+    //     success: function(res) {
+    //     }
+    // });
 }
 
 xSelect.addEventListener("click", () => {
     selectFiltre.value = "";
     filtrage();
 });
+
+ 

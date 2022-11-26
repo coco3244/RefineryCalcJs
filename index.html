@@ -23,14 +23,15 @@
     <link rel="stylesheet" href="./css/styleStats.css">
     <link rel="stylesheet" href="./css/styleToolBar.css">
     <link rel="stylesheet" href="./css/styleTransport.css">
+    <link rel="stylesheet" href="./css/styleLoader.css">
     <link rel="stylesheet" href="./css/styleCalc.css">
 
     <!-- Scripts -->
-    <script src="./src/scriptConnect.js" defer></script>
-    <script src="./src/scriptAide.js" defer></script>
-    <script src="./src/scriptAutomat.js" defer></script>
     <script src="./src/scriptCalc.js" defer></script>
     <script src="./src/scriptFilter.js" defer></script>
+    <script src="./src/connect.js" defer></script>
+    <script src="./src/scriptAide.js" defer></script>
+    <script src="./src/scriptAutomat.js" defer></script>
     <script src="./src/scriptFlotte.js" defer></script>
     <script src="./src/scriptJobs.js" defer></script>
     <script src="./src/scriptStats.js" defer></script>
@@ -39,6 +40,13 @@
     <script src="./src/scriptCalculs.js" defer></script>
 </head>
 <body>
+
+    <div class="preLoaderCont">
+        <div class="loader"></div>
+
+        <div class="loaderSection loadLeft"></div>
+        <div class="loaderSection loadRight"></div>
+    </div>
 
     <!-- Div des Alerte -->
     <div class="AlerteMainContainer hide">
