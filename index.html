@@ -37,6 +37,8 @@
     <script src="./src/scriptTimer.js" defer></script>
     <script src="./src/scriptTransport.js" defer></script>
     <script src="./src/scriptCalculs.js" defer></script>
+
+    <script src="./src//loadData.js"></script>
 </head>
 <body>
 
@@ -316,11 +318,39 @@
                 <div class="customFilterData hide">
                     <label>Stations</label>
                     <ul class="filterDataStations">
-                        <li class="filterData">CRU-L1</li>
+                        <!-- <li class="filterData">CRU-L1</li>
                         <li class="filterData">ARC-L1</li>
                         <li class="filterData">HUR-L1</li>
                         <li class="filterData">HUR-L2</li>
-                        <li class="filterData">MIC-L1</li>
+                        <li class="filterData">MIC-L1</li> -->
+
+                        <script>
+                            let stations = [];
+
+                            window.locations.then(res => {
+                                res.find(elem => {
+                                    if (elem.name.search("Refinement Center") !== -1) {
+                                        stations.push(elem.name);
+                                    }
+                                });
+                                console.log(stations);
+                                
+                                const filterData = document.querySelector("ul.filterDataStations");
+                                console.log(filterData);
+                                stations.forEach(station => {
+                                    let name = station.split(" > ")[2];
+                                    let nameShort = name.substr(0, 6)
+                                    
+                                    const newLi = document.createElement("li");
+                                    newLi.classList.add("filterData");
+                                    console.log(name);
+                                    newLi.title = name;
+                                    newLi.innerText = nameShort;
+                                    filterData.appendChild(newLi);
+                                });
+                            });
+
+                        </script>
                     </ul>
                     
                     <label>Minerais</label>
