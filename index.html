@@ -24,7 +24,10 @@
     <link rel="stylesheet" href="./css/styleToolBar.css">
     <link rel="stylesheet" href="./css/styleTransport.css">
     <link rel="stylesheet" href="./css/styleCalc.css">
-
+    
+    <!-- LoadData -->
+    <script src="./src//loadData.js"></script>
+    
     <!-- Scripts -->
     <script src="./src/scriptConnect.js" defer></script>
     <script src="./src/scriptAide.js" defer></script>
@@ -37,6 +40,7 @@
     <script src="./src/scriptTimer.js" defer></script>
     <script src="./src/scriptTransport.js" defer></script>
     <script src="./src/scriptCalculs.js" defer></script>
+
 </head>
 <body>
 
@@ -336,44 +340,58 @@
             <!-- <span class="spacer"></span> -->
             <div class="customSelectContainer">
                 <label> Filtre </label>
-                <div>
-                    <input type="text" class="customSelect" autocomplete="off" id="selectFiltre" list="selectFilterData">
-                    <div class="customFilterData hide">
-                        <div>
-                            <label>Stations</label>
-                            <ul class="filterDataStations">
-                                <li class="filterData">CRU-L1</li>
-                                <li class="filterData">ARC-L1</li>
-                                <li class="filterData">HUR-L1</li>
-                                <li class="filterData">HUR-L2</li>
-                                <li class="filterData">MIC-L1</li>
-                            </ul>
-                            
-                            <label>Minerais</label>
-        
-                            <ul class="filterDataMineral">
-                                <li class="filterData">Quantainium</li>
-                                <li class="filterData">Bexalite</li>
-                                <li class="filterData">Taranite</li>
-                                <li class="filterData">Borase</li>
-                                <li class="filterData">Laranite</li>
-                                <li class="filterData">Agricium</li>
-                                <li class="filterData">Hephaestanite</li>
-                                <li class="filterData">Titanium</li>
-                                <li class="filterData">Diamond</li>
-                                <li class="filterData">Gold</li>
-                                <li class="filterData">Copper</li>
-                                <li class="filterData">Beryl</li>
-                                <li class="filterData">Tungsten</li>
-                                <li class="filterData">Corundum</li>
-                                <li class="filterData">Quartz</li>
-                                <li class="filterData">Aluminum</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="xSelectCont">
-                        <i class="fa-solid fa-xmark xSelect"></i>
-                    </div>
+                <input type="text" class="customSelect" autocomplete="off" id="selectFiltre" list="selectFilterData">
+                <div class="customFilterData hide">
+                    <label>Stations</label>
+                    <ul id="filterDataStations">
+                        <script>
+                            const parentLocFilt = document.getElementById("filterDataStations");
+                            const locationsFilter = locations.then(
+                                function success(res) {
+                                    let stations = [];
+
+                                    // Tri des localisation pour avoir juste les stations
+                                    res.find(elem => {
+                                        if (elem.name.search('Refinement Center') !== -1) {
+                                            stations.push(elem.name);
+                                        }
+                                    });
+
+                                    // Affichage des stations
+                                    for (const loc of stations) {
+                                        const name = loc.split(" > ")[2];
+                                        let nameShort = name.substr(0, 6);
+                                        parentLocFilt.innerHTML += `<li class="filterData" title="${name}">${nameShort}</li>`;
+                                    }
+                                },
+                                function error(error) {
+                                    parentLocFilt.innerHTML = "Erreur : Impossible d'obtenir les stations";
+                                    console.error("Impossible d'obtenir les stations : " + error);
+                                }
+                            );
+                        </script>
+                    </ul>
+                    
+                    <label>Minerais</label>
+
+                    <ul id="filterDataMineral">
+                        <script>
+                            const parentMinFilt = document.getElementById("filterDataMineral");
+                            const oresFilter = ores.then(
+                                function success(res) {
+                                    // Affichage des minerais
+                                    for (const ore of res) {
+                                        let nameShort = ore.split(" ")[0];
+                                        parentMinFilt.innerHTML += `<li class="filterData" title="${ore}">${nameShort}</li>`;
+                                    }
+                                },
+                                function error(error) {
+                                    parentMinFilt.innerHTML = "Erreur : Impossible d'obtenir les minerais";
+                                    console.error("Impossible d'obtenir les minerais : " + error);
+                                }
+                            );
+                        </script>
+                    </ul>                                               
                 </div>
             </div>
             <div class="pseudoCont">

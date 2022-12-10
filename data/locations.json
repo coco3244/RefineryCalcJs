@@ -1,0 +1,670 @@
+[
+    {
+        "name": "Stanton",
+        "type": "System"
+    },
+    {
+        "name": "Stanton > ARC L1",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > ARC L1 > ARC-L1 Wide Forest Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L1 > ARC-L1 Wide Forest Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L1 > ARC-L1 Wide Forest Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L2",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > ARC L2 > ARC-L2 Lively Pathway Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L2 > ARC-L2 Lively Pathway Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L2 > ARC-L2 Lively Pathway Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L3",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > ARC L3 > ARC-L3 Modern Express Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L3 > ARC-L3 Modern Express Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L4",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > ARC L4 > ARC-L4 Faint Glen Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L4 > ARC-L4 Faint Glen Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L4 > ARC-L4 Faint Glen Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L5",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > ARC L5 > ARC-L5 Yellow Core Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ARC L5 > ARC-L5 Yellow Core Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Aaron Halo",
+        "type": "Asteroid field"
+    },
+    {
+        "name": "Stanton > ArcCorp",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Area18",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > ArcCorp > Area18 > Admin",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > ArcCorp > Area18 > Trade and Development Division",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > ArcCorp > Baijini Point",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ArcCorp > Baijini Point > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > ArcCorp > Lyria",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Lyria > Humboldt Mines",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Lyria > Loveridge Mineral Reserve",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Lyria > Paradise Cove",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Lyria > Shubin Mining Facility SAL-2",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Lyria > Shubin Mining Facility SAL-5",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Lyria > The Orphanage",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Wala",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Wala > ArcCorp Mining Area 045",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Wala > ArcCorp Mining Area 048",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Wala > ArcCorp Mining Area 056",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Wala > ArcCorp Mining Area 061",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Wala > Samson & Son's Salvage Center",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > ArcCorp > Wala > Shady Glen Farms",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > CRU L1",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > CRU L1 > CRU-L1 Ambitious Dream Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > CRU L1 > CRU-L1 Ambitious Dream Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > CRU L1 > CRU-L1 Ambitious Dream Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > CRU L3",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > CRU L4",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > CRU L4 > CRU-L4 Shallow Fields Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > CRU L4 > CRU-L4 Shallow Fields Station > \"No Questions Asked\" Trading Console",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > CRU L4 > CRU-L4 Shallow Fields Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > CRU L5",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > CRU L5 > CRU-L5 Beautiful Glen Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > CRU L5 > CRU-L5 Beautiful Glen Station > \"No Questions Asked\" Trading Console",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > CRU L5 > CRU-L5 Beautiful Glen Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Crusader",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Crusader > Cellin",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Cellin > Gallete Family Farms",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Cellin > Hickes Research Outpost",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Cellin > PRIVATE PROPERTY",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Cellin > Terra Mills HydroFarm",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Cellin > Tram & Myers Mining",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Daymar",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Daymar > ArcCorp Mining Area 141",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Daymar > Bountiful Harvest Hydroponics",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Daymar > Brio's Breaker Yard",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Daymar > Kudre Ore",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Daymar > Nuen Waste Management",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Daymar > Shubin Mining Facility SCD-1",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Orison",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > Crusader > Orison > Admin",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > Crusader > Orison > Trade and Development Division",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > Crusader > Port Olisar",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Crusader > Port Olisar > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Crusader > Yela",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Yela > ArcCorp Mining Area 157",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Yela > Asteroid Ring",
+        "type": "Asteroid field"
+    },
+    {
+        "name": "Stanton > Crusader > Yela > Benson Mining Outpost",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Yela > Deakins Research Outpost",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Yela > Grim HEX",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Crusader > Yela > Grim HEX > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Crusader > Yela > Jumptown",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Crusader > Yela > NT-999-XX",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > HUR L1",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > HUR L1 > HUR-L1 Green Glade Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L1 > HUR-L1 Green Glade Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L1 > HUR-L1 Green Glade Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L2",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > HUR L2 > HUR-L2 Faithful Dream Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L2 > HUR-L2 Faithful Dream Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L2 > HUR-L2 Faithful Dream Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L3",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > HUR L3 > HUR-L3 Thundering Express Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L3 > HUR-L3 Thundering Express Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L4",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > HUR L4 > HUR-L4 Melodic Fields Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L4 > HUR-L4 Melodic Fields Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L5",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > HUR L5 > HUR-L5 High Course Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > HUR L5 > HUR-L5 High Course Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Hurston",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Hurston > Aberdeen",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Aberdeen > HDMS-Anderson",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Aberdeen > HDMS-Norgaard",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Arial",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Arial > HDMS-Bezdek",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Arial > HDMS-Lathan",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Everus Harbor",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Hurston > Everus Harbor > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Hurston > HDMS-Edmond",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Hurston > HDMS-Hadley",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Hurston > HDMS-Oparei",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Hurston > HDMS-Pinewood",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Hurston > HDMS-Stanhope",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Hurston > HDMS-Thedus",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Hurston > Ita",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Ita > HDMS-Ryder",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Ita > HDMS-Woodruff",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Lorville",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > Hurston > Lorville > Admin",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > Hurston > Lorville > Central Business District",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > Hurston > Magda",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Magda > HDMS-Hahn",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Magda > HDMS-Perlman",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > Hurston > Reclamation & Disposal Orinth",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > MIC L1",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > MIC L1 > MIC-L1 Shallow Frontier Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L1 > MIC-L1 Shallow Frontier Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L1 > MIC-L1 Shallow Frontier Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L2",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > MIC L2 > MIC-L2 Long Forest Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L2 > MIC-L2 Long Forest Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L2 > MIC-L2 Long Forest Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L3",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > MIC L3 > MIC-L3 Endless Odyssey Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L3 > MIC-L3 Endless Odyssey Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L4",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > MIC L4 > MIC-L4 Red Crossroads Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L4 > MIC-L4 Red Crossroads Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L5",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > MIC L5 > MIC-L5 Modern Icarus Station",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L5 > MIC-L5 Modern Icarus Station > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > MIC L5 > MIC-L5 Modern Icarus Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > OOC_Stanton2_L2_{515718A3-8E8A-4B60-A137-0E71F404F6E4}",
+        "type": "Lagrangian point"
+    },
+    {
+        "name": "Stanton > microTech",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > microTech > Calliope",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Calliope > Raven's Roost",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Calliope > Rayari Anvik Research Outpost",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Calliope > Rayari Kaltag Research Outpost",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Calliope > Shubin Mining Facility SMCa-6",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Calliope > Shubin Mining Facility SMCa-8",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Clio",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Clio > Rayari Cantwell Research Outpost",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Clio > Rayari McGrath Research Outpost",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Euterpe",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Euterpe > Bud's Growery",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > Euterpe > Devlin Scrap & Salvage",
+        "type": "Moon surface"
+    },
+    {
+        "name": "Stanton > microTech > New Babbage",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > microTech > New Babbage > Admin",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > microTech > New Babbage > Trade and Development Division",
+        "type": "City"
+    },
+    {
+        "name": "Stanton > microTech > Outpost 54",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > microTech > Port Tressler",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > microTech > Port Tressler > Admin",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > microTech > Rayari Deltana Research Outpost",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > microTech > Shubin Mining Facility SM0-10",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > microTech > Shubin Mining Facility SM0-13",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > microTech > Shubin Mining Facility SM0-18",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > microTech > Shubin Mining Facility SM0-22",
+        "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > microTech > The Necropolis",
+        "type": "Planet surface"
+    }
+]

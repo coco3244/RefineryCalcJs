@@ -18,6 +18,62 @@ let jobList;
 let tabInsert = {};
 let connected = false;
 
+let stationsOptions = "";
+const stationsList = locations.then(
+    function success(res) {
+        let stations = [];
+
+        // Tri des localisation pour avoir juste les stations
+        res.find(elem => {
+            console.log(elem);
+            if (elem.name.search('Refinement Center') !== -1) {
+                stations.push(elem.name);
+            }
+        });
+
+        // Affichage des stations
+        for (const loc of stations) {
+            const name = loc.split(" > ")[2];
+            let nameShort = name.substr(0, 6);
+            stationsOptions += `<option title="${name}">${nameShort}</option>`;
+        }
+
+        const parents = document.querySelectorAll("select.Raffinery");
+        if (parents) {
+            for (const parent of parents) {
+                parent.innerHTML = stationsOptions;
+            }
+        }
+    },
+    function error(error) {
+        stationsOptions = "Erreur : Impossible d'obtenir les stations";
+        console.error("Impossible d'obtenir les stations : " + error);
+    }
+);
+
+let oresOptions = "";
+const oresList = ores.then(
+    function success(res) {
+        // Affichage des minerais
+        for (const ore of res) {
+            let nameShort = ore.split(" ")[0];
+            oresOptions += `<option title="${ore}">${nameShort}</option>`;
+        }
+
+        const parents = document.querySelectorAll("select.selectMinerai");
+        console.log(parents);
+        if (parents) {
+            for (const parent of parents) {
+                parent.innerHTML = oresOptions;
+            }
+        }
+    },
+    function error(error) {
+        oresOptions = "Erreur : Impossible d'obtenir les stations";
+        console.error("Impossible d'obtenir les stations : " + error);
+    }
+);
+
 window.onload = init();
 function init() {
     console.log(document.cookie);
@@ -158,8 +214,13 @@ function fetchDB(pseudo, load) {
             //console.log(res);
 
             jobsContainer.innerHTML = ""; 
+
             
             if(res.length > 0) {
+                // Récup la liste des stations
+                
+                // console.log(stations);
+                
                 // Défilement du tableau et extraction des valeurs
                 for(let i = 0;i < res.length;i++) {
                     let jobId;
@@ -242,23 +303,7 @@ function fetchDB(pseudo, load) {
                     
                         <div class="selectContainer hide">
                             <select class="selectMinerai"> 
-                                <option>Quantainium</option>
-                                <option>Bexalite</option>
-                                <option>Taranite</option>
-                                <option>Borase</option>
-                                <option>Laranite</option>
-                                <option>Agricium</option>
-                                <option>Hephaestanite</option>
-                                <option>Titanium</option>    
-                                <option>Diamond</option>
-                                <option>Gold</option> 
-                                <option>Copper</option> 
-                                <option>Beryl</option> 
-                                <option>Tungsten</option> 
-                                <option>Corundum</option> 
-                                <option>Quartz</option> 
-                                <option>Aluminum</option> 
-                                <option>Inert-Material</option>                            
+                                ${oresOptions}                          
                             </select>
 
                             <button class="btnAddMineral">Ajouter</button>
@@ -285,11 +330,7 @@ function fetchDB(pseudo, load) {
                             <label class="titreCat">Emplacement</label>
                             <div class="tabCat">
                                 <select class="Raffinery hide"> 
-                                    <option>CRU-L1</option>
-                                    <option>ARC-L1</option>
-                                    <option>HUR-L1</option>
-                                    <option>HUR-L2</option>
-                                    <option>MIC-L1</option>
+                                    ${stationsOptions}
                                 </select>
                                 <label class="Raffinery">${raffinery}</label>
                             </div>
