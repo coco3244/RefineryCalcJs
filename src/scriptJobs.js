@@ -163,7 +163,7 @@ jobsContainer.addEventListener("click", (event) => {
                 });
             } 
         }
-        console.log(listeMineraisDiv);
+        // console.log(listeMineraisDiv);
 
         //Si le champ de temps est vide, on le signale
         if (tVide === true) {
@@ -197,14 +197,14 @@ jobsContainer.addEventListener("click", (event) => {
 
                         // Insertion dans le tab pour la bdd
                         tabInsert[input.classList[0]] = input.value;
-                        console.log(input);
+                        // console.log(input);
 
                     } else if(input.classList.contains("heurePlace")) {
                         // Pour la bdd
                         let hoursRest = timeRemain.getHours();
                         hoursRest += Number(input.value);
                         timeRemain.setHours(hoursRest);
-                        console.log(timeRemain);
+                        // console.log(timeRemain);
 
                         // Pour l'affichage
                         hours = input.value;

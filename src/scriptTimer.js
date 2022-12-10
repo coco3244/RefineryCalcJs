@@ -14,10 +14,9 @@ function updateTime() {
         if (Number(delUnit(tProgress.style.width, 1)) !== 100 && tProgress.style.width !== "") {
             let time = label.innerHTML.split(":");
 
-            console.log(time[0] === '00', time[1] === '00', time[2] === '00');
+            // console.log(time[0] === '00', time[1] === '00', time[2] === '00');
             // Vérif si c'est fini ou pas
             if (time[0] === '00' && time[1] === '00' && time[2] === '00') {
-                console.log("slt");
                 label.innerHTML = "Terminé !";
                 bar.style.width = "100%";
                 bar.style.backgroundColor = "#05c14ea3";

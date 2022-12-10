@@ -71,7 +71,9 @@ label, table, ul, img {
 }
 
 /*--------------------- Classes globales --------------------*/
-
+input {
+	outline: none;
+}
 
 /*---------------------Slider checkbox--------------------*/
 

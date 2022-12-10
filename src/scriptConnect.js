@@ -25,7 +25,6 @@ const stationsList = locations.then(
 
         // Tri des localisation pour avoir juste les stations
         res.find(elem => {
-            console.log(elem);
             if (elem.name.search('Refinement Center') !== -1) {
                 stations.push(elem.name);
             }
@@ -61,7 +60,6 @@ const oresList = ores.then(
         }
 
         const parents = document.querySelectorAll("select.selectMinerai");
-        console.log(parents);
         if (parents) {
             for (const parent of parents) {
                 parent.innerHTML = oresOptions;
@@ -76,7 +74,7 @@ const oresList = ores.then(
 
 window.onload = init();
 function init() {
-    console.log(document.cookie);
+    // console.log(document.cookie);
     $.ajax({
         url:"./src/connect.php",
         method: "POST",
@@ -84,7 +82,7 @@ function init() {
         // async: false,
         success: function(res) {
             res = JSON.parse(res);
-            console.log(res);
+            // console.log(res);
 
             if (res.login !== undefined) {
                 connexionContainer.classList.add("connect-hidden");
@@ -133,12 +131,12 @@ $(".formConnect").submit(function(evt){
         processData: false,
         async: false,
         success: function (response) {
-            console.log(response);
+            // console.log(response);
 
             if(response.search("CRE4TI0N") !== -1) {
                 mdpErreur.classList.add("hide");
                 addLog.classList.remove("hide");
-                console.log(formData);
+                // console.log(formData);
                 
             } else if(response.search("Connect") !== -1) {
                 
@@ -169,11 +167,9 @@ yesAdd.addEventListener("click", (e) => {
         async:false,
         data: tabInsert,
         success: function(res) {
-            console.log(res);
             addLog.classList.add("hide");
             let ps = res.search("Pseudo=");
             let result = res.substr(ps + 7, res.length);
-            console.log(result);
 
             connectioooooooon(result);
         }
@@ -211,16 +207,11 @@ function fetchDB(pseudo, load) {
         },
         success: function(res) {
             res = JSON.parse(res)
-            //console.log(res);
 
             jobsContainer.innerHTML = ""; 
 
             
             if(res.length > 0) {
-                // Récup la liste des stations
-                
-                // console.log(stations);
-                
                 // Défilement du tableau et extraction des valeurs
                 for(let i = 0;i < res.length;i++) {
                     let jobId;
