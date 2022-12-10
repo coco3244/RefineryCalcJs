@@ -17,10 +17,27 @@
 	--color-acc2: #6985BC;
 }
 
-/* * {
-	 outline: red 1px solid; 
-}*/
-
+/* Works on Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--orange) var(--blue2);
+}
+  
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+  
+*::-webkit-scrollbar-track {
+	background: var(--blue2);
+}
+  
+*::-webkit-scrollbar-thumb {
+	background-color: var(--orange);
+}
+  
+  
 html {
 	height: 100%;
 }
