@@ -1,3 +1,2 @@
 var locations = fetch("./data/locations.json").then(result => result.json());
-
-console.log(locations);
+var ores = fetch("./data/itemsOres.json").then(result => result.json());

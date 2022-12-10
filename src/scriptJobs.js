@@ -315,6 +315,9 @@ jobsContainer.addEventListener("click", (event) => {
                 }
             });
 
+            // Réaffichage de la barre de chargement
+            bar.style.zIndex = "";
+
             // Remplacement du select par son label
             const label = jobActuel.querySelector('label.' + raffinerySelect.classList[0]);
             label.innerHTML = raffinerySelect.value;
@@ -376,23 +379,7 @@ function updateCheckboxs() {
         <div class="mineraisContainer">
             <div class="selectContainer">
                 <select class="selectMinerai"> 
-                    <option>Quantainium</option>
-                    <option>Bexalite</option>
-                    <option>Taranite</option>
-                    <option>Borase</option>
-                    <option>Laranite</option>
-                    <option>Agricium</option>
-                    <option>Hephaestanite</option>
-                    <option>Titanium</option>    
-                    <option>Diamond</option>
-                    <option>Gold</option> 
-                    <option>Copper</option> 
-                    <option>Beryl</option> 
-                    <option>Tungsten</option> 
-                    <option>Corundum</option> 
-                    <option>Quartz</option> 
-                    <option>Aluminum</option> 
-                    <option>Inert-Material</option>
+                    ${oresOptions} 
                 </select>
 
                 <button class="btnAddMineral">Ajouter</button>
@@ -419,11 +406,7 @@ function updateCheckboxs() {
             <label class="titreCat">Emplacement : </label>
             <div class="tabCat">
                 <select class="Raffinery"> 
-                    <option>CRU-L1</option>
-                    <option>ARC-L1</option>
-                    <option>HUR-L1</option>
-                    <option>HUR-L2</option>
-                    <option>MIC-L1</option>          
+                    ${stationsOptions}        
                 </select>
                 <label class="Raffinery"></label>
             </div>
