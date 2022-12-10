@@ -15,6 +15,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <!-- CSS -->
+    <link rel="stylesheet" href="./css/styleCalc.css">
     <link rel="stylesheet" href="./css/styleAide.css">
     <link rel="stylesheet" href="./css/styleConnexion.css">
     <link rel="stylesheet" href="./css/styleFlotte.css">
@@ -23,7 +24,6 @@
     <link rel="stylesheet" href="./css/styleStats.css">
     <link rel="stylesheet" href="./css/styleToolBar.css">
     <link rel="stylesheet" href="./css/styleTransport.css">
-    <link rel="stylesheet" href="./css/styleCalc.css">
     
     <!-- LoadData -->
     <script src="./src//loadData.js"></script>
@@ -340,58 +340,63 @@
             <!-- <span class="spacer"></span> -->
             <div class="customSelectContainer">
                 <label> Filtre </label>
-                <input type="text" class="customSelect" autocomplete="off" id="selectFiltre" list="selectFilterData">
-                <div class="customFilterData hide">
-                    <label>Stations</label>
-                    <ul id="filterDataStations">
-                        <script>
-                            const parentLocFilt = document.getElementById("filterDataStations");
-                            const locationsFilter = locations.then(
-                                function success(res) {
-                                    let stations = [];
-
-                                    // Tri des localisation pour avoir juste les stations
-                                    res.find(elem => {
-                                        if (elem.name.search('Refinement Center') !== -1) {
-                                            stations.push(elem.name);
+                <div>
+                    <input type="text" class="customSelect" autocomplete="off" id="selectFiltre" list="selectFilterData">
+                    <div class="customFilterData hide">
+                        <label>Stations</label>
+                        <ul id="filterDataStations">
+                            <script>
+                                const parentLocFilt = document.getElementById("filterDataStations");
+                                const locationsFilter = locations.then(
+                                    function success(res) {
+                                        let stations = [];
+    
+                                        // Tri des localisation pour avoir juste les stations
+                                        res.find(elem => {
+                                            if (elem.name.search('Refinement Center') !== -1) {
+                                                stations.push(elem.name);
+                                            }
+                                        });
+    
+                                        // Affichage des stations
+                                        for (const loc of stations) {
+                                            const name = loc.split(" > ")[2];
+                                            let nameShort = name.substr(0, 6);
+                                            parentLocFilt.innerHTML += `<li class="filterData" title="${name}">${nameShort}</li>`;
                                         }
-                                    });
-
-                                    // Affichage des stations
-                                    for (const loc of stations) {
-                                        const name = loc.split(" > ")[2];
-                                        let nameShort = name.substr(0, 6);
-                                        parentLocFilt.innerHTML += `<li class="filterData" title="${name}">${nameShort}</li>`;
+                                    },
+                                    function error(error) {
+                                        parentLocFilt.innerHTML = "Erreur : Impossible d'obtenir les stations";
+                                        console.error("Impossible d'obtenir les stations : " + error);
                                     }
-                                },
-                                function error(error) {
-                                    parentLocFilt.innerHTML = "Erreur : Impossible d'obtenir les stations";
-                                    console.error("Impossible d'obtenir les stations : " + error);
-                                }
-                            );
-                        </script>
-                    </ul>
-                    
-                    <label>Minerais</label>
-
-                    <ul id="filterDataMineral">
-                        <script>
-                            const parentMinFilt = document.getElementById("filterDataMineral");
-                            const oresFilter = ores.then(
-                                function success(res) {
-                                    // Affichage des minerais
-                                    for (const ore of res) {
-                                        let nameShort = ore.split(" ")[0];
-                                        parentMinFilt.innerHTML += `<li class="filterData" title="${ore}">${nameShort}</li>`;
+                                );
+                            </script>
+                        </ul>
+                        
+                        <label>Minerais</label>
+    
+                        <ul id="filterDataMineral">
+                            <script>
+                                const parentMinFilt = document.getElementById("filterDataMineral");
+                                const oresFilter = ores.then(
+                                    function success(res) {
+                                        // Affichage des minerais
+                                        for (const ore of res) {
+                                            let nameShort = ore.split(" ")[0];
+                                            parentMinFilt.innerHTML += `<li class="filterData" title="${ore}">${nameShort}</li>`;
+                                        }
+                                    },
+                                    function error(error) {
+                                        parentMinFilt.innerHTML = "Erreur : Impossible d'obtenir les minerais";
+                                        console.error("Impossible d'obtenir les minerais : " + error);
                                     }
-                                },
-                                function error(error) {
-                                    parentMinFilt.innerHTML = "Erreur : Impossible d'obtenir les minerais";
-                                    console.error("Impossible d'obtenir les minerais : " + error);
-                                }
-                            );
-                        </script>
-                    </ul>                                               
+                                );
+                            </script>
+                        </ul>                                               
+                    </div>
+                    <div class="xSelectCont">
+                        <i class="fa-solid fa-xmark xSelect"></i>
+                    </div>
                 </div>
             </div>
             <div class="pseudoCont">
@@ -405,7 +410,7 @@
                             <div class="volumeContRemplissage"></div>
                         </label> 
                         <label class="labelStat" >Statistiques</label>
-                        <label class="labelFlotte" >Ma Flotte</label>   
+                        <!-- <label class="labelFlotte" >Ma Flotte</label>    -->
                         <label class="labelAide" >Aide</label>                         
                         <label id="labelDeco">Déconnexion</label>
                     </div>

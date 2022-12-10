@@ -1,6 +1,6 @@
 /*------------------------------ SideBar ------------------------------ */
 .sideBar {
-	width: 30%;
+	width: 55vh;
 	background-color: #131b25;
 	display: flex;
 	flex-direction: column;
@@ -8,7 +8,7 @@
 	border-right: 1px solid var(--blue2);
 	padding: 9px;
 	font-family: var(--police-2);
-	overflow-y: auto;
+	overflow: auto;
 }
 
 .tabStyleCont {
@@ -18,6 +18,7 @@
 	font-size: 1.8em;
 	
 	color: var(--orange);
+	text-shadow: var(--shadow-text)
 }
 
 .tabStyle {
@@ -35,6 +36,7 @@
 .tableMineraisStyle {
 	width: 100%;
 	text-align: center;
+	border-collapse: collapse;
 }
 
 .tableMineraisStyle th{
@@ -62,10 +64,13 @@
 .btnsSideCont{
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	margin: 10px;
 }
 .pourcentageMainCont,.pourcentageTotalMainCont{
-	height: 20px
+	height: 10px;
+	margin-top: 2px;
+	overflow: hidden;
 }
 .pourcentagecont{
 	float: left;
@@ -74,7 +79,9 @@
 .addJobBtn , .transportJobsBtn {
 	width: 100%;
 	height: 35px;
-	
+	max-width: 370px;
+
+
 	background-color: var(--orange);
 	border: 0;
 	font-size: 16px;
@@ -83,6 +90,6 @@
 	color: white;
 	border-radius: 10px;
 	cursor: pointer;
-	outline: 1px solid white;
-	margin-bottom: 10px;
+	/* outline: 1px solid white; */
+	margin-bottom: 15px;
 }
