@@ -7,6 +7,8 @@ RefineryCalc est un projet visant à créer un interface web permettant de gére
 - Composer
     - extention dotenv : vlucas/phpdotenv
 
+Renommer le fichier ".env template" en ".env", et le remplir.
+
 ## dockerfile :
 ```docker
 FROM php:8.1-fpm-alpine
