@@ -4,7 +4,7 @@
 
     use Dotenv\Dotenv; // Import the Dotenv namespace
     
-    $dotenv = Dotenv::createImmutable("/www/");
+    $dotenv = Dotenv::createImmutable("/www/refinerycalc/");
     $dotenv->load();
     
     // print_r($_POST);
