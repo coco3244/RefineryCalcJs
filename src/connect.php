@@ -1,4 +1,12 @@
 <?php
+    // echo "test";
+    require_once '/var/www/html/vendor/autoload.php'; // Include Composer autoload file
+
+    use Dotenv\Dotenv; // Import the Dotenv namespace
+    
+    $dotenv = Dotenv::createImmutable("/www/");
+    $dotenv->load();
+    
     // print_r($_POST);
     require("./initBDD.php");
     // print_r(json_encode($_COOKIE));
@@ -18,8 +26,7 @@
             // print_r($data);
             if($pseudo == $data["login"]) {
                 if(password_verify($psw, $data["password"])) {
-                    echo "Connect";
-                    print(" Pseudo=".$pseudo);
+                    
                     if (isset($_POST["rememberMe"])) {
                         // On set les cookies à 3 mois si remember coché
                         setcookie("login", $pseudo, time()+7889400);
@@ -28,6 +35,8 @@
                         // On set les cookies à 1 sec si remember pas coché
                         setcookie("login", $pseudo, 1);
                     }
+                    echo "Connect";
+                    print(" Pseudo=".$pseudo);
                 } else {
                     echo "pswNo";
                 }
