@@ -32,8 +32,9 @@ const stationsList = locations.then(
 
         // Affichage des stations
         for (const loc of stations) {
-            const name = loc.split(" > ")[2];
-            let nameShort = name.substr(0, 6);
+            const name = loc.split(" > ")[1];
+            // let nameShort = name.substr(0, 6);
+            const nameShort = name;
             stationsOptions += `<option title="${name}">${nameShort}</option>`;
         }
 
@@ -297,8 +298,10 @@ function fetchDB(pseudo, load) {
                                 ${oresOptions}                          
                             </select>
 
-                            <button class="btnAddMineral">Ajouter</button>
-                            <button class="btnSuppMineral">Supprimer</button>
+                            <div class="addSupprContainer">
+                                <button class="btnAddMineral">Ajouter</button>
+                                <button class="btnSuppMineral">Supprimer</button>
+                            </div>
                         </div>
 
                         <div class="mineraisContainer">

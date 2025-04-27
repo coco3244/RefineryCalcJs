@@ -36,9 +36,12 @@ jobsContainer.addEventListener("click", (event) => {
 
             
             
-            listeMineraisDiv.appendChild(label);
-            listeQuantitesDiv.appendChild(input);
-            listeQuantitesDiv.appendChild(labelVal);
+            listeMineraisDiv.insertBefore(label, listeMineraisDiv.firstChild);
+            listeQuantitesDiv.insertBefore(labelVal, listeQuantitesDiv.firstChild);
+            listeQuantitesDiv.insertBefore(input, listeQuantitesDiv.firstChild);
+            // listeMineraisDiv.appendChild(label);
+            // listeQuantitesDiv.appendChild(input);
+            // listeQuantitesDiv.appendChild(labelVal);
         }     
         
         
@@ -383,9 +386,10 @@ function updateCheckboxs() {
                 <select class="selectMinerai"> 
                     ${oresOptions} 
                 </select>
-
-                <button class="btnAddMineral">Ajouter</button>
-                <button class="btnSuppMineral">Supprimer</button>
+                <div class="addSupprContainer">
+                    <button class="btnAddMineral">Ajouter</button>
+                    <button class="btnSuppMineral">Supprimer</button>
+                </div>
             </div>
 
             <div class="mineraisJob">

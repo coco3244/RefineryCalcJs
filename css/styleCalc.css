@@ -5,10 +5,11 @@
 :root {
 	/* Rappel : les variables sont accessibles de toutes les pages css si elles sont déclarées ici  */
 
-	/* C'est temporaire, on en choisira une belle ensemble, mais je supporte pas celle par défaut  */
+	/* C'est temporaire, on en choisira une belle ensemble, mais je supporte pas celle par défaut */
 	--police: 'Titillium Web', sans-serif;
 	--police-2: 'Smooch Sans', sans-serif;
 	--orange: #f1581e;
+	--orange-accent: #D3420D; 
 	--orange-old: #fc6b36;
 	--blue1: #131b25;
 	--blue2: #465f78;

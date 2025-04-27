@@ -16,7 +16,7 @@
         "type": "Space station"
     },
     {
-        "name": "Stanton > ARC L1 > ARC-L1 Wide Forest Station > Refinement Center",
+        "name": "Stanton > ARC-L1 > ARC-L1 Wide Forest Station > Refinement Center",
         "type": "Space station"
     },
     {
@@ -32,7 +32,7 @@
         "type": "Space station"
     },
     {
-        "name": "Stanton > ARC L2 > ARC-L2 Lively Pathway Station > Refinement Center",
+        "name": "Stanton > ARC-L2 > ARC-L2 Lively Pathway Station > Refinement Center",
         "type": "Space station"
     },
     {
@@ -172,7 +172,7 @@
         "type": "Space station"
     },
     {
-        "name": "Stanton > CRU L1 > CRU-L1 Ambitious Dream Station > Refinement Center",
+        "name": "Stanton > CRU-L1 > CRU-L1 Ambitious Dream Station > Refinement Center",
         "type": "Space station"
     },
     {
@@ -336,7 +336,7 @@
         "type": "Space station"
     },
     {
-        "name": "Stanton > HUR L1 > HUR-L1 Green Glade Station > Refinement Center",
+        "name": "Stanton > HUR-L1 > HUR-L1 Green Glade Station > Refinement Center",
         "type": "Space station"
     },
     {
@@ -352,7 +352,7 @@
         "type": "Space station"
     },
     {
-        "name": "Stanton > HUR L2 > HUR-L2 Faithful Dream Station > Refinement Center",
+        "name": "Stanton > HUR-L2 > HUR-L2 Faithful Dream Station > Refinement Center",
         "type": "Space station"
     },
     {
@@ -504,7 +504,7 @@
         "type": "Space station"
     },
     {
-        "name": "Stanton > MIC L1 > MIC-L1 Shallow Frontier Station > Refinement Center",
+        "name": "Stanton > MIC-L1 > MIC-L1 Shallow Frontier Station > Refinement Center",
         "type": "Space station"
     },
     {
@@ -520,7 +520,7 @@
         "type": "Space station"
     },
     {
-        "name": "Stanton > MIC L2 > MIC-L2 Long Forest Station > Refinement Center",
+        "name": "Stanton > MIC-L2 > MIC-L2 Long Forest Station > Refinement Center",
         "type": "Space station"
     },
     {
@@ -560,7 +560,7 @@
         "type": "Space station"
     },
     {
-        "name": "Stanton > MIC L5 > MIC-L5 Modern Icarus Station > Refinement Center",
+        "name": "Stanton > MIC-L5 > MIC-L5 Modern Icarus Station > Refinement Center",
         "type": "Space station"
     },
     {
@@ -666,5 +666,34 @@
     {
         "name": "Stanton > microTech > The Necropolis",
         "type": "Planet surface"
+    },
+    {
+        "name": "Stanton > Magnus Gateway > Magnus Gateway > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Pyro Gateway > Pyro Gateway > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Stanton > Terra Gateway > Terra Gateway > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Pyro > Checkmate > Checkmate > Refinement Center",
+        "type": "Space station"
+    },    
+    {
+        "name": "Pyro > Orbituary > Orbituary > Refinement Center",
+        "type": "Space station"
+    },    
+    {
+        "name": "Pyro > Ruin Station > Ruin Station > Refinement Center",
+        "type": "Space station"
+    },
+    {
+        "name": "Pyro > Stanton Gateway > Stanton Gateway > Refinement Center",
+        "type": "Space station"
     }
+    
 ]

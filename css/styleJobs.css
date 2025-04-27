@@ -7,6 +7,7 @@
 	
 	padding: 10px;
 	align-items: center;	
+	scroll-behavior: smooth;
 }
 
 .checkBoxDiv{
@@ -48,8 +49,8 @@
 
 .titleJob {
 	font-size: 2.2em;
-	padding-right: 20px;
-	text-align: right;
+	padding-left: 20px;
+	text-align: left;
 	margin-top: 7px;
 	width: 28vh;
 }
@@ -59,17 +60,30 @@
 	flex-direction: column;
 }
 
-.selectContainer button {
+.addSupprContainer {
+	display: flex;
+	margin: 5px;
+}
+
+.addSupprContainer button {
 	background-color: var(--orange);
-	border: 1px solid white;
+	/* border: 1px solid white; */
+	border: none;
 	border-radius: 5px;
 	margin: 1px;
-	font-size: 11px;
+	font-size: 13px;
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	color: white;
-	padding: 3px;
+	padding: 5px;
 	cursor: pointer;
+	
+	transition: background-color .1s;
+	flex: 1;
+}
+
+.addSupprContainer button:hover {
+	background-color: var(--orange-accent);
 }
 
 .selectMinerai {
@@ -162,6 +176,12 @@
 	cursor: pointer;
 	text-transform: uppercase;
 	letter-spacing: 2px;
+
+	transition: background-color .1s;
+}
+
+.btnsContainer button:hover {
+	background-color: var(--orange-accent);
 }
 
 

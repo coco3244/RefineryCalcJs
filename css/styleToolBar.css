@@ -36,6 +36,18 @@
 	height: 100%;
 }
 
+.LogoOOS {
+	position: relative;
+	z-index: 11;
+
+	cursor: pointer;
+	transition: all .3s;
+}
+
+.LogoOOS:hover {
+	transform: scale(1.06);
+}
+
 .toolBar .right {
 	color: var(--blue3);
 }
@@ -95,6 +107,8 @@
 	padding-left: 7px;
 	padding-right: 7px;
 	border-left: 1px solid var(--blue3);
+
+	transition: color .1s;
 }
 
 .xSelect:hover, .customSelect:focus-within {
@@ -141,6 +155,10 @@
 	margin: 0;
 	width: 100%;
 }
+.customFilterData ul > li {
+	/* transition: color .1s; */
+}
+
 .customFilterData ul > li:hover{
 	color: var(--orange);
 	cursor: pointer;
